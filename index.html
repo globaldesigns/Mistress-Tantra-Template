@@ -3,57 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mistress Tantra — San Francisco</title>
-  <meta name="description" content="Mistress Tantra — A sanctuary of sensual healing and holistic awakening in San Francisco. Tantra, breathwork, sacred intimacy, and embodied presence.">
+  <title>Mistress Tantra – Tantrica Goddess San Francisco</title>
+  <meta name="description" content="Mistress Tantra – A sanctuary of sensual healing and holistic awakening in San Francisco & Boston. Tantra, breathwork, sacred intimacy, and embodied presence.">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/home.css">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
-<body>
+<body class="home-page">
 
   <div class="scroll-progress"></div>
 
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <a href="index.html" class="nav-logo">
-        <img src="assets/images/logo.png" alt="Mistress Tantra – Tantrica Goddess San Francisco">
-        <div class="nav-logo-text">
-          <span class="brand-name">Mistress Tantra</span>
-          <span class="brand-location">San Francisco</span>
+  <!-- ═══════════════════════════════════════════
+       HERO — full-viewport image + video crossfade
+  ════════════════════════════════════════════ -->
+  <section id="home" class="home-hero">
+
+    <!-- Static hero image (always visible first) -->
+    <img
+      src="assets/images/hero-home-mockup.jpg"
+      alt="Mistress Tantra – Tantrica Goddess in repose"
+      class="home-hero__img"
+      id="heroImage"
+    >
+
+    <!-- Video fades in over image after 3s, loops endlessly -->
+    <video
+      class="home-hero__video"
+      id="heroVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src="assets/video/hero-bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- Vignette for text legibility -->
+    <div class="home-hero__vignette"></div>
+
+    <!-- ── HEADER BAR ── -->
+    <header class="home-header" id="homeHeader">
+      <div class="home-header__inner">
+
+        <!-- Social icons — far left, white with white outline frame -->
+        <div class="home-header__social">
+          <a href="#" aria-label="Instagram" class="social-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Flickr" class="social-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/>
+            </svg>
+          </a>
+          <a href="mailto:hello@mistresstantra.com" aria-label="Email" class="social-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </a>
         </div>
+
+        <!-- Hamburger + MENU label — far right -->
+        <button class="home-header__menu-btn" id="menuBtn" aria-label="Open menu">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-label">MENU</span>
+        </button>
+
+      </div>
+    </header>
+
+    <!-- ── CENTRE LOGO (top center, transparent) ── -->
+    <div class="home-hero__logo-wrap">
+      <img
+        src="assets/images/logo-hero.png"
+        alt="Mistress Tantra – Tantrica Goddess"
+        class="home-hero__logo"
+      >
+    </div>
+
+    <!-- ── HERO TEXT — lower left ── -->
+    <div class="home-hero__text">
+      <h1 class="home-hero__title">Mistress Tantra</h1>
+      <p class="home-hero__subtitle">TANTRICA GODDESS</p>
+      <p class="home-hero__locations">BOSTON &nbsp;•&nbsp; SAN FRANCISCO</p>
+    </div>
+
+    <!-- ── SCROLL CTA — bottom centre ── -->
+    <button class="home-hero__scroll" id="scrollBtn" aria-label="Scroll to content">
+      <span class="scroll-word">SCROLL</span>
+      <div class="scroll-line-anim"></div>
+    </button>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FULL-SCREEN NAV OVERLAY
+  ════════════════════════════════════════════ -->
+  <nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <button class="nav-overlay__close" id="menuClose" aria-label="Close menu">✕</button>
+    <div class="nav-overlay__links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="offerings.html">Offerings</a>
+      <a href="connect.html">Connect</a>
+      <a href="blog.html">Blog</a>
+    </div>
+    <div class="nav-overlay__social">
+      <a href="#" aria-label="Instagram" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
-      <div class="nav-toggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </div>
-      <div class="nav-links">
-        <a href="index.html" class="active">Home<span class="nav-dot"></span></a>
-        <a href="about.html">About<span class="nav-dot"></span></a>
-        <a href="offerings.html">Offerings<span class="nav-dot"></span></a>
-        <a href="connect.html">Connect<span class="nav-dot"></span></a>
-        <a href="blog.html">Blog<span class="nav-dot"></span></a>
-      </div>
+      <a href="#" aria-label="Flickr" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/></svg>
+      </a>
+      <a href="mailto:hello@mistresstantra.com" aria-label="Email" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <img src="assets/images/hero-home.png" alt="Mistress Tantra in repose" class="hero-bg hero-bg-flipped">
-    <div class="hero-content">
-      <p class="subtitle">San Francisco's Sanctuary of Sacred Sensuality</p>
-      <h1>Mistress Tantra – Tantrica Goddess San Francisco</h1>
-      <p class="tagline">Where the body becomes a temple and every breath a prayer</p>
-      <p>Surrender to the ancient art of tantric awakening. Through sacred touch, breath, and embodied presence, discover the limitless pleasure and profound healing that awaits within.</p>
-      <a href="offerings.html" class="btn btn-primary">Explore Offerings</a>
-    </div>
-    <div class="hero-scroll">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+  <!-- ═══════════════════════════════════════════
+       CONTENT BELOW HERO
+  ════════════════════════════════════════════ -->
 
   <!-- Introduction -->
-  <section class="section-linen section-over-hero">
+  <section id="intro" class="section-linen section-over-hero">
     <div class="container">
       <div class="grid-2">
         <div class="split-text fade-in-left">
@@ -80,17 +163,17 @@
       <div class="feature-row mt-lg">
         <div class="feature-item fade-in">
           <div class="feature-icon">〰</div>
-          <h3>Breath & Conscious Awareness</h3>
+          <h3 style="color: var(--linen);">Breath & Conscious Awareness</h3>
           <p style="color: var(--misty-sage);">The bridge between body and spirit. Through conscious breath, we dissolve the walls that separate us from our deepest sensations and open the channel to ecstatic awareness.</p>
         </div>
         <div class="feature-item fade-in">
           <div class="feature-icon">☽</div>
-          <h3>Sacred Touch & Somatic Healing</h3>
+          <h3 style="color: var(--linen);">Sacred Touch & Somatic Healing</h3>
           <p style="color: var(--misty-sage);">Sacred touch is not merely contact — it is communication. Every caress is an inquiry, every stroke a dialogue with the wisdom encoded in your flesh.</p>
         </div>
         <div class="feature-item fade-in">
           <div class="feature-icon">✧</div>
-          <h3>Embodied Presence & Connection</h3>
+          <h3 style="color: var(--linen);">Embodied Presence & Connection</h3>
           <p style="color: var(--misty-sage);">To be truly present with another is the rarest of gifts. In this space of radical acceptance, your body is free to speak its truth without judgment or condition.</p>
         </div>
       </div>
@@ -117,7 +200,7 @@
       <div class="grid-3 mt-lg">
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-offerings.jpg" alt="Tantric Ritual" class="card-image">
+            <img src="assets/images/hero-offerings.jpg" alt="Tantric Ritual Session" class="card-image">
           </div>
           <div class="card-body">
             <h3>Tantric Ritual Session</h3>
@@ -126,7 +209,7 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-connect.jpg" alt="Sacred Intimacy" class="card-image">
+            <img src="assets/images/hero-connect.jpg" alt="Sacred Intimacy Session" class="card-image">
           </div>
           <div class="card-body">
             <h3>Sacred Intimacy Session</h3>
@@ -135,7 +218,7 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-blog.png" alt="Breathwork Journey" class="card-image">
+            <img src="assets/images/hero-blog.png" alt="Breathwork Journey Session" class="card-image">
           </div>
           <div class="card-body">
             <h3>Breathwork Journey Session</h3>
@@ -203,5 +286,6 @@
 
   <div class="back-to-top">↑</div>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js"></script>
 </body>
 </html>
