@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+  font-size: clamp(2.8rem, 4.5vw, 5rem); /* Style Guide: 44.8px–80px */
   font-weight: 300;
   letter-spacing: 0.02em;
   line-height: 1.1;
