@@ -200,7 +200,7 @@
 /* "Mistress Tantra" — Allonges Regular, large script matching mockup */
 .home-hero__title {
   font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(3.5rem, 7.5vw, 7.5rem);  /* matches mockup scale */
+  font-size: clamp(3.15rem, 6.75vw, 6.75rem);  /* -10% from previous */
   font-weight: 400;
   font-style: normal;
   color: white;
