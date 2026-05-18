@@ -17,11 +17,11 @@
 /* ── Large mandala — right side ── */
 .sacred-mandala-wrap {
   position: absolute;
-  top: 50%;
-  right: -8%;
+  top: 58%;
+  right: -12%;
   transform: translateY(-50%);
-  width: min(600px, 80vw);
-  height: min(600px, 80vw);
+  width: min(420px, 55vw);
+  height: min(420px, 55vw);
   pointer-events: none;
   z-index: 0;
   opacity: 0;
