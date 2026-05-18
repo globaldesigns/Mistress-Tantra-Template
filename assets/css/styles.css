@@ -4,7 +4,16 @@
    ============================================================ */
 
 /* --- FONT IMPORTS --- */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+/* Allonges Regular — self-hosted (hero title only) */
+@font-face {
+  font-family: 'Allonges';
+  src: url('../fonts/Allonges.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Cormorant Garamond + Montserrat only — Playfair Display removed per style guide */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap');
 
 /* --- CSS CUSTOM PROPERTIES --- */
 :root {
@@ -35,9 +44,9 @@
   --veil-warm: rgba(0, 0, 0, 0.6);
 
   /* Typography */
-  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-  --font-accent: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-accent: 'Cormorant Garamond', Georgia, serif;
 
   /* Spacing */
   --space-xs: 0.5rem;
