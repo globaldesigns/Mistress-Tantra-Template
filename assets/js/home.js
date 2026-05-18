@@ -18,7 +18,26 @@
   const homeHeader = document.getElementById('homeHeader');
 
   /* ══════════════════════════════════════════════════════════
-     VIDEO FADE IN
+     ANTI-FOUT — show title only once Allonges font is loaded
+     Uses FontFace API; falls back to showing after 800ms max
+  ══════════════════════════════════════════════════════════ */
+  const heroTitle = document.querySelector('.home-hero__title');
+  if (heroTitle) {
+    const revealTitle = function () {
+      heroTitle.classList.add('font-loaded');
+    };
+
+    if ('fonts' in document) {
+      document.fonts.load('400 1em Allonges').then(revealTitle).catch(revealTitle);
+      // Hard fallback — never wait more than 800ms
+      setTimeout(revealTitle, 800);
+    } else {
+      // No FontFace API — just reveal after short delay
+      setTimeout(revealTitle, 300);
+    }
+  }
+
+
      1. Page loads → dark background, video hidden
      2. After 2s  → video fades IN (2s CSS transition)
      3. Video loops natively (loop attr)
