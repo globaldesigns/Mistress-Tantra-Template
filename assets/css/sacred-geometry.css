@@ -29,7 +29,7 @@
 }
 
 .sacred-mandala-wrap.visible {
-  opacity: 0.18;   /* subtle but actually visible */
+  opacity: 0.75;
 }
 
 /* ── Small mandala — top left ── */
@@ -46,7 +46,7 @@
 }
 
 .sacred-mandala-wrap-sm.visible {
-  opacity: 0.10;
+  opacity: 0.50;
 }
 
 /* ── Flow line ── */
