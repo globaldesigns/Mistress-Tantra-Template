@@ -68,25 +68,30 @@
    TOP LOGO BLOCK — centered at very top of viewport
    Sits ABOVE the header bar, exactly as in mockup
 ══════════════════════════════════════════════════════════════ */
+/* logo-wrap dissolved into 3-col header grid */
 .home-hero__logo-wrap {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 0.9rem;
-  padding-bottom: 0;
-  pointer-events: none;
+  display: contents;
 }
 
 .home-hero__logo {
-  height: 90px;
+  height: 72px;
   width: auto;
   filter: drop-shadow(0 1px 12px rgba(0,0,0,0.45));
-  pointer-events: all;
+  display: block;
+}
+
+/* ── Logo center column ── */
+.home-header__logo-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Menu right column ── */
+.home-header__menu-col {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -95,22 +100,21 @@
 ══════════════════════════════════════════════════════════════ */
 .home-header {
   position: fixed;
-  top: 118px;             /* directly below logo — matches mockup */
+  top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(160, 120, 40, 0.22);   /* warm gold tint, semi-transparent */
+  background: rgba(160, 120, 40, 0.22);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border-top: 1px solid rgba(201, 169, 110, 0.45);
   border-bottom: 1px solid rgba(201, 169, 110, 0.45);
   padding: 0.5rem 0;
 }
 
 .home-header__inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2.5rem;
@@ -384,13 +388,11 @@
     height: 64px;
   }
 
-  .home-hero__logo-wrap {
-    padding-top: 0.6rem;
+  .home-hero__logo {
+    height: 52px;
   }
 
-  /* Recalculate header top: 64px logo + 10px padding + some gap ≈ 85px */
   .home-header {
-    top: 85px;
     padding: 0.45rem 0;
   }
 
@@ -412,11 +414,7 @@
 
 @media (max-width: 480px) {
   .home-hero__logo {
-    height: 52px;
-  }
-
-  .home-header {
-    top: 70px;
+    height: 44px;
   }
 
   .home-hero__title {

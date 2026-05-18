@@ -23,22 +23,14 @@
   ═══════════════════════════════════════════════════════ -->
 
   <!-- Logo — fixed, centered, above header bar -->
-  <div class="home-hero__logo-wrap">
-    <a href="index.html">
-      <img src="assets/images/logo-hero.png"
-           alt="Mistress Tantra – Tantrica Goddess"
-           class="home-hero__logo">
-    </a>
-  </div>
-
-  <!-- Gold glassmorphism bar — fixed, directly below logo -->
+    <!-- ═══════════════════════════════════════════════════════
+       SITE-WIDE FIXED HEADER — social | logo | menu (one bar)
+  ═══════════════════════════════════════════════════════ -->
   <header class="home-header" id="homeHeader">
     <div class="home-header__inner">
 
-      <!-- Social icons: Instagram · X · YouTube -->
+      <!-- COL 1: Social icons — far left -->
       <div class="home-header__social">
-
-        <!-- Instagram -->
         <a href="#" aria-label="Instagram" class="social-icon">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                stroke="white" stroke-width="1.6"
@@ -48,15 +40,11 @@
             <circle cx="17.5" cy="6.5" r="0.5" fill="white" stroke="none"/>
           </svg>
         </a>
-
-        <!-- X (Twitter) -->
         <a href="#" aria-label="X" class="social-icon">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
         </a>
-
-        <!-- YouTube -->
         <a href="#" aria-label="YouTube" class="social-icon">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                stroke="white" stroke-width="1.6"
@@ -65,18 +53,28 @@
             <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" stroke="none"/>
           </svg>
         </a>
-
       </div>
 
-      <!-- Hamburger + MENU — far right -->
-      <button class="home-header__menu-btn" id="menuBtn" aria-label="Open menu">
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <span class="menu-label">MENU</span>
-      </button>
+      <!-- COL 2: Logo — center -->
+      <div class="home-header__logo-col">
+        <a href="index.html">
+          <img src="assets/images/logo-hero.png"
+               alt="Mistress Tantra – Tantrica Goddess"
+               class="home-hero__logo">
+        </a>
+      </div>
+
+      <!-- COL 3: Hamburger + MENU — far right -->
+      <div class="home-header__menu-col">
+        <button class="home-header__menu-btn" id="menuBtn" aria-label="Open menu">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-label">MENU</span>
+        </button>
+      </div>
 
     </div>
   </header>
@@ -116,6 +114,8 @@
       </a>
     </div>
   </nav>
+
+
 
 
   <!-- Hero — full viewport video -->
