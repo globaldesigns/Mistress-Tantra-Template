@@ -5,39 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog — Mistress Tantra · San Francisco</title>
   <meta name="description" content="Writings on Tantra, sacred intimacy, breathwork, and the art of embodied awakening from Mistress Tantra in San Francisco.">
+  <link rel="preload" href="assets/fonts/Allonges.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/home.css">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
 <body>
 
   <div class="scroll-progress"></div>
 
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <a href="index.html" class="nav-logo">
-        <img src="assets/images/logo.png" alt="Mistress Tantra – Tantrica Goddess San Francisco">
-        <div class="nav-logo-text">
-          <span class="brand-name">Mistress Tantra</span>
-          <span class="brand-location">San Francisco</span>
+  <!-- ═══════════════════════════════════════════════════════
+       SITE-WIDE FIXED HEADER  (logo + gold bar + nav overlay)
+  ═══════════════════════════════════════════════════════ -->
+
+  <!-- Logo — fixed, centered, above header bar -->
+  <div class="home-hero__logo-wrap">
+    <a href="index.html">
+      <img src="assets/images/logo-hero.png"
+           alt="Mistress Tantra – Tantrica Goddess"
+           class="home-hero__logo">
+    </a>
+  </div>
+
+  <!-- Gold glassmorphism bar — fixed, directly below logo -->
+  <header class="home-header" id="homeHeader">
+    <div class="home-header__inner">
+
+      <!-- Social icons: Instagram · X · YouTube -->
+      <div class="home-header__social">
+
+        <!-- Instagram -->
+        <a href="#" aria-label="Instagram" class="social-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+               stroke="white" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="white" stroke="none"/>
+          </svg>
+        </a>
+
+        <!-- X (Twitter) -->
+        <a href="#" aria-label="X" class="social-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+
+        <!-- YouTube -->
+        <a href="#" aria-label="YouTube" class="social-icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+               stroke="white" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" stroke="none"/>
+          </svg>
+        </a>
+
+      </div>
+
+      <!-- Hamburger + MENU — far right -->
+      <button class="home-header__menu-btn" id="menuBtn" aria-label="Open menu">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+        <span class="menu-label">MENU</span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- Fullscreen nav overlay -->
+  <nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <button class="nav-overlay__close" id="menuClose" aria-label="Close menu">&#x2715;</button>
+    <div class="nav-overlay__links">
+      <a href="index.html" >Home</a>
+      <a href="about.html" >About</a>
+      <a href="offerings.html" >Offerings</a>
+      <a href="connect.html" >Connect</a>
+      <a href="blog.html" class="active">Blog</a>
+    </div>
+    <div class="nav-overlay__social">
+      <a href="#" aria-label="Instagram" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="white" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="white" stroke="none"/>
+        </svg>
       </a>
-      <div class="nav-toggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </div>
-      <div class="nav-links">
-        <a href="index.html">Home<span class="nav-dot"></span></a>
-        <a href="about.html">About<span class="nav-dot"></span></a>
-        <a href="offerings.html">Offerings<span class="nav-dot"></span></a>
-        <a href="connect.html">Connect<span class="nav-dot"></span></a>
-        <a href="blog.html" class="active">Blog<span class="nav-dot"></span></a>
-      </div>
+      <a href="#" aria-label="X" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="YouTube" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="white" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+          <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" stroke="none"/>
+        </svg>
+      </a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section id="blog" class="hero">
+
+<!-- Hero -->
+  <section id="blog" class="hero" style="padding-top: 160px;">
     <img src="assets/images/hero-blog.png" alt="Sacred writings and reflections" class="hero-bg">
     <div class="hero-overlay dark"></div>
     <div class="hero-content">
@@ -215,5 +297,6 @@
 
   <div class="back-to-top">↑</div>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js"></script>
 </body>
 </html>
