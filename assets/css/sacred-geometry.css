@@ -1,150 +1,128 @@
 /* ============================================================
    SACRED GEOMETRY — Tantric Awakening section
-   SVG mandala background: slow rotation, breathing opacity
-   Authentic Tantric motifs: Sri Yantra triangles, lotus petals,
-   bindu point, interlocking energy channels
    ============================================================ */
 
-/* ── Section wrapper — position context for mandala ── */
+/* Section: position context */
 .section-intro-sacred {
   position: relative;
   overflow: hidden;
 }
 
-/* ── Mandala container — centered behind content ── */
-.sacred-mandala-wrap {
-  position: absolute;
-  top: 50%;
-  right: -5%;
-  transform: translateY(-50%);
-  width: min(680px, 90vw);
-  height: min(680px, 90vw);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 1.8s ease;
-}
-
-.sacred-mandala-wrap.visible {
-  opacity: 1;
-}
-
-/* ── Content stays above mandala ── */
+/* Content sits above the mandala */
 .section-intro-sacred .container {
   position: relative;
   z-index: 1;
 }
 
-/* ── SVG layers — each rotates at a different speed ── */
-.mandala-svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-/* Outer lotus petals — very slow clockwise */
-.mandala-outer-petals {
-  transform-origin: 50% 50%;
-  animation: mandalaSpin 90s linear infinite;
-}
-
-/* Middle yantra triangles — counter-clockwise, slightly faster */
-.mandala-triangles {
-  transform-origin: 50% 50%;
-  animation: mandalaSpin 60s linear infinite reverse;
-}
-
-/* Inner lotus ring — clockwise, medium */
-.mandala-inner-lotus {
-  transform-origin: 50% 50%;
-  animation: mandalaSpin 45s linear infinite;
-}
-
-/* Innermost circle + bindu — breathes in and out */
-.mandala-bindu {
-  transform-origin: 50% 50%;
-  animation: mandalaBreathe 8s ease-in-out infinite;
-}
-
-/* Entire mandala — slow gentle pulse */
-.mandala-svg {
-  animation: mandalaPulse 12s ease-in-out infinite;
-}
-
-@keyframes mandalaSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes mandalaBreathe {
-  0%, 100% { transform: scale(1);    opacity: 0.9; }
-  50%       { transform: scale(1.08); opacity: 0.6; }
-}
-
-@keyframes mandalaPulse {
-  0%, 100% { opacity: 0.13; }
-  50%       { opacity: 0.20; }
-}
-
-/* ── Second small mandala — top-left corner, very faint ── */
-.sacred-mandala-wrap-sm {
+/* ── Large mandala — right side ── */
+.sacred-mandala-wrap {
   position: absolute;
-  top: -8%;
-  left: -6%;
-  width: min(260px, 40vw);
-  height: min(260px, 40vw);
+  top: 50%;
+  right: -8%;
+  transform: translateY(-50%);
+  width: min(600px, 80vw);
+  height: min(600px, 80vw);
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  transition: opacity 2.4s ease 0.6s;
+  transition: opacity 2.5s ease;
+}
+
+.sacred-mandala-wrap.visible {
+  opacity: 0.18;   /* subtle but actually visible */
+}
+
+/* ── Small mandala — top left ── */
+.sacred-mandala-wrap-sm {
+  position: absolute;
+  top: -5%;
+  left: -4%;
+  width: min(240px, 35vw);
+  height: min(240px, 35vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 2.5s ease 0.8s;
 }
 
 .sacred-mandala-wrap-sm.visible {
-  opacity: 1;
+  opacity: 0.10;
 }
 
-.mandala-svg-sm {
-  width: 100%;
-  height: 100%;
-  animation: mandalaPulseSm 16s ease-in-out infinite;
-}
-
-.mandala-sm-outer {
-  transform-origin: 50% 50%;
-  animation: mandalaSpin 120s linear infinite reverse;
-}
-
-.mandala-sm-inner {
-  transform-origin: 50% 50%;
-  animation: mandalaSpin 70s linear infinite;
-}
-
-@keyframes mandalaPulseSm {
-  0%, 100% { opacity: 0.07; }
-  50%       { opacity: 0.12; }
-}
-
-/* ── Flowing line — energy channel across section ── */
+/* ── Flow line ── */
 .sacred-flow-line {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  transition: opacity 2s ease 1s;
+  transition: opacity 1.5s ease 1.2s;
 }
 
 .sacred-flow-line.visible {
   opacity: 1;
 }
 
+/* ══ SVG animations ══════════════════════════════════════════ */
+
+/* Outer 32-petal lotus — 90s clockwise */
+.mandala-outer-petals {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sacredSpin 90s linear infinite;
+}
+
+/* Triangles — 60s counter-clockwise */
+.mandala-triangles {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sacredSpin 60s linear infinite reverse;
+}
+
+/* Inner lotus — 45s clockwise */
+.mandala-inner-lotus {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sacredSpin 45s linear infinite;
+}
+
+/* Bindu — slow breathe */
+.mandala-bindu {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sacredBreathe 8s ease-in-out infinite;
+}
+
+/* Small mandala layers */
+.mandala-sm-outer {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sacredSpin 110s linear infinite reverse;
+}
+
+.mandala-sm-inner {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sacredSpin 65s linear infinite;
+}
+
+/* Flow line draw-on */
 .flow-path {
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
-  animation: flowDraw 4s ease-out forwards, flowPulse 6s ease-in-out 4s infinite;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: flowDraw 3.5s ease-out 1.4s forwards,
+             flowPulse 5s ease-in-out 5s infinite;
+}
+
+@keyframes sacredSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes sacredBreathe {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.1); opacity: 0.6; }
 }
 
 @keyframes flowDraw {
@@ -152,18 +130,17 @@
 }
 
 @keyframes flowPulse {
-  0%, 100% { opacity: 0.12; }
-  50%       { opacity: 0.22; }
+  0%, 100% { opacity: 0.18; }
+  50%       { opacity: 0.30; }
 }
 
-/* ── Mobile — scale down, keep subtle ── */
+/* Mobile */
 @media (max-width: 768px) {
   .sacred-mandala-wrap {
-    right: -20%;
-    width: min(400px, 100vw);
-    height: min(400px, 100vw);
+    right: -25%;
+    width: min(360px, 90vw);
+    height: min(360px, 90vw);
   }
-  .sacred-mandala-wrap-sm {
-    display: none;
-  }
+  .sacred-mandala-wrap.visible { opacity: 0.12; }
+  .sacred-mandala-wrap-sm { display: none; }
 }
