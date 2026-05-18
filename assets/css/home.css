@@ -1,14 +1,13 @@
 /* ============================================================
    HOME PAGE — HERO REDESIGN
-   Handles: hero, header bar, video crossfade, scroll CTA,
-            nav overlay, social icons
+   Layout based strictly on mockup (hero-home.jpg)
    ============================================================ */
 
-/* ── Reset navbar for home page (uses custom header instead) ── */
+/* ── Hide default navbar on home page ── */
 .home-page .navbar { display: none; }
 
 /* ══════════════════════════════════════════════════════════════
-   HERO SECTION
+   HERO SECTION — full viewport
 ══════════════════════════════════════════════════════════════ */
 .home-hero {
   position: relative;
@@ -16,20 +15,20 @@
   height: 100vh;
   min-height: 600px;
   overflow: hidden;
-  background: #1a1408; /* dark base while video loads */
+  background: #1a1208;
 }
 
-/* ── Hero image placeholder div (no mockup — video only) ── */
+/* ── Dark base while video loads ── */
 .home-hero__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
-  background: #1a1408;
+  background: #1a1208;
 }
 
-/* ── Hero video — starts invisible, fades in after 3s ── */
+/* ── Video — fades in after 2s ── */
 .home-hero__video {
   position: absolute;
   inset: 0;
@@ -42,51 +41,70 @@
   transition: opacity 2s ease-in-out;
 }
 
-/* JS adds this class to trigger the fade */
 .home-hero__video.visible {
   opacity: 1;
 }
 
-/* ── Vignette ── */
+/* ── Vignette overlay for text legibility ── */
 .home-hero__vignette {
   position: absolute;
   inset: 0;
   z-index: 3;
   background:
     linear-gradient(to bottom,
-      rgba(0,0,0,0.35) 0%,
-      rgba(0,0,0,0.08) 40%,
-      rgba(0,0,0,0.08) 60%,
-      rgba(0,0,0,0.55) 100%
+      rgba(0,0,0,0.30) 0%,
+      rgba(0,0,0,0.05) 35%,
+      rgba(0,0,0,0.05) 60%,
+      rgba(0,0,0,0.50) 100%
     ),
     linear-gradient(to right,
-      rgba(0,0,0,0.45) 0%,
-      rgba(0,0,0,0.0) 50%,
-      rgba(0,0,0,0.0) 100%
+      rgba(0,0,0,0.40) 0%,
+      rgba(0,0,0,0.0) 55%
     );
   pointer-events: none;
 }
 
 /* ══════════════════════════════════════════════════════════════
-   HEADER BAR — sticky, glassmorphism
+   TOP LOGO BLOCK — centered at very top of viewport
+   Sits ABOVE the header bar, exactly as in mockup
 ══════════════════════════════════════════════════════════════ */
-.home-header {
-  position: fixed;          /* ← STICKY: stays visible on scroll */
+.home-hero__logo-wrap {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  z-index: 100;
-  background: rgba(15, 31, 15, 0.28);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border-bottom: 1px solid rgba(201, 169, 110, 0.18);
-  padding: 0.55rem 0;
-  transition: background 0.4s ease;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.9rem;
+  padding-bottom: 0;
+  pointer-events: none;
 }
 
-/* Slightly darker when scrolled past hero */
-.home-header.scrolled {
-  background: rgba(10, 22, 10, 0.72);
+.home-hero__logo {
+  height: 90px;
+  width: auto;
+  filter: drop-shadow(0 1px 12px rgba(0,0,0,0.45));
+  pointer-events: all;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HEADER BAR — gold-tinted strip, sits BELOW the logo block
+   Position is calculated: logo height (~90px) + top padding (~14px) + logo padding = ~118px
+══════════════════════════════════════════════════════════════ */
+.home-header {
+  position: absolute;
+  top: 118px;             /* directly below logo — matches mockup */
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: rgba(160, 120, 40, 0.22);   /* warm gold tint, semi-transparent */
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border-top: 1px solid rgba(201, 169, 110, 0.45);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.45);
+  padding: 0.5rem 0;
 }
 
 .home-header__inner {
@@ -95,49 +113,47 @@
   justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2.5rem;
 }
 
-/* ── Social icons — far left, white outline frame, 30% smaller ── */
+/* ── Social icons — far left of header bar ── */
 .home-header__social {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .social-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;          /* was 34px → 30% smaller */
+  width: 24px;
   height: 24px;
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 3px;
   background: transparent;
   color: white;
-  transition: all 0.4s ease;
+  transition: all 0.35s ease;
   cursor: pointer;
   text-decoration: none;
 }
 
 .social-icon:hover {
-  border-color: var(--aman-gold);
-  background: rgba(201, 169, 110, 0.12);
+  border-color: var(--aman-gold, #c9a96e);
+  background: rgba(201, 169, 110, 0.15);
 }
 
-.social-icon svg {
-  display: block;
-}
+.social-icon svg { display: block; }
 
-/* ── Hamburger + MENU button — far right ── */
+/* ── MENU button — far right of header bar ── */
 .home-header__menu-btn {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.65rem;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.3rem 0;
+  padding: 0.2rem 0;
   color: white;
 }
 
@@ -146,101 +162,90 @@
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 22px;
+  width: 20px;
 }
 
 .hamburger span {
   display: block;
-  width: 22px;
+  width: 20px;
   height: 1.5px;
   background: rgba(255,255,255,0.85);
-  transition: all 0.4s ease;
+  transition: all 0.35s ease;
 }
 
 .menu-label {
-  font-family: var(--font-body);
-  font-size: 0.65rem;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
+  font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.25em;
-  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.28em;
+  color: rgba(255,255,255,0.88);
   text-transform: uppercase;
 }
 
-.home-header__menu-btn:hover .hamburger span {
-  background: var(--aman-gold);
-}
-.home-header__menu-btn:hover .menu-label {
-  color: var(--aman-gold);
-}
-
-/* ══════════════════════════════════════════════════════════════
-   CENTRE LOGO — top centre, larger
-══════════════════════════════════════════════════════════════ */
-.home-hero__logo-wrap {
-  position: fixed;        /* stays top-center while scrolling with header */
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 101;           /* above header */
-  padding-top: 0.3rem;
-  text-align: center;
-  pointer-events: none;   /* don't block header clicks */
-}
-
-.home-hero__logo {
-  height: 100px;          /* was 68px → larger */
-  width: auto;
-  filter: drop-shadow(0 2px 16px rgba(0,0,0,0.55));
-  pointer-events: all;
-}
+.home-header__menu-btn:hover .hamburger span { background: var(--aman-gold, #c9a96e); }
+.home-header__menu-btn:hover .menu-label    { color: var(--aman-gold, #c9a96e); }
 
 /* ══════════════════════════════════════════════════════════════
    HERO TEXT — lower left
+   Matches mockup: large script title, bold subtitle, locations
 ══════════════════════════════════════════════════════════════ */
 .home-hero__text {
   position: absolute;
-  bottom: 14%;
+  bottom: 16%;
   left: 5%;
   z-index: 5;
   color: white;
 }
 
-/* Title — smaller, Cormorant Garamond (matches logo font) */
+/* "Mistress Tantra" — large Cormorant Garamond italic script */
 .home-hero__title {
-  font-family: 'Cormorant Garamond', 'Cormorant', Georgia, serif;
-  font-size: clamp(2rem, 3.8vw, 3.6rem);  /* smaller than before */
-  font-weight: 300;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(3rem, 6.5vw, 6.5rem);
+  font-weight: 400;
   font-style: italic;
   color: white;
-  line-height: 1.05;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.35rem;
-  text-shadow: 0 2px 30px rgba(0,0,0,0.45);
+  line-height: 1.0;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.2rem;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.35);
 }
 
-/* Subtitle line — TANTRICA GODDESS ◈ SAN FRANCISCO */
+/* "TANTRICA GODDESS" — bold, spaced caps */
 .home-hero__subtitle {
-  font-family: var(--font-body);
-  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.97);
+  margin: 0 0 0.25rem;
+  display: block;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+}
+
+/* "BOSTON ◈ SAN FRANCISCO" — lighter, with mandala divider */
+.home-hero__locations {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(0.8rem, 1.3vw, 1.1rem);
   font-weight: 400;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.88);
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+  gap: 0.55rem;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
 }
 
-/* Mandala divider between TANTRICA GODDESS and SAN FRANCISCO */
+/* Mandala separator between BOSTON and SAN FRANCISCO */
 .mandala-sep {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
   vertical-align: middle;
-  opacity: 0.85;
-  filter: drop-shadow(0 0 3px rgba(255,255,255,0.3));
+  opacity: 0.80;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,0.25));
   flex-shrink: 0;
 }
 
@@ -249,14 +254,14 @@
 ══════════════════════════════════════════════════════════════ */
 .home-hero__scroll {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 2.2rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -265,30 +270,29 @@
 }
 
 .scroll-word {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
+  font-size: 0.72rem;
   font-weight: 400;
   letter-spacing: 0.4em;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.70);
   text-transform: uppercase;
 }
 
 .scroll-line-anim {
   width: 1px;
-  height: 44px;
-  background: linear-gradient(to bottom, var(--aman-gold), transparent);
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(201,169,110,0.9), transparent);
   animation: scrollPulse 2s ease-in-out infinite;
 }
 
 @keyframes heroFloat {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(-8px); }
+  50%       { transform: translateX(-50%) translateY(-7px); }
 }
 
 @keyframes scrollPulse {
-  0%   { opacity: 1; }
-  50%  { opacity: 0.4; }
-  100% { opacity: 1; }
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -298,7 +302,7 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(10, 20, 10, 0.97);
+  background: rgba(8, 18, 8, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -308,7 +312,7 @@
   gap: 2rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.45s ease;
 }
 
 .nav-overlay.open {
@@ -322,15 +326,14 @@
   right: 2.5rem;
   background: none;
   border: none;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.55);
   font-size: 1.4rem;
   cursor: pointer;
-  letter-spacing: 0.05em;
   transition: color 0.3s ease;
   font-family: var(--font-body);
 }
 
-.nav-overlay__close:hover { color: var(--aman-gold); }
+.nav-overlay__close:hover { color: var(--aman-gold, #c9a96e); }
 
 .nav-overlay__links {
   display: flex;
@@ -340,10 +343,10 @@
 }
 
 .nav-overlay__links a {
-  font-family: var(--font-display);
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 300;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.72);
   text-decoration: none;
   letter-spacing: 0.08em;
   transition: color 0.3s ease;
@@ -352,7 +355,7 @@
 
 .nav-overlay__links a:hover,
 .nav-overlay__links a.active {
-  color: var(--aman-gold);
+  color: var(--aman-gold, #c9a96e);
 }
 
 .nav-overlay__social {
@@ -365,45 +368,50 @@
    MOBILE RESPONSIVE
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  .home-hero__logo {
+    height: 64px;
+  }
+
+  .home-hero__logo-wrap {
+    padding-top: 0.6rem;
+  }
+
+  /* Recalculate header top: 64px logo + 10px padding + some gap ≈ 85px */
   .home-header {
+    top: 85px;
     padding: 0.45rem 0;
   }
 
   .home-header__inner {
-    padding: 0 24px;
-  }
-
-  .home-hero__logo {
-    height: 72px;
-  }
-
-  .home-hero__logo-wrap {
-    padding-top: 0.2rem;
+    padding: 0 1.5rem;
   }
 
   .home-hero__text {
-    bottom: 16%;
+    bottom: 15%;
     left: 24px;
     right: 24px;
   }
 
-  .social-icon {
-    width: 22px;
-    height: 22px;
-  }
-
   .mandala-sep {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
   }
 }
 
 @media (max-width: 480px) {
-  .home-hero__title {
-    font-size: clamp(1.8rem, 8vw, 2.8rem);
+  .home-hero__logo {
+    height: 52px;
   }
 
-  .home-hero__logo {
-    height: 60px;
+  .home-header {
+    top: 70px;
+  }
+
+  .home-hero__title {
+    font-size: clamp(2.4rem, 10vw, 3.5rem);
+  }
+
+  .home-hero__subtitle {
+    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
   }
 }

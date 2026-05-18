@@ -7,6 +7,10 @@
   <meta name="description" content="Mistress Tantra – A sanctuary of sensual healing and holistic awakening in San Francisco & Boston. Tantra, breathwork, sacred intimacy, and embodied presence.">
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="assets/css/home.css">
+  <!-- Cormorant Garamond — confirmed loaded for hero title -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
@@ -38,11 +42,20 @@
     <!-- Vignette for text legibility -->
     <div class="home-hero__vignette"></div>
 
-    <!-- ── HEADER BAR ── -->
+    <!-- ══ 1. TOP LOGO — centered at very top, ABOVE header bar (matches mockup) ══ -->
+    <div class="home-hero__logo-wrap">
+      <img
+        src="assets/images/logo-hero.png"
+        alt="Mistress Tantra – Tantrica Goddess"
+        class="home-hero__logo"
+      >
+    </div>
+
+    <!-- ══ 2. HEADER BAR — positioned directly below the logo block ══ -->
     <header class="home-header" id="homeHeader">
       <div class="home-header__inner">
 
-        <!-- Social icons — far left, white with white outline frame -->
+        <!-- Social icons — far left -->
         <div class="home-header__social">
           <a href="#" aria-label="Instagram" class="social-icon">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -77,19 +90,18 @@
       </div>
     </header>
 
-    <!-- ── CENTRE LOGO (top center, transparent) ── -->
-    <div class="home-hero__logo-wrap">
-      <img
-        src="assets/images/logo-hero.png"
-        alt="Mistress Tantra – Tantrica Goddess"
-        class="home-hero__logo"
-      >
-    </div>
-
-    <!-- ── HERO TEXT — lower left ── -->
+    <!-- ══ 3. HERO TEXT — lower left (matches mockup exactly) ══ -->
     <div class="home-hero__text">
+      <!-- Large italic script: "Mistress Tantra" in Cormorant Garamond -->
       <h1 class="home-hero__title">Mistress Tantra</h1>
-      <p class="home-hero__subtitle">TANTRICA GODDESS <img src="assets/images/mandala-divider.png" alt="" class="mandala-sep" aria-hidden="true"> SAN FRANCISCO</p>
+      <!-- Bold caps: "TANTRICA GODDESS" -->
+      <p class="home-hero__subtitle">TANTRICA GODDESS</p>
+      <!-- Locations with mandala divider: "BOSTON ◈ SAN FRANCISCO" -->
+      <p class="home-hero__locations">
+        BOSTON
+        <img src="assets/images/mandala-divider.png" alt="" class="mandala-sep" aria-hidden="true">
+        SAN FRANCISCO
+      </p>
     </div>
 
     <!-- ── SCROLL CTA — bottom centre ── -->
