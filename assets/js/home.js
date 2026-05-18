@@ -158,4 +158,29 @@
   var yearEl = document.querySelector('.footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ============================================================
+     SACRED GEOMETRY — fade in mandala + flow line when intro visible
+  ============================================================ */
+  var sacredEls = [
+    document.getElementById('sacredMandala'),
+    document.getElementById('sacredMandalaSmall'),
+    document.getElementById('sacredFlowLine')
+  ].filter(Boolean);
+
+  if (sacredEls.length && 'IntersectionObserver' in window) {
+    var sacredObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          sacredEls.forEach(function(el) { el.classList.add('visible'); });
+          sacredObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.15 });
+    var introSection = document.getElementById('intro');
+    if (introSection) sacredObserver.observe(introSection);
+  } else {
+    sacredEls.forEach(function(el) { el.classList.add('visible'); });
+  }
+
+
 })();
