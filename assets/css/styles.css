@@ -1648,3 +1648,56 @@ img {
 .card:hover .card-image-offering-intimacy {
   transform: scale(1.015);
 }
+
+/* ============================================================
+   FINAL HOME OFFERING IMAGE CORRECTION
+   All three preview images are square, fill the frame, and match.
+   No contain letterboxing, no symbolic corner ornaments, no color background.
+   ============================================================ */
+.home-offerings-preview .card-image-wrapper,
+section:has(.card-image-offering) .card-image-wrapper {
+  aspect-ratio: 1 / 1;
+  height: auto;
+  padding: 0;
+  margin: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: transparent !important;
+}
+
+section:has(.card-image-offering) .card-image-wrapper::before,
+section:has(.card-image-offering) .card-image-wrapper::after {
+  content: none !important;
+  display: none !important;
+}
+
+.card-image-offering,
+.card-image-offering-ritual,
+.card-image-offering-intimacy,
+.card-image-offering-breathwork {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1;
+  object-fit: cover !important;
+  object-position: center center !important;
+  background: transparent !important;
+  display: block;
+}
+
+.card:hover .card-image-offering,
+.card:hover .card-image-offering-ritual,
+.card:hover .card-image-offering-intimacy,
+.card:hover .card-image-offering-breathwork {
+  transform: scale(1.035);
+}
+
+@media (max-width: 768px) {
+  .card-image-offering,
+  .card-image-offering-ritual,
+  .card-image-offering-intimacy,
+  .card-image-offering-breathwork {
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+}
