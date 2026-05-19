@@ -117,3 +117,57 @@
     display: none;
   }
 }
+
+/* ============================================================
+   THREE PILLARS — centered mandala overlay
+   ============================================================ */
+.section-pillars-sacred {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-pillars-sacred .container {
+  position: relative;
+  z-index: 1;
+}
+
+.pillars-mandala-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(620px, 58vw);
+  height: min(620px, 58vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+}
+
+.pillars-mandala-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: pillarsMandalaSpin 120s linear infinite;
+}
+
+@keyframes pillarsMandalaSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .pillars-mandala-wrap {
+    width: min(520px, 82vw);
+    height: min(520px, 82vw);
+    opacity: 0.14;
+  }
+}
+
+@media (max-width: 520px) {
+  .pillars-mandala-wrap {
+    width: min(420px, 105vw);
+    height: min(420px, 105vw);
+    opacity: 0.12;
+  }
+}
