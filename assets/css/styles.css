@@ -1873,3 +1873,55 @@ section:has(.card-image-offering) .card-image-offering {
   background:
     linear-gradient(90deg, #6f552f 0%, #8f764d 34%, #b69d73 68%, #d8cfbd 100%) !important;
 }
+
+/* ============================================================
+   BOOK A TANTRIC SESSION IMAGE OVERLAY
+   Low-opacity responsive overlay; keeps head visible on all devices.
+   ============================================================ */
+.book-session-overlay-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.book-session-overlay-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(31, 42, 36, 0.58), rgba(31, 42, 36, 0.70)), url('../images/background-meditating.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 18%;
+  opacity: 0.24;
+}
+
+.book-session-overlay-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .book-session-overlay-section::before {
+    background-size: cover;
+    background-position: center 14%;
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 768px) {
+  .book-session-overlay-section::before {
+    background-size: auto 115%;
+    background-position: center top;
+    opacity: 0.20;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-session-overlay-section::before {
+    background-size: auto 108%;
+    background-position: center top;
+    opacity: 0.18;
+  }
+}
