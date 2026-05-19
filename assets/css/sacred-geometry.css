@@ -97,8 +97,8 @@
 }
 
 @keyframes flowPulse {
-  0%, 100% { opacity: 0.28; }
-  50%      { opacity: 0.42; }
+  0%, 100% { opacity: 0.23; }
+  50%      { opacity: 0.36; }
 }
 
 @media (max-width: 768px) {
