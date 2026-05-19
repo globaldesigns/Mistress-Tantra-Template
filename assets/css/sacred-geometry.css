@@ -177,3 +177,107 @@
     opacity: 0.15;
   }
 }
+
+/* ============================================================
+   OFFERINGS SECTION MANDALAS
+   Same mandala artwork, size family, and slow animation as Tantric Awakening.
+   ============================================================ */
+.offerings-mandala-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.offerings-mandala-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.offerings-mandala {
+  position: absolute;
+  width: min(360px, 46vw);
+  height: min(360px, 46vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.42;
+}
+
+.offerings-mandala-one {
+  top: 10%;
+  left: -8%;
+}
+
+.offerings-mandala-two {
+  right: -9%;
+  bottom: 7%;
+  opacity: 0.36;
+}
+
+.offerings-mandala-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center;
+  animation: sacredMandalaSpin 95s linear infinite;
+}
+
+.offerings-mandala-two .offerings-mandala-img {
+  animation-direction: reverse;
+}
+
+@media (max-width: 1024px) {
+  .offerings-mandala {
+    width: min(320px, 44vw);
+    height: min(320px, 44vw);
+    opacity: 0.34;
+  }
+
+  .offerings-mandala-one {
+    top: 8%;
+    left: -16%;
+  }
+
+  .offerings-mandala-two {
+    right: -17%;
+    bottom: 12%;
+  }
+}
+
+@media (max-width: 768px) {
+  .offerings-mandala {
+    width: min(260px, 58vw);
+    height: min(260px, 58vw);
+    opacity: 0.25;
+  }
+
+  .offerings-mandala-one {
+    top: 3%;
+    left: -28%;
+  }
+
+  .offerings-mandala-two {
+    right: -30%;
+    bottom: 18%;
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 480px) {
+  .offerings-mandala {
+    width: min(220px, 70vw);
+    height: min(220px, 70vw);
+    opacity: 0.18;
+  }
+
+  .offerings-mandala-one {
+    top: 2%;
+    left: -42%;
+  }
+
+  .offerings-mandala-two {
+    right: -44%;
+    bottom: 24%;
+    opacity: 0.16;
+  }
+}
