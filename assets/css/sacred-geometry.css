@@ -89,7 +89,7 @@
   stroke-dasharray: 1400;
   stroke-dashoffset: 1400;
   animation: flowDraw 3.5s ease-out 1.4s forwards,
-             flowPulse 5s ease-in-out 5s infinite;
+             flowPulse 4s ease-in-out 5s infinite, flowDrift 9s linear 5s infinite;
 }
 
 @keyframes flowDraw {
@@ -97,8 +97,14 @@
 }
 
 @keyframes flowPulse {
-  0%, 100% { opacity: 0.23; }
-  50%      { opacity: 0.36; }
+  0%, 100% { opacity: 0.30; }
+  50%      { opacity: 0.52; }
+}
+
+@keyframes flowDrift {
+  0%   { stroke-dashoffset: 0; }
+  50%  { stroke-dashoffset: -120; }
+  100% { stroke-dashoffset: -240; }
 }
 
 @media (max-width: 768px) {
@@ -136,11 +142,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(620px, 58vw);
-  height: min(620px, 58vw);
+  width: min(720px, 66vw);
+  height: min(720px, 66vw);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.18;
+  opacity: 0.24;
 }
 
 .pillars-mandala-img {
@@ -158,9 +164,9 @@
 
 @media (max-width: 900px) {
   .pillars-mandala-wrap {
-    width: min(520px, 82vw);
-    height: min(520px, 82vw);
-    opacity: 0.14;
+    width: min(600px, 88vw);
+    height: min(600px, 88vw);
+    opacity: 0.18;
   }
 }
 
@@ -168,6 +174,6 @@
   .pillars-mandala-wrap {
     width: min(420px, 105vw);
     height: min(420px, 105vw);
-    opacity: 0.12;
+    opacity: 0.15;
   }
 }
