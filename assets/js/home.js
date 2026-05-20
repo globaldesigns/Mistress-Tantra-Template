@@ -184,3 +184,18 @@
 
 
 })();
+
+/* About page overlap image fade-in */
+(function(){
+  var overlapImg = document.querySelector('.about-overlap-image img');
+  if (overlapImg && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) { overlapImg.classList.add('visible'); obs.disconnect(); }
+      });
+    }, { threshold: 0.15 });
+    obs.observe(overlapImg);
+  } else if (overlapImg) {
+    overlapImg.classList.add('visible');
+  }
+})();

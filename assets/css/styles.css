@@ -1925,3 +1925,100 @@ section:has(.card-image-offering) .card-image-offering {
     opacity: 0.18;
   }
 }
+
+/* ============================================================
+   ABOUT PAGE HERO GRADIENT ANIMATION
+   Slow-moving horizontal gradient using deep-forest + aman-gold
+   ============================================================ */
+.about-hero-gradient {
+  position: relative;
+  overflow: hidden;
+  padding: 180px 0 140px;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(90deg, #0f1f0f, #1a2e1a, #c9a96e, #1a2e1a, #0f1f0f);
+  background-size: 300% 100%;
+  animation: aboutHeroGradient 18s ease infinite;
+}
+
+@keyframes aboutHeroGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.about-hero-gradient .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.about-hero-gradient .hero-content h1 {
+  font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  color: var(--linen);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
+.about-hero-gradient .hero-content .about-subheader {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  color: var(--aman-gold);
+  font-weight: 300;
+  margin-top: 0;
+  opacity: 0.85;
+}
+
+/* Overlay image with negative top margin */
+.about-overlap-image {
+  position: relative;
+  z-index: 3;
+  margin-top: -80px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+.about-overlap-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.about-overlap-image img.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  .about-hero-gradient { padding: 160px 0 120px; min-height: 440px; }
+  .about-overlap-image { margin-top: -60px; }
+  .about-overlap-image img { height: 420px; }
+}
+
+@media (max-width: 768px) {
+  .about-hero-gradient { padding: 140px 0 100px; min-height: 380px; }
+  .about-overlap-image { margin-top: -50px; padding: 0 1.5rem; }
+  .about-overlap-image img { height: 360px; }
+}
+
+@media (max-width: 480px) {
+  .about-hero-gradient { padding: 120px 0 80px; min-height: 320px; }
+  .about-overlap-image { margin-top: -40px; padding: 0 1rem; }
+  .about-overlap-image img { height: 300px; }
+}
