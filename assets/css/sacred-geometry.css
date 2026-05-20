@@ -290,6 +290,7 @@
 #aboutSacredMandala {
   top: -30%;
   left: -5%;
+  transform: none;
 }
 
 #aboutSacredMandalaSmall {
