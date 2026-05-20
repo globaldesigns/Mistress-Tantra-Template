@@ -282,3 +282,19 @@
   }
 }
 
+
+/* ============================================================
+   ABOUT ORIGIN — unique mandala positions
+   Same size/animation, different placement from home page
+   ============================================================ */
+#aboutSacredMandalaSmall {
+  top: auto;
+  left: auto;
+  bottom: 8%;
+  right: -6%;
+}
+
+#aboutSacredFlowLine {
+  top: 10%;
+  bottom: auto;
+}
