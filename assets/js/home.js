@@ -199,3 +199,27 @@
     overlapImg.classList.add('visible');
   }
 })();
+
+/* About page sacred geometry visibility */
+(function(){
+  var aboutSacredEls = [
+    document.getElementById('aboutSacredMandala'),
+    document.getElementById('aboutSacredMandalaSmall'),
+    document.getElementById('aboutSacredFlowLine')
+  ].filter(Boolean);
+
+  if (aboutSacredEls.length && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          aboutSacredEls.forEach(function(el) { el.classList.add('visible'); });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.15 });
+    var originSection = document.querySelector('.section-intro-sacred');
+    if (originSection) obs.observe(originSection);
+  } else {
+    aboutSacredEls.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
