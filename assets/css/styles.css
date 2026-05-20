@@ -1060,6 +1060,7 @@ img {
   text-transform: uppercase;
   color: var(--sage);
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .form-group input,
@@ -1321,6 +1322,7 @@ img {
 
 .feature-item h4 {
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .feature-item p {
@@ -1939,19 +1941,18 @@ section:has(.card-image-offering) .card-image-offering {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(90deg,
+  background: linear-gradient(
+    135deg,
     #0f1f0f 0%,
-    #152715 12%,
-    #1f3520 25%,
-    #3a4a2e 38%,
-    #7a6a3a 50%,
-    #c9a96e 55%,
-    #7a6a3a 62%,
-    #3a4a2e 75%,
-    #1f3520 88%,
+    #162216 20%,
+    #1f3520 40%,
+    #6b5d3a 55%,
+    #c9a96e 65%,
+    #6b5d3a 75%,
+    #1f3520 90%,
     #0f1f0f 100%);
-  background-size: 400% 100%;
-  animation: aboutHeroGradient 28s ease-in-out infinite;
+  background-size: 600% 600%;
+  animation: aboutHeroGradient 45s ease-in-out infinite;
 }
 
 @keyframes aboutHeroGradient {
@@ -1978,6 +1979,7 @@ section:has(.card-image-offering) .card-image-offering {
   font-weight: 400;
   line-height: 1.15;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .about-hero-gradient .hero-content .about-subheader {
@@ -1986,8 +1988,7 @@ section:has(.card-image-offering) .card-image-offering {
   font-size: clamp(1.1rem, 2.4vw, 1.6rem);
   color: var(--aman-gold);
   font-weight: 300;
-  margin-top: 0;
-  text-align: center;
+  margin-top: 0.5rem;
   opacity: 0.85;
 }
 
