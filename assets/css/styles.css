@@ -1989,6 +1989,7 @@ section:has(.card-image-offering) .card-image-offering {
   color: var(--aman-gold);
   font-weight: 300;
   margin-top: 0.5rem;
+  text-align: center !important;
   opacity: 0.85;
 }
 
@@ -1996,7 +1997,7 @@ section:has(.card-image-offering) .card-image-offering {
 .about-overlap-image {
   position: relative;
   z-index: 3;
-  margin-top: -80px;
+  margin-top: -120px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -2036,4 +2037,16 @@ section:has(.card-image-offering) .card-image-offering {
   .about-hero-gradient { padding: 120px 0 80px; min-height: 320px; }
   .about-overlap-image { margin-top: -40px; padding: 0 1rem; }
   .about-overlap-image img { height: 300px; }
+}
+
+/* Reduce top padding on Origin Story section after overlap image */
+.about-overlap-image + .section-linen {
+  padding-top: 1.5rem !important;
+}
+
+@media (max-width: 1024px) {
+  .about-overlap-image + .section-linen { padding-top: 1rem !important; }
+}
+@media (max-width: 768px) {
+  .about-overlap-image + .section-linen { padding-top: 0.5rem !important; }
 }
