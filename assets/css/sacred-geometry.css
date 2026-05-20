@@ -5,7 +5,7 @@
 
 .section-intro-sacred {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .section-intro-sacred .container {
@@ -291,6 +291,8 @@
   top: -30%;
   left: -5%;
   transform: none;
+  z-index: 10;
+  opacity: 0.75;
 }
 
 #aboutSacredMandalaSmall {
