@@ -324,10 +324,10 @@
 .training-mandala-wrap {
   position: absolute;
   top: 50%;
-  right: -5%;
+  right: 0;
   transform: translateY(-50%);
-  width: min(720px, 66vw);
-  height: min(720px, 66vw);
+  width: min(720px, 50vw);
+  height: min(720px, 50vw);
   pointer-events: none;
   z-index: 0;
   opacity: 0.24;
@@ -343,8 +343,8 @@
 
 @media (max-width: 900px) {
   .training-mandala-wrap {
-    width: min(600px, 88vw);
-    height: min(600px, 88vw);
+    width: min(500px, 70vw);
+    height: min(500px, 70vw);
     opacity: 0.18;
   }
 }
