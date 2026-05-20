@@ -24,7 +24,7 @@
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 2.5s ease;
 }
 
 /* Keep same opacity amount from previous version */
@@ -42,7 +42,7 @@
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 2.5s ease;
 }
 
 /* Keep same opacity amount from previous version */
@@ -56,11 +56,11 @@
   height: 100%;
   object-fit: contain;
   transform-origin: center;
-  animation: sacredMandalaSpin 60s linear infinite;
+  animation: sacredMandalaSpin 95s linear infinite;
 }
 
 .sacred-mandala-img-sm {
-  animation: sacredMandalaSpin 80s linear infinite reverse;
+  animation: sacredMandalaSpin 120s linear infinite reverse;
 }
 
 @keyframes sacredMandalaSpin {
@@ -88,10 +88,8 @@
 .flow-path {
   stroke-dasharray: 1400;
   stroke-dashoffset: 1400;
-  stroke-width: 2.5;
-  opacity: 0.55;
-  animation: flowDraw 1.2s ease-out 0.2s forwards,
-             flowPulse 1.8s ease-in-out 1.5s infinite, flowDrift 3s linear 1.5s infinite;
+  animation: flowDraw 3.5s ease-out 1.4s forwards,
+             flowPulse 4s ease-in-out 5s infinite, flowDrift 9s linear 5s infinite;
 }
 
 @keyframes flowDraw {
@@ -99,14 +97,14 @@
 }
 
 @keyframes flowPulse {
-  0%, 100% { opacity: 0.40; }
-  50%      { opacity: 0.85; }
+  0%, 100% { opacity: 0.30; }
+  50%      { opacity: 0.52; }
 }
 
 @keyframes flowDrift {
   0%   { stroke-dashoffset: 0; }
-  50%  { stroke-dashoffset: -500; }
-  100% { stroke-dashoffset: -1000; }
+  50%  { stroke-dashoffset: -120; }
+  100% { stroke-dashoffset: -240; }
 }
 
 @media (max-width: 768px) {
@@ -221,7 +219,7 @@
   height: 100%;
   object-fit: contain;
   transform-origin: center;
-  animation: sacredMandalaSpin 60s linear infinite;
+  animation: sacredMandalaSpin 95s linear infinite;
 }
 
 .offerings-mandala-two .offerings-mandala-img {
@@ -290,7 +288,7 @@
    Same size/animation, different placement from home page
    ============================================================ */
 #aboutSacredMandala {
-  top: -15%;
+  top: -30%;
   left: -5%;
 }
 
