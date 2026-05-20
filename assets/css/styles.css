@@ -1942,23 +1942,24 @@ section:has(.card-image-offering) .card-image-offering {
   justify-content: center;
   text-align: center;
   background: linear-gradient(
-    135deg,
-    #0f1f0f 0%,
-    #162216 20%,
-    #1f3520 40%,
-    #6b5d3a 55%,
-    #c9a96e 65%,
-    #6b5d3a 75%,
-    #1f3520 90%,
-    #0f1f0f 100%);
-  background-size: 600% 600%;
-  animation: aboutHeroGradient 45s ease-in-out infinite;
+    -45deg,
+    #3d3428 0%,
+    #5a4a30 15%,
+    #7a6a3a 30%,
+    #c9a96e 45%,
+    #8a7a48 60%,
+    #5a4a30 75%,
+    #3d3428 100%);
+  background-size: 400% 400%;
+  animation: aboutHeroGradient 40s linear infinite;
 }
 
 @keyframes aboutHeroGradient {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0%   { background-position: 0% 0%; }
+  25%  { background-position: 100% 0%; }
+  50%  { background-position: 100% 100%; }
+  75%  { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
 }
 @supports (background: paint(something)) {
   .about-hero-gradient { will-change: background-position; }
@@ -1988,16 +1989,17 @@ section:has(.card-image-offering) .card-image-offering {
   font-size: clamp(1.1rem, 2.4vw, 1.6rem);
   color: var(--aman-gold);
   font-weight: 300;
-  margin-top: 0.5rem;
+  margin: 0.5rem auto 0;
   text-align: center !important;
   opacity: 0.85;
+  width: 100%;
 }
 
 /* Overlay image with negative top margin */
 .about-overlap-image {
   position: relative;
   z-index: 3;
-  margin-top: -120px;
+  margin-top: -160px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -2041,12 +2043,13 @@ section:has(.card-image-offering) .card-image-offering {
 
 /* Reduce top padding on Origin Story section after overlap image */
 .about-overlap-image + .section-linen {
-  padding-top: 1.5rem !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
 
 @media (max-width: 1024px) {
-  .about-overlap-image + .section-linen { padding-top: 1rem !important; }
+  .about-overlap-image + .section-linen { padding-top: 0 !important; }
 }
 @media (max-width: 768px) {
-  .about-overlap-image + .section-linen { padding-top: 0.5rem !important; }
+  .about-overlap-image + .section-linen { padding-top: 0 !important; }
 }
