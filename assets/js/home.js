@@ -203,6 +203,7 @@
 /* About page sacred geometry visibility */
 (function(){
   var aboutSacredEls = [
+    document.getElementById('aboutSacredMandala'),
     document.getElementById('aboutSacredMandalaSmall'),
     document.getElementById('aboutSacredFlowLine')
   ].filter(Boolean);
