@@ -306,3 +306,53 @@
   top: 5%;
   bottom: auto;
 }
+
+/* ============================================================
+   ABOUT TRAINING & LINEAGE — big mandala background
+   Same as Three Pillars on home, positioned in right column area
+   ============================================================ */
+.training-mandala-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.training-mandala-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.training-mandala-wrap {
+  position: absolute;
+  top: 50%;
+  right: -5%;
+  transform: translateY(-50%);
+  width: min(720px, 66vw);
+  height: min(720px, 66vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.24;
+}
+
+.training-mandala-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: pillarsMandalaSpin 120s linear infinite;
+}
+
+@media (max-width: 900px) {
+  .training-mandala-wrap {
+    width: min(600px, 88vw);
+    height: min(600px, 88vw);
+    opacity: 0.18;
+  }
+}
+
+@media (max-width: 520px) {
+  .training-mandala-wrap {
+    width: min(420px, 105vw);
+    height: min(420px, 105vw);
+    opacity: 0.15;
+  }
+}
