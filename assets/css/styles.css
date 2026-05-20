@@ -1939,15 +1939,28 @@ section:has(.card-image-offering) .card-image-offering {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(90deg, #0f1f0f, #1a2e1a, #c9a96e, #1a2e1a, #0f1f0f);
-  background-size: 300% 100%;
-  animation: aboutHeroGradient 18s ease infinite;
+  background: linear-gradient(90deg,
+    #0f1f0f 0%,
+    #152715 12%,
+    #1f3520 25%,
+    #3a4a2e 38%,
+    #7a6a3a 50%,
+    #c9a96e 55%,
+    #7a6a3a 62%,
+    #3a4a2e 75%,
+    #1f3520 88%,
+    #0f1f0f 100%);
+  background-size: 400% 100%;
+  animation: aboutHeroGradient 28s ease-in-out infinite;
 }
 
 @keyframes aboutHeroGradient {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+@supports (background: paint(something)) {
+  .about-hero-gradient { will-change: background-position; }
 }
 
 .about-hero-gradient .hero-content {
@@ -1974,6 +1987,7 @@ section:has(.card-image-offering) .card-image-offering {
   color: var(--aman-gold);
   font-weight: 300;
   margin-top: 0;
+  text-align: center;
   opacity: 0.85;
 }
 
@@ -1982,7 +1996,7 @@ section:has(.card-image-offering) .card-image-offering {
   position: relative;
   z-index: 3;
   margin-top: -80px;
-  max-width: 900px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 0 2rem;
