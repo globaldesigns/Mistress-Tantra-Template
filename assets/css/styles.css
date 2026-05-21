@@ -2174,18 +2174,18 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 /* ─── About Page — Assessing overlap position (no negative margin baseline) ─── */
-#about .about-overlap-image {
+#aboutOverlapImage {
   margin-top: 0;
 }
-#about .about-overlap-image img {
+#aboutOverlapImage img {
   height: 200px;
 }
 @media (max-width: 1024px) {
-  #about .about-overlap-image img { height: 168px; }
+  #aboutOverlapImage img { height: 168px; }
 }
 @media (max-width: 768px) {
-  #about .about-overlap-image img { height: 144px; }
+  #aboutOverlapImage img { height: 144px; }
 }
 @media (max-width: 480px) {
-  #about .about-overlap-image img { height: 120px; }
+  #aboutOverlapImage img { height: 120px; }
 }
