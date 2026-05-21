@@ -9,21 +9,21 @@
 (function () {
   'use strict';
 
-  /* -- Color palette — more sage/green presence -- */
+  /* -- Color palette — rich gold with sage accents -- */
   var COLORS = {
-    /* Center (warm bronze/gold with sage influence) */
-    centerA: { r: 180, g: 165, b: 110 },  /* gold with sage warmth */
-    centerB: { r: 165, g: 155, b: 105 },  /* muted gold-sage */
-    /* Mid (transitional sage-green) — dominant zone, more green */
-    midA:    { r: 145, g: 155, b: 100 },  /* sage-gold */
-    midB:    { r: 122, g: 142, b: 96  },  /* warm sage */
-    /* Edge (cool sage/forest) — rich green tones */
-    edgeA:   { r: 105, g: 132, b: 88  },  /* sage-green */
-    edgeB:   { r: 78,  g: 98,  b: 62  }   /* deep forest-sage */
+    /* Center (warm rich gold) — dominant and visible */
+    centerA: { r: 201, g: 169, b: 110 },  /* aman-gold — full strength */
+    centerB: { r: 190, g: 160, b: 108 },  /* bright warm gold */
+    /* Mid (gold-sage blend) — gold remains prominent */
+    midA:    { r: 175, g: 155, b: 100 },  /* gold with sage hint */
+    midB:    { r: 155, g: 148, b: 95  },  /* balanced gold-sage */
+    /* Edge (sage with gold undertone) */
+    edgeA:   { r: 132, g: 140, b: 95  },  /* sage-gold */
+    edgeB:   { r: 105, g: 120, b: 80  }   /* muted forest-sage */
   };
 
-  /* Max opacity for individual rays — noticeable but not overwhelming */
-  var MAX_RAY_OPACITY = 0.28;
+  /* Max opacity for individual rays — visible without straining, not overwhelming */
+  var MAX_RAY_OPACITY = 0.38;
 
   /* Number of rays */
   var RAY_COUNT = 280;
@@ -59,7 +59,7 @@
        Center rays (t ≈ 0.5) get warm gold, edge rays get cool sage. */
     var t = index / (total - 1);
     var centerWeight = 1 - Math.abs(t - 0.5) * 2; /* 1 at center, 0 at edges */
-    centerWeight = Math.pow(centerWeight, 0.55);     /* Wider sage zone — more green */
+    centerWeight = Math.pow(centerWeight, 0.4);     /* Wide gold zone — gold dominates most of the fan */
 
     /* Interpolate between center and edge colors */
     var cA = COLORS.centerA, cB = COLORS.centerB;
@@ -128,11 +128,12 @@
     this.canvas.height = Math.round(this.height * this.dpr);
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
 
-    /* Focal point at bottom of the section.
-       Canvas is 150% of section height with bottom:0,
-       so section bottom = 2/3 of canvas height from top. */
+    /* Focal point at bottom center of canvas.
+       Canvas bottom = section bottom (CSS bottom:0).
+       Rays fan upward from here, extending above the section
+       since canvas is taller than section via overflow:visible. */
     this.focalX = this.width / 2;
-    this.focalY = this.height * (2 / 3);
+    this.focalY = this.height;
   };
 
   StarburstInstance.prototype.start = function () {
@@ -174,13 +175,13 @@
     /* Global pulse — noticeable but gentle brightness oscillation */
     var globalPulse = 0.8 + 0.2 * Math.sin(now * PULSE_SPEED);
 
-    /* Central glow — soft radial gradient at the focal point, more sage */
+    /* Central glow — warm gold radial gradient at the focal point */
     var glowRadius = Math.max(1, Math.min(w, h) * 0.15);
     var glow = ctx.createRadialGradient(fx, fy, 0, fx, fy, glowRadius);
-    glow.addColorStop(0, 'rgba(180,165,110,' + (0.16 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(0.35, 'rgba(145,155,100,' + (0.08 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(0.7, 'rgba(122,138,106,' + (0.03 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(1, 'rgba(105,132,88,0)');
+    glow.addColorStop(0, 'rgba(201,169,110,' + (0.20 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(0.35, 'rgba(190,160,108,' + (0.10 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(0.7, 'rgba(155,148,95,' + (0.04 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(1, 'rgba(132,140,95,0)');
     ctx.fillStyle = glow;
     ctx.fillRect(fx - glowRadius, fy - glowRadius, glowRadius * 2, glowRadius * 2);
 
@@ -224,12 +225,12 @@
       ctx.stroke();
     }
 
-    /* Secondary glow layer — larger, sage-tinted, for atmospheric depth */
+    /* Secondary glow layer — warm gold atmospheric depth */
     var glow2Radius = Math.max(1, Math.min(w, h) * 0.3);
     var glow2 = ctx.createRadialGradient(fx, fy, 0, fx, fy, glow2Radius);
-    glow2.addColorStop(0, 'rgba(145,155,100,' + (0.06 * globalPulse).toFixed(3) + ')');
-    glow2.addColorStop(0.4, 'rgba(122,138,106,' + (0.03 * globalPulse).toFixed(3) + ')');
-    glow2.addColorStop(1, 'rgba(105,132,88,0)');
+    glow2.addColorStop(0, 'rgba(201,169,110,' + (0.08 * globalPulse).toFixed(3) + ')');
+    glow2.addColorStop(0.4, 'rgba(175,155,100,' + (0.04 * globalPulse).toFixed(3) + ')');
+    glow2.addColorStop(1, 'rgba(132,140,95,0)');
     ctx.fillStyle = glow2;
     ctx.fillRect(fx - glow2Radius, fy - glow2Radius, glow2Radius * 2, glow2Radius * 2);
   };
