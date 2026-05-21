@@ -2023,6 +2023,12 @@ section:has(.card-image-offering) .card-image-offering {
   transform: translateY(0);
 }
 
+/* Fade bottom of overlap image on video-hero pages so video shows through */
+#about .about-overlap-image img.visible {
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, black 65%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 50%, black 65%, transparent 100%);
+}
+
 @media (max-width: 1024px) {
   .about-hero-gradient { padding: 160px 0 120px; min-height: 440px; }
   .about-overlap-image { margin-top: -60px; }
