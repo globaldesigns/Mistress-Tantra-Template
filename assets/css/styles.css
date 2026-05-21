@@ -2175,18 +2175,18 @@ section:has(.card-image-offering) .card-image-offering {
 
 /* ─── About Page — Overlap image: small overlap, full subject visible ─── */
 #aboutOverlapImage {
-  margin-top: -40px;
+  margin-top: -40px !important;
 }
 #aboutOverlapImage img {
-  height: 340px;
-  object-position: center top;
+  height: 340px !important;
+  object-position: center top !important;
 }
 @media (max-width: 1024px) {
-  #aboutOverlapImage img { height: 280px; }
+  #aboutOverlapImage img { height: 280px !important; }
 }
 @media (max-width: 768px) {
-  #aboutOverlapImage img { height: 240px; }
+  #aboutOverlapImage img { height: 240px !important; }
 }
 @media (max-width: 480px) {
-  #aboutOverlapImage img { height: 200px; }
+  #aboutOverlapImage img { height: 200px !important; }
 }
