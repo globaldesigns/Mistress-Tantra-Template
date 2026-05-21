@@ -2173,20 +2173,20 @@ section:has(.card-image-offering) .card-image-offering {
   .video-hero-tall { padding: 156px 0 104px; min-height: 416px; }
 }
 
-/* ─── About Page — Overlap image: small overlap, full subject visible ─── */
+/* ─── About Page — Overlap image: small overlap, full image visible ─── */
 #aboutOverlapImage {
   margin-top: -40px !important;
 }
 #aboutOverlapImage img {
-  height: 340px !important;
-  object-position: center top !important;
+  height: 500px !important;
+  object-position: center 30% !important;
 }
 @media (max-width: 1024px) {
-  #aboutOverlapImage img { height: 280px !important; }
+  #aboutOverlapImage img { height: 420px !important; }
 }
 @media (max-width: 768px) {
-  #aboutOverlapImage img { height: 240px !important; }
+  #aboutOverlapImage img { height: 360px !important; }
 }
 @media (max-width: 480px) {
-  #aboutOverlapImage img { height: 200px !important; }
+  #aboutOverlapImage img { height: 300px !important; }
 }
