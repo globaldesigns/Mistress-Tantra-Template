@@ -3,39 +3,39 @@
    Canvas 2D implementation using the site's earthy palette.
    Hundreds of thin lines fan outward from a bottom focal point,
    with color gradients from warm bronze/gold at center to
-   sage/forest at edges. Very subtle, meditative animation.
+   sage/forest at edges. Noticeable yet harmonious, meditative.
    ============================================================ */
 
 (function () {
   'use strict';
 
-  /* -- Color palette (matches CSS custom properties) -- */
+  /* -- Color palette — more sage/green presence -- */
   var COLORS = {
-    /* Center (warm bronze/gold) — high saturation, warm */
-    centerA: { r: 201, g: 169, b: 110 },  /* aman-gold */
-    centerB: { r: 182, g: 157, b: 115 },  /* warm bronze */
-    /* Mid (transitional sage-gold) */
-    midA:    { r: 168, g: 155, b: 100 },  /* muted gold-sage */
-    midB:    { r: 140, g: 148, b: 100 },  /* sage-gold */
-    /* Edge (cool sage/forest) — desaturated, cool */
-    edgeA:   { r: 122, g: 138, b: 106 },  /* sage */
-    edgeB:   { r: 85,  g: 100, b: 72  }   /* deep sage-forest */
+    /* Center (warm bronze/gold with sage influence) */
+    centerA: { r: 180, g: 165, b: 110 },  /* gold with sage warmth */
+    centerB: { r: 165, g: 155, b: 105 },  /* muted gold-sage */
+    /* Mid (transitional sage-green) — dominant zone, more green */
+    midA:    { r: 145, g: 155, b: 100 },  /* sage-gold */
+    midB:    { r: 122, g: 142, b: 96  },  /* warm sage */
+    /* Edge (cool sage/forest) — rich green tones */
+    edgeA:   { r: 105, g: 132, b: 88  },  /* sage-green */
+    edgeB:   { r: 78,  g: 98,  b: 62  }   /* deep forest-sage */
   };
 
-  /* Max opacity for individual rays — kept very subtle */
-  var MAX_RAY_OPACITY = 0.18;
+  /* Max opacity for individual rays — noticeable but not overwhelming */
+  var MAX_RAY_OPACITY = 0.28;
 
-  /* Number of rays — enough for density without killing performance */
-  var RAY_COUNT = 260;
+  /* Number of rays */
+  var RAY_COUNT = 280;
 
   /* Spread angle in radians from the focal point upward.
-     Math.PI = full semicircle (180°). We use a touch less for elegance. */
-  var SPREAD_ANGLE = Math.PI * 0.92;
+     Math.PI = full semicircle (180°). */
+  var SPREAD_ANGLE = Math.PI * 0.94;
 
-  /* Animation timing */
-  var DRIFT_SPEED  = 0.00008;   /* How fast rays drift angularly */
-  var PULSE_SPEED  = 0.0004;    /* How fast brightness pulses */
-  var LENGTH_SPEED = 0.00015;   /* How fast length variation oscillates */
+  /* Animation timing — more noticeable but meditative */
+  var DRIFT_SPEED  = 0.00018;   /* Faster angular drift */
+  var PULSE_SPEED  = 0.0006;    /* Faster brightness pulse */
+  var LENGTH_SPEED = 0.00025;   /* Faster length oscillation */
 
   /* ---- Ray class ---- */
   function Ray(index, total) {
@@ -46,10 +46,10 @@
     this.driftPhase  = Math.random() * Math.PI * 2;
     this.pulsePhase  = Math.random() * Math.PI * 2;
     this.lengthPhase = Math.random() * Math.PI * 2;
-    /* Base length as fraction of canvas height — varied for organic feel */
-    this.baseLength  = 0.35 + Math.random() * 0.55;
-    /* Line width — very thin like Stripe's */
-    this.width = 0.4 + Math.random() * 0.8;
+    /* Base length as fraction of canvas height — longer rays extending higher */
+    this.baseLength  = 0.55 + Math.random() * 0.45;
+    /* Line width — thin like Stripe's, slightly varied */
+    this.width = 0.4 + Math.random() * 0.9;
     /* Precompute color for this ray based on its position in the fan */
     this._computeColor(index, total);
   }
@@ -59,24 +59,24 @@
        Center rays (t ≈ 0.5) get warm gold, edge rays get cool sage. */
     var t = index / (total - 1);
     var centerWeight = 1 - Math.abs(t - 0.5) * 2; /* 1 at center, 0 at edges */
-    centerWeight = Math.pow(centerWeight, 0.7);     /* Soften the transition */
+    centerWeight = Math.pow(centerWeight, 0.55);     /* Wider sage zone — more green */
 
     /* Interpolate between center and edge colors */
     var cA = COLORS.centerA, cB = COLORS.centerB;
     var eA = COLORS.edgeA,   eB = COLORS.edgeB;
     var mAc = COLORS.midA,   mBc = COLORS.midB;
 
-    /* Use a two-stage interpolation: center→mid→edge */
+    /* Two-stage interpolation: center→mid→edge */
     var r, g, b;
-    if (centerWeight > 0.4) {
+    if (centerWeight > 0.5) {
       /* Center to mid blend */
-      var localT = (centerWeight - 0.4) / 0.6;
+      var localT = (centerWeight - 0.5) / 0.5;
       r = Math.round(mAc.r + (cA.r - mAc.r) * localT);
       g = Math.round(mAc.g + (cA.g - mAc.g) * localT);
       b = Math.round(mAc.b + (cA.b - mAc.b) * localT);
     } else {
-      /* Mid to edge blend */
-      var localT = centerWeight / 0.4;
+      /* Mid to edge blend — this is now the dominant zone */
+      var localT = centerWeight / 0.5;
       r = Math.round(eA.r + (mAc.r - eA.r) * localT);
       g = Math.round(eA.g + (mAc.g - eA.g) * localT);
       b = Math.round(eA.b + (mAc.b - eA.b) * localT);
@@ -86,9 +86,9 @@
     this.colorG = g;
     this.colorB = b;
 
-    /* Add a subtle second color for the ray's gradient (slightly warmer at base) */
-    this.colorBaseR = Math.min(255, r + 15);
-    this.colorBaseG = Math.min(255, g + 10);
+    /* Base color — slightly warmer/golden at the origin point */
+    this.colorBaseR = Math.min(255, r + 20);
+    this.colorBaseG = Math.min(255, g + 12);
     this.colorBaseB = Math.min(255, b + 5);
   };
 
@@ -165,20 +165,20 @@
     var h = this.height;
     var fx = this.focalX;
     var fy = this.focalY;
-    var elapsed = now - this.lastTime;
 
     /* Clear */
     ctx.clearRect(0, 0, w, h);
 
-    /* Global pulse — subtle overall brightness oscillation */
-    var globalPulse = 0.85 + 0.15 * Math.sin(now * PULSE_SPEED);
+    /* Global pulse — noticeable but gentle brightness oscillation */
+    var globalPulse = 0.8 + 0.2 * Math.sin(now * PULSE_SPEED);
 
-    /* Central glow — soft radial gradient at the focal point */
-    var glowRadius = Math.max(1, Math.min(w, h) * 0.12);
+    /* Central glow — soft radial gradient at the focal point, more sage */
+    var glowRadius = Math.max(1, Math.min(w, h) * 0.15);
     var glow = ctx.createRadialGradient(fx, fy, 0, fx, fy, glowRadius);
-    glow.addColorStop(0, 'rgba(201,169,110,' + (0.12 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(0.4, 'rgba(182,157,115,' + (0.06 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(1, 'rgba(122,138,106,0)');
+    glow.addColorStop(0, 'rgba(180,165,110,' + (0.16 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(0.35, 'rgba(145,155,100,' + (0.08 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(0.7, 'rgba(122,138,106,' + (0.03 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(1, 'rgba(105,132,88,0)');
     ctx.fillStyle = glow;
     ctx.fillRect(fx - glowRadius, fy - glowRadius, glowRadius * 2, glowRadius * 2);
 
@@ -186,16 +186,19 @@
     for (var i = 0; i < this.rays.length; i++) {
       var ray = this.rays[i];
 
-      /* Angular drift — each ray slowly oscillates around its base angle */
-      var driftOffset = Math.sin(now * DRIFT_SPEED + ray.driftPhase) * 0.015;
+      /* Angular drift — more noticeable oscillation around base angle */
+      var driftOffset = Math.sin(now * DRIFT_SPEED + ray.driftPhase) * 0.03;
+      /* Add a secondary slower drift for organic feel */
+      driftOffset += Math.sin(now * DRIFT_SPEED * 0.6 + ray.driftPhase * 1.3) * 0.015;
       var angle = ray.baseAngle + driftOffset;
 
-      /* Length oscillation — rays slowly grow and shrink */
-      var lengthMod = 0.7 + 0.3 * Math.sin(now * LENGTH_SPEED + ray.lengthPhase);
-      var length = ray.baseLength * lengthMod * h * 0.85;
+      /* Length oscillation — rays grow and shrink more visibly */
+      var lengthMod = 0.65 + 0.35 * Math.sin(now * LENGTH_SPEED + ray.lengthPhase);
+      /* Rays extend higher — full canvas height utilization */
+      var length = ray.baseLength * lengthMod * h * 1.05;
 
-      /* Per-ray pulse — subtle brightness variation */
-      var rayPulse = 0.7 + 0.3 * Math.sin(now * PULSE_SPEED * 0.7 + ray.pulsePhase);
+      /* Per-ray pulse — more noticeable brightness variation */
+      var rayPulse = 0.6 + 0.4 * Math.sin(now * PULSE_SPEED * 0.8 + ray.pulsePhase);
       var opacity = MAX_RAY_OPACITY * rayPulse * globalPulse;
 
       /* Endpoint */
@@ -204,10 +207,10 @@
 
       /* Gradient along the ray — warm at base, fading to transparent at tip */
       var grad = ctx.createLinearGradient(fx, fy, endX, endY);
-      grad.addColorStop(0, 'rgba(' + ray.colorBaseR + ',' + ray.colorBaseG + ',' + ray.colorBaseB + ',' + (opacity * 1.2).toFixed(3) + ')');
-      grad.addColorStop(0.15, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.9).toFixed(3) + ')');
-      grad.addColorStop(0.5, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.5).toFixed(3) + ')');
-      grad.addColorStop(0.85, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.15).toFixed(3) + ')');
+      grad.addColorStop(0, 'rgba(' + ray.colorBaseR + ',' + ray.colorBaseG + ',' + ray.colorBaseB + ',' + (opacity * 1.3).toFixed(3) + ')');
+      grad.addColorStop(0.1, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 1.0).toFixed(3) + ')');
+      grad.addColorStop(0.4, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.55).toFixed(3) + ')');
+      grad.addColorStop(0.75, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.18).toFixed(3) + ')');
       grad.addColorStop(1, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',0)');
 
       /* Draw the ray */
@@ -219,12 +222,12 @@
       ctx.stroke();
     }
 
-    /* Secondary glow layer — larger, even softer, for atmospheric depth */
-    var glow2Radius = Math.max(1, Math.min(w, h) * 0.25);
+    /* Secondary glow layer — larger, sage-tinted, for atmospheric depth */
+    var glow2Radius = Math.max(1, Math.min(w, h) * 0.3);
     var glow2 = ctx.createRadialGradient(fx, fy, 0, fx, fy, glow2Radius);
-    glow2.addColorStop(0, 'rgba(201,169,110,' + (0.04 * globalPulse).toFixed(3) + ')');
-    glow2.addColorStop(0.5, 'rgba(168,155,100,' + (0.02 * globalPulse).toFixed(3) + ')');
-    glow2.addColorStop(1, 'rgba(122,138,106,0)');
+    glow2.addColorStop(0, 'rgba(145,155,100,' + (0.06 * globalPulse).toFixed(3) + ')');
+    glow2.addColorStop(0.4, 'rgba(122,138,106,' + (0.03 * globalPulse).toFixed(3) + ')');
+    glow2.addColorStop(1, 'rgba(105,132,88,0)');
     ctx.fillStyle = glow2;
     ctx.fillRect(fx - glow2Radius, fy - glow2Radius, glow2Radius * 2, glow2Radius * 2);
   };
