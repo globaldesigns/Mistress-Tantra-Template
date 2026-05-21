@@ -247,20 +247,37 @@
 (function(){
   var videos = document.querySelectorAll('video[data-seamless-loop]');
   videos.forEach(function(v){
+    // Use requestAnimationFrame for frame-accurate loop timing.
+    // The crossfade zone occupies the last ~1.95s of the video.
+    // We seek back at ~0.5s before the end, where the dissolve
+    // is ~75% complete and the visual closely matches frame 0.
+    var SEEK_BACK_FROM = 0.5; // seconds before end
+    var monitoring = false;
+
     v.addEventListener('timeupdate', function(){
-      // The crossfade zone occupies the last ~1.95s of the video.
-      // At ~1.3s before the end, the dissolve is ~66% complete —
-      // the visual is already very close to the start of the video.
-      // Seeking back here makes the loop imperceptible.
-      var threshold = v.duration - 1.3;
-      if (threshold > 0 && v.currentTime >= threshold) {
-        v.currentTime = 0;
+      if (monitoring) return;
+      // Switch to rAF monitoring when we enter the crossfade zone
+      var crossfadeStart = v.duration - 1.95;
+      if (v.duration && v.currentTime >= crossfadeStart) {
+        monitoring = true;
+        requestAnimationFrame(function tick() {
+          if (!monitoring) return;
+          var threshold = v.duration - SEEK_BACK_FROM;
+          if (v.currentTime >= threshold) {
+            v.currentTime = 0;
+            monitoring = false;
+            return;
+          }
+          requestAnimationFrame(tick);
+        });
       }
     });
+
     // Fallback: if the video somehow reaches the end
     v.addEventListener('ended', function(){
       v.currentTime = 0;
       v.play();
+      monitoring = false;
     });
   });
 })();
