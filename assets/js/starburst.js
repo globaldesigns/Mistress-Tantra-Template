@@ -128,9 +128,11 @@
     this.canvas.height = Math.round(this.height * this.dpr);
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
 
-    /* Focal point at bottom center of canvas */
+    /* Focal point at bottom of the section.
+       Canvas is 150% of section height with bottom:0,
+       so section bottom = 2/3 of canvas height from top. */
     this.focalX = this.width / 2;
-    this.focalY = this.height;
+    this.focalY = this.height * (2 / 3);
   };
 
   StarburstInstance.prototype.start = function () {
