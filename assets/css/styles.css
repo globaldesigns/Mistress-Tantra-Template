@@ -2175,7 +2175,7 @@ section:has(.card-image-offering) .card-image-offering {
 
 /* ─── About Page — Reduced overlap & smaller image to reveal stream video ─── */
 #about .about-overlap-image {
-  margin-top: -64px;
+  margin-top: -20px;
 }
 #about .about-overlap-image img {
   height: 200px;
