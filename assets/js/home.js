@@ -242,3 +242,25 @@
     }
   }
 })();
+
+/* Seamless video loop — seek back before the hard cut */
+(function(){
+  var videos = document.querySelectorAll('video[data-seamless-loop]');
+  videos.forEach(function(v){
+    v.addEventListener('timeupdate', function(){
+      // The crossfade zone occupies the last ~1.95s of the video.
+      // At ~1.3s before the end, the dissolve is ~66% complete —
+      // the visual is already very close to the start of the video.
+      // Seeking back here makes the loop imperceptible.
+      var threshold = v.duration - 1.3;
+      if (threshold > 0 && v.currentTime >= threshold) {
+        v.currentTime = 0;
+      }
+    });
+    // Fallback: if the video somehow reaches the end
+    v.addEventListener('ended', function(){
+      v.currentTime = 0;
+      v.play();
+    });
+  });
+})();
