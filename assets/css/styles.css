@@ -2179,7 +2179,7 @@ section:has(.card-image-offering) .card-image-offering {
 }
 #aboutOverlapImage img {
   height: 500px !important;
-  object-position: center 20% !important;
+  object-position: center top !important;
 }
 @media (max-width: 1024px) {
   #aboutOverlapImage img { height: 420px !important; }
