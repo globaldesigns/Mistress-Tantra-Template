@@ -2057,7 +2057,7 @@ section:has(.card-image-offering) .card-image-offering {
 /* ═══════════════════════════════════════════════════════════════
    Connect Page — Video Hero (based on .about-hero-gradient)
    ═══════════════════════════════════════════════════════════════ */
-.connect-hero-video {
+.video-hero {
   position: relative;
   overflow: hidden;
   padding: 180px 0 140px;
@@ -2069,7 +2069,7 @@ section:has(.card-image-offering) .card-image-offering {
   background: #1a1510; /* fallback */
 }
 
-.connect-hero-video video {
+.video-hero video {
   position: absolute;
   top: 0;
   left: 0;
@@ -2080,7 +2080,7 @@ section:has(.card-image-offering) .card-image-offering {
   z-index: 0;
 }
 
-.connect-hero-video .hero-overlay-dark {
+.video-hero .hero-overlay-dark {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -2093,7 +2093,7 @@ section:has(.card-image-offering) .card-image-offering {
   z-index: 1;
 }
 
-.connect-hero-video .hero-content {
+.video-hero .hero-content {
   position: relative;
   z-index: 2;
   max-width: 800px;
@@ -2101,7 +2101,7 @@ section:has(.card-image-offering) .card-image-offering {
   padding: 0 2rem;
 }
 
-.connect-hero-video .hero-content h1 {
+.video-hero .hero-content h1 {
   font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2.8rem, 6vw, 4.5rem);
   color: var(--linen);
@@ -2111,7 +2111,7 @@ section:has(.card-image-offering) .card-image-offering {
   text-align: center;
 }
 
-.connect-hero-video .hero-content .about-subheader {
+.video-hero .hero-content .about-subheader {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
   font-size: clamp(1.1rem, 2.4vw, 1.6rem);
@@ -2123,7 +2123,7 @@ section:has(.card-image-offering) .card-image-offering {
   width: 100%;
 }
 
-.connect-hero-video .hero-content .location-label {
+.video-hero .hero-content .location-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
@@ -2136,20 +2136,20 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 @media (max-width: 1024px) {
-  .connect-hero-video { padding: 160px 0 120px; min-height: 440px; }
+  .video-hero { padding: 160px 0 120px; min-height: 440px; }
 }
 
 @media (max-width: 768px) {
-  .connect-hero-video { padding: 140px 0 100px; min-height: 380px; }
+  .video-hero { padding: 140px 0 100px; min-height: 380px; }
 }
 
 @media (max-width: 480px) {
-  .connect-hero-video { padding: 120px 0 80px; min-height: 320px; }
+  .video-hero { padding: 120px 0 80px; min-height: 320px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .connect-hero-video video { display: none; }
-  .connect-hero-video {
+  .video-hero video { display: none; }
+  .video-hero {
     background: linear-gradient(-45deg, #3d3428 0%, #5a4a30 15%, #7a6a3a 30%, #c9a96e 45%, #8a7a48 60%, #5a4a30 75%, #3d3428 100%);
     background-size: 400% 400%;
   }
