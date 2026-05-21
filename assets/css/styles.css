@@ -2190,3 +2190,40 @@ section:has(.card-image-offering) .card-image-offering {
 @media (max-width: 480px) {
   #aboutOverlapImage img { height: 300px !important; }
 }
+
+/* ─── Connect Page — Sacred Path video overlay ─── */
+.sacred-path-section {
+  position: relative;
+  overflow: hidden;
+}
+.sacred-path-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+}
+.sacred-path-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 32, 19, 0.6) 0%,
+    rgba(15, 32, 19, 0.3) 50%,
+    rgba(15, 32, 19, 0.6) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .sacred-path-video {
+    opacity: 0.15;
+  }
+}
