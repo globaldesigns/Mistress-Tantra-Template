@@ -820,10 +820,10 @@ section {
 
 @media (max-width: 1024px) {
   .grid-3 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
   .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
@@ -854,7 +854,7 @@ section {
     min-width: 100%;
   }
   .footer-top {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1252,7 +1252,7 @@ img {
 
 @media (max-width: 768px) {
   .footer-top {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
   .footer-bottom {
     flex-direction: column;
@@ -1929,6 +1929,72 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 /* ============================================================
+   RESPONSIVE IMAGE HEIGHTS — replaces inline fixed-height styles
+   ============================================================ */
+.img-hero-tall {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.img-hero-medium {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+@media (max-width: 1024px) {
+  .img-hero-tall { height: 450px; }
+  .img-hero-medium { height: 400px; }
+}
+@media (max-width: 768px) {
+  .img-hero-tall { height: 380px; }
+  .img-hero-medium { height: 340px; }
+}
+@media (max-width: 480px) {
+  .img-hero-tall { height: 300px; }
+  .img-hero-medium { height: 260px; }
+}
+
+/* ─── GLOBAL MOBILE: 24px min side-padding + responsive fixes ─── */
+@media (max-width: 480px) {
+  .container,
+  .container-narrow,
+  .container-wide {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .hero-content {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .split-text {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .footer-top {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .about-overlap-image {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  /* Blog subscribe form stacks on mobile */
+  .blog-subscribe-form {
+    flex-direction: column !important;
+  }
+  .blog-subscribe-form input,
+  .blog-subscribe-form button {
+    width: 100% !important;
+  }
+}
+
+/* ============================================================
    ABOUT PAGE HERO GRADIENT ANIMATION
    Slow-moving horizontal gradient using deep-forest + aman-gold
    ============================================================ */
@@ -2037,7 +2103,7 @@ section:has(.card-image-offering) .card-image-offering {
 
 @media (max-width: 480px) {
   .about-hero-gradient { padding: 120px 0 80px; min-height: 320px; }
-  .about-overlap-image { margin-top: -40px; padding: 0 1rem; }
+  .about-overlap-image { margin-top: -40px; padding: 0 24px; }
   .about-overlap-image img { height: 300px; }
 }
 
@@ -2236,5 +2302,12 @@ section:has(.card-image-offering) .card-image-offering {
   .sacred-path-video.crossfade-active,
   .sacred-path-video.crossfade-out {
     opacity: 0.15;
+  }
+}
+
+/* ─── Connect Page — responsive details padding ─── */
+@media (max-width: 1024px) {
+  .connect-details {
+    padding-left: 0 !important;
   }
 }
