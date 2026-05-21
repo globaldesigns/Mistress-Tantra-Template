@@ -2173,12 +2173,13 @@ section:has(.card-image-offering) .card-image-offering {
   .video-hero-tall { padding: 156px 0 104px; min-height: 416px; }
 }
 
-/* ─── About Page — Assessing overlap position (no negative margin baseline) ─── */
+/* ─── About Page — Overlap image: small overlap, no crop ─── */
 #aboutOverlapImage {
-  margin-top: 0;
+  margin-top: -40px;
 }
 #aboutOverlapImage img {
   height: 200px;
+  object-position: center top;
 }
 @media (max-width: 1024px) {
   #aboutOverlapImage img { height: 168px; }
