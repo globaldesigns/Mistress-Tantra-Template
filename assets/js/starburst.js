@@ -2,37 +2,37 @@
    SACRED STARBURST — Stripe-style radiant ray visualization
    Canvas 2D implementation using the site's earthy palette.
    Hundreds of thin lines fan outward from a bottom focal point,
-   with color gradients from warm bronze/gold at center to
-   sage/forest at edges. Effortlessly visible, meditative motion.
+   with color gradients in rich gold that transition to sage.
+   Visible, alive, never a secret.
    ============================================================ */
 
 (function () {
   'use strict';
 
-  /* -- Color palette — sage-dominant with gold accents -- */
+  /* -- Color palette — rich gold dominant, sage at edges -- */
   var COLORS = {
-    /* Center (warm gold-sage — present but not heavy) */
-    centerA: { r: 185, g: 168, b: 112 },  /* muted aman-gold */
-    centerB: { r: 170, g: 160, b: 108 },  /* soft gold-sage */
-    /* Mid (transitional sage-green — dominant zone) */
-    midA:    { r: 140, g: 152, b: 100 },  /* sage-gold blend */
-    midB:    { r: 118, g: 140, b: 92  },  /* warm sage */
-    /* Edge (cool sage/forest — rich green tones) */
-    edgeA:   { r: 98,  g: 128, b: 82  },  /* sage-green */
-    edgeB:   { r: 75,  g: 100, b: 60  }   /* deep forest-sage */
+    /* Center (rich warm gold — unmistakable, not beige) */
+    centerA: { r: 210, g: 175, b: 105 },  /* full aman-gold, rich */
+    centerB: { r: 200, g: 168, b: 100 },  /* warm amber gold */
+    /* Mid (gold with sage influence — still reads gold) */
+    midA:    { r: 188, g: 162, b: 98  },  /* golden-sage blend */
+    midB:    { r: 168, g: 155, b: 95  },  /* warm gold-sage */
+    /* Edge (sage with gold undertone — green but warm) */
+    edgeA:   { r: 138, g: 148, b: 90  },  /* sage-gold */
+    edgeB:   { r: 110, g: 128, b: 75  }   /* deep sage */
   };
 
-  /* Max opacity for individual rays — effortlessly visible without straining */
-  var MAX_RAY_OPACITY = 0.52;
+  /* Max opacity — rays are clearly visible, not hiding */
+  var MAX_RAY_OPACITY = 0.55;
 
-  /* Number of rays — density for visual impact */
+  /* Number of rays */
   var RAY_COUNT = 320;
 
   /* Spread angle in radians from the focal point upward.
      Math.PI = full semicircle (180°). */
   var SPREAD_ANGLE = Math.PI * 0.94;
 
-  /* Animation timing — noticeably alive, meditative not frantic */
+  /* Animation timing — alive, meditative, noticeable */
   var DRIFT_SPEED  = 0.00032;   /* Noticeable angular sway */
   var PULSE_SPEED  = 0.001;     /* Clear brightness pulse */
   var LENGTH_SPEED = 0.0004;    /* Visible length breathing */
@@ -56,10 +56,10 @@
 
   Ray.prototype._computeColor = function (index, total) {
     /* t goes from 0 (left edge) to 1 (right edge).
-       Center rays (t ≈ 0.5) get warm gold, edge rays get cool sage. */
+       Center rays (t ≈ 0.5) get rich gold, edge rays get cool sage. */
     var t = index / (total - 1);
     var centerWeight = 1 - Math.abs(t - 0.5) * 2; /* 1 at center, 0 at edges */
-    centerWeight = Math.pow(centerWeight, 0.55);     /* Wider sage zone — green dominates most of the fan */
+    centerWeight = Math.pow(centerWeight, 0.45);     /* Wide gold zone — gold dominates most of the fan */
 
     /* Interpolate between center and edge colors */
     var cA = COLORS.centerA, cB = COLORS.centerB;
@@ -75,7 +75,7 @@
       g = Math.round(mAc.g + (cA.g - mAc.g) * localT);
       b = Math.round(mAc.b + (cA.b - mAc.b) * localT);
     } else {
-      /* Mid to edge blend — this is the dominant zone */
+      /* Mid to edge blend */
       var localT = centerWeight / 0.5;
       r = Math.round(eA.r + (mAc.r - eA.r) * localT);
       g = Math.round(eA.g + (mAc.g - eA.g) * localT);
@@ -86,9 +86,9 @@
     this.colorG = g;
     this.colorB = b;
 
-    /* Base color — subtle warmth at the origin, not a bright gold spot */
-    this.colorBaseR = Math.min(255, r + 10);
-    this.colorBaseG = Math.min(255, g + 8);
+    /* Base color — warm gold at the origin point */
+    this.colorBaseR = Math.min(255, r + 15);
+    this.colorBaseG = Math.min(255, g + 10);
     this.colorBaseB = Math.min(255, b + 4);
   };
 
@@ -175,13 +175,13 @@
     /* Global pulse — gentle brightness oscillation */
     var globalPulse = 0.82 + 0.18 * Math.sin(now * PULSE_SPEED);
 
-    /* Central glow — subtle sage-gold radial gradient, not a bright gold spot */
-    var glowRadius = Math.max(1, Math.min(w, h) * 0.12);
+    /* Central glow — warm gold radial gradient at the focal point */
+    var glowRadius = Math.max(1, Math.min(w, h) * 0.14);
     var glow = ctx.createRadialGradient(fx, fy, 0, fx, fy, glowRadius);
-    glow.addColorStop(0, 'rgba(170,160,108,' + (0.10 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(0.3, 'rgba(140,152,100,' + (0.06 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(0.65, 'rgba(118,140,92,' + (0.025 * globalPulse).toFixed(3) + ')');
-    glow.addColorStop(1, 'rgba(98,128,82,0)');
+    glow.addColorStop(0, 'rgba(210,175,105,' + (0.14 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(0.3, 'rgba(188,162,98,' + (0.08 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(0.65, 'rgba(168,155,95,' + (0.03 * globalPulse).toFixed(3) + ')');
+    glow.addColorStop(1, 'rgba(138,148,90,0)');
     ctx.fillStyle = glow;
     ctx.fillRect(fx - glowRadius, fy - glowRadius, glowRadius * 2, glowRadius * 2);
 
@@ -189,9 +189,9 @@
     for (var i = 0; i < this.rays.length; i++) {
       var ray = this.rays[i];
 
-      /* Angular drift — noticeable sway with primary and secondary oscillation */
+      /* Angular drift — noticeable sway with layered oscillation */
       var driftOffset = Math.sin(now * DRIFT_SPEED + ray.driftPhase) * 0.045;
-      /* Secondary drift for organic feel — different frequency */
+      /* Secondary drift for organic feel */
       driftOffset += Math.sin(now * DRIFT_SPEED * 0.55 + ray.driftPhase * 1.4) * 0.025;
       /* Tertiary micro-drift for living texture */
       driftOffset += Math.sin(now * DRIFT_SPEED * 1.8 + ray.driftPhase * 0.7) * 0.012;
@@ -209,21 +209,23 @@
       var endX = fx + Math.cos(angle) * length;
       var endY = fy + Math.sin(angle) * length;
 
-      /* Gradient along the ray — visible in mid-section, fades at both ends.
-         Base: subtle warmth (not bright gold).
-         8%: full ray color at peak opacity.
-         25%: still clearly visible — the "body" of the ray.
-         45%: solid mid-section presence.
-         65%: starting to thin — transition zone.
-         82%: nearly gone — tips are whisper-thin.
-         100%: transparent. */
+      /* Gradient along the ray — STRONG gold body, gentle fade at tips.
+         The ray holds its color and opacity through the mid-section
+         so it's visible as you scroll into the section.
+         0%:   warm gold base at origin
+         8%:   peak opacity — the ray is fully present
+         30%:  still strong — the visible "body" of the ray
+         55%:  starting to thin — transition zone
+         75%:  fading — approaching whisper
+         90%:  nearly gone
+         100%: transparent */
       var grad = ctx.createLinearGradient(fx, fy, endX, endY);
-      grad.addColorStop(0,    'rgba(' + ray.colorBaseR + ',' + ray.colorBaseG + ',' + ray.colorBaseB + ',' + (opacity * 0.85).toFixed(3) + ')');
-      grad.addColorStop(0.08, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.95).toFixed(3) + ')');
-      grad.addColorStop(0.25, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.80).toFixed(3) + ')');
-      grad.addColorStop(0.45, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.50).toFixed(3) + ')');
-      grad.addColorStop(0.65, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.22).toFixed(3) + ')');
-      grad.addColorStop(0.82, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.06).toFixed(3) + ')');
+      grad.addColorStop(0,    'rgba(' + ray.colorBaseR + ',' + ray.colorBaseG + ',' + ray.colorBaseB + ',' + (opacity * 0.90).toFixed(3) + ')');
+      grad.addColorStop(0.08, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 1.0).toFixed(3) + ')');
+      grad.addColorStop(0.30, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.85).toFixed(3) + ')');
+      grad.addColorStop(0.55, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.55).toFixed(3) + ')');
+      grad.addColorStop(0.75, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.25).toFixed(3) + ')');
+      grad.addColorStop(0.90, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 0.07).toFixed(3) + ')');
       grad.addColorStop(1,    'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',0)');
 
       /* Draw the ray */
@@ -235,12 +237,12 @@
       ctx.stroke();
     }
 
-    /* Secondary glow layer — subtle sage atmospheric depth, no gold dominance */
-    var glow2Radius = Math.max(1, Math.min(w, h) * 0.25);
+    /* Secondary glow layer — warm gold atmospheric depth */
+    var glow2Radius = Math.max(1, Math.min(w, h) * 0.28);
     var glow2 = ctx.createRadialGradient(fx, fy, 0, fx, fy, glow2Radius);
-    glow2.addColorStop(0, 'rgba(140,152,100,' + (0.045 * globalPulse).toFixed(3) + ')');
-    glow2.addColorStop(0.35, 'rgba(118,140,92,' + (0.025 * globalPulse).toFixed(3) + ')');
-    glow2.addColorStop(1, 'rgba(98,128,82,0)');
+    glow2.addColorStop(0, 'rgba(188,162,98,' + (0.07 * globalPulse).toFixed(3) + ')');
+    glow2.addColorStop(0.35, 'rgba(168,155,95,' + (0.035 * globalPulse).toFixed(3) + ')');
+    glow2.addColorStop(1, 'rgba(138,148,90,0)');
     ctx.fillStyle = glow2;
     ctx.fillRect(fx - glow2Radius, fy - glow2Radius, glow2Radius * 2, glow2Radius * 2);
   };
