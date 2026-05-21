@@ -159,19 +159,25 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ============================================================
-     SACRED GEOMETRY — fade in mandala + flow line when intro visible
+     SACRED GEOMETRY — fade in mandala + starburst when intro visible
   ============================================================ */
   var sacredEls = [
     document.getElementById('sacredMandala'),
-    document.getElementById('sacredMandalaSmall'),
-    document.getElementById('sacredParticles')
+    document.getElementById('sacredMandalaSmall')
   ].filter(Boolean);
+
+  /* Starburst canvas — init on intersection */
+  var starburstCanvas = document.getElementById('sacredStarburst');
 
   if (sacredEls.length && 'IntersectionObserver' in window) {
     var sacredObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           sacredEls.forEach(function(el) { el.classList.add('visible'); });
+          if (starburstCanvas) {
+            starburstCanvas.classList.add('visible');
+            if (window.SacredStarburst) window.SacredStarburst.init(starburstCanvas);
+          }
           sacredObserver.disconnect();
         }
       });
@@ -180,6 +186,10 @@
     if (introSection) sacredObserver.observe(introSection);
   } else {
     sacredEls.forEach(function(el) { el.classList.add('visible'); });
+    if (starburstCanvas) {
+      starburstCanvas.classList.add('visible');
+      if (window.SacredStarburst) window.SacredStarburst.init(starburstCanvas);
+    }
   }
 
 
@@ -204,15 +214,20 @@
 (function(){
   var aboutSacredEls = [
     document.getElementById('aboutSacredMandala'),
-    document.getElementById('aboutSacredMandalaSmall'),
-    document.getElementById('aboutSacredParticles')
+    document.getElementById('aboutSacredMandalaSmall')
   ].filter(Boolean);
+
+  var aboutStarburstCanvas = document.getElementById('aboutSacredStarburst');
 
   if (aboutSacredEls.length && 'IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           aboutSacredEls.forEach(function(el) { el.classList.add('visible'); });
+          if (aboutStarburstCanvas) {
+            aboutStarburstCanvas.classList.add('visible');
+            if (window.SacredStarburst) window.SacredStarburst.init(aboutStarburstCanvas);
+          }
           obs.disconnect();
         }
       });
@@ -221,5 +236,9 @@
     if (originSection) obs.observe(originSection);
   } else {
     aboutSacredEls.forEach(function(el) { el.classList.add('visible'); });
+    if (aboutStarburstCanvas) {
+      aboutStarburstCanvas.classList.add('visible');
+      if (window.SacredStarburst) window.SacredStarburst.init(aboutStarburstCanvas);
+    }
   }
 })();
