@@ -164,7 +164,7 @@
   var sacredEls = [
     document.getElementById('sacredMandala'),
     document.getElementById('sacredMandalaSmall'),
-    document.getElementById('sacredFlowLine')
+    document.getElementById('sacredParticles')
   ].filter(Boolean);
 
   if (sacredEls.length && 'IntersectionObserver' in window) {
@@ -205,7 +205,7 @@
   var aboutSacredEls = [
     document.getElementById('aboutSacredMandala'),
     document.getElementById('aboutSacredMandalaSmall'),
-    document.getElementById('aboutSacredFlowLine')
+    document.getElementById('aboutSacredParticles')
   ].filter(Boolean);
 
   if (aboutSacredEls.length && 'IntersectionObserver' in window) {

@@ -68,8 +68,8 @@
   to   { transform: rotate(360deg); }
 }
 
-/* Animated flow line — slightly more prominent */
-.sacred-flow-line {
+/* Sacred particle ribbon — scattered golden dots floating gently */
+.sacred-particle-ribbon {
   position: absolute;
   top: 0;
   left: 0;
@@ -78,32 +78,57 @@
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  transition: opacity 1.5s ease 1.2s;
+  transition: opacity 2s ease 0.8s;
 }
 
-.sacred-flow-line.visible {
+.sacred-particle-ribbon.visible {
   opacity: 1;
 }
 
-.flow-path {
-  stroke-dasharray: 1400;
-  stroke-dashoffset: 1400;
-  animation: flowDraw 3.5s ease-out 1.4s forwards,
-             flowPulse 4s ease-in-out 5s infinite, flowDrift 9s linear 5s infinite;
+.sacred-particle {
+  position: absolute;
+  left: var(--px);
+  top: var(--py);
+  width: var(--ps);
+  height: var(--ps);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.85) 0%, rgba(201,169,110,0.3) 60%, transparent 100%);
+  box-shadow: 0 0 calc(var(--ps) * 1.5) rgba(201,169,110,0.25);
+  opacity: 0;
+  animation: particleFadeIn 1.5s ease var(--pd) forwards,
+             particleFloat var(--pdr) ease-in-out var(--pd) infinite,
+             particleGlow 6s ease-in-out var(--pd) infinite;
 }
 
-@keyframes flowDraw {
-  to { stroke-dashoffset: 0; }
+@keyframes particleFadeIn {
+  0%   { opacity: 0; transform: scale(0.3); }
+  100% { opacity: 0.7; transform: scale(1); }
 }
 
-@keyframes flowPulse {
-  0%, 100% { opacity: 0.30; }
-  50%      { opacity: 0.52; }
+@keyframes particleFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20%      { transform: translate(6px, -10px) scale(1.1); }
+  40%      { transform: translate(-4px, -18px) scale(0.95); }
+  60%      { transform: translate(8px, -8px) scale(1.05); }
+  80%      { transform: translate(-6px, -14px) scale(0.9); }
 }
 
-@keyframes flowDrift {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -1400; }
+@keyframes particleGlow {
+  0%, 100% { box-shadow: 0 0 calc(var(--ps) * 1.5) rgba(201,169,110,0.15); opacity: 0.5; }
+  50%      { box-shadow: 0 0 calc(var(--ps) * 2.5) rgba(201,169,110,0.35); opacity: 0.85; }
+}
+
+@media (max-width: 768px) {
+  .sacred-particle {
+    opacity: 0.5;
+    --ps: calc(var(--ps) * 0.8);
+  }
+}
+
+@media (max-width: 480px) {
+  .sacred-particle {
+    opacity: 0.4;
+  }
 }
 
 @media (max-width: 768px) {
@@ -301,7 +326,7 @@
   right: -6%;
 }
 
-#aboutSacredFlowLine {
+#aboutSacredParticles {
   top: 5%;
   bottom: auto;
 }
