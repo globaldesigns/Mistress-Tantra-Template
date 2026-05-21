@@ -2154,3 +2154,21 @@ section:has(.card-image-offering) .card-image-offering {
     background-size: 400% 400%;
   }
 }
+
+/* ─── Offerings Page — Taller Hero (30% more) ─── */
+.video-hero-tall {
+  padding: 234px 0 182px;
+  min-height: 676px;
+}
+
+@media (max-width: 1024px) {
+  .video-hero-tall { padding: 208px 0 156px; min-height: 572px; }
+}
+
+@media (max-width: 768px) {
+  .video-hero-tall { padding: 182px 0 130px; min-height: 494px; }
+}
+
+@media (max-width: 480px) {
+  .video-hero-tall { padding: 156px 0 104px; min-height: 416px; }
+}
