@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=2">
   <link rel="stylesheet" href="assets/css/home.css">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
@@ -214,10 +214,14 @@
 
   <!-- The Process -->
   <section class="section-dark sacred-path-section">
-    <!-- Background video overlay -->
-    <video class="sacred-path-video" autoplay muted loop playsinline>
-      <source src="assets/videos/sacred-path-bg.webm" type="video/webm">
-      <source src="assets/videos/sacred-path-bg.mp4" type="video/mp4">
+    <!-- Background video overlay — dual video crossfade for seamless loop -->
+    <video class="sacred-path-video sacred-path-video-a" autoplay muted playsinline>
+      <source src="assets/videos/sacred-path-bg.webm?v=2" type="video/webm">
+      <source src="assets/videos/sacred-path-bg.mp4?v=2" type="video/mp4">
+    </video>
+    <video class="sacred-path-video sacred-path-video-b" muted playsinline>
+      <source src="assets/videos/sacred-path-bg.webm?v=2" type="video/webm">
+      <source src="assets/videos/sacred-path-bg.mp4?v=2" type="video/mp4">
     </video>
     <div class="sacred-path-video-overlay"></div>
     <div class="container text-center" style="position:relative; z-index:2;">
@@ -344,5 +348,45 @@
   <div class="back-to-top">↑</div>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/home.js"></script>
+
+  <!-- Sacred Path video crossfade loop -->
+  <script>
+  (function() {
+    const vidA = document.querySelector('.sacred-path-video-a');
+    const vidB = document.querySelector('.sacred-path-video-b');
+    if (!vidA || !vidB) return;
+
+    let current = 'a';
+    const FADE_MS = 1500; // matches CSS transition duration
+
+    function startCrossfade() {
+      const outgoing = current === 'a' ? vidA : vidB;
+      const incoming = current === 'a' ? vidB : vidA;
+
+      // Start incoming video from beginning
+      incoming.currentTime = 0;
+      incoming.play();
+
+      // Fade in incoming, fade out outgoing
+      incoming.classList.add('crossfade-active');
+      outgoing.classList.remove('crossfade-active');
+      outgoing.classList.add('crossfade-out');
+
+      // After fade completes, fully hide outgoing and reset
+      setTimeout(function() {
+        outgoing.classList.remove('crossfade-out');
+        outgoing.pause();
+        current = current === 'a' ? 'b' : 'a';
+      }, FADE_MS + 200);
+    }
+
+    // When the playing video ends, trigger crossfade
+    vidA.addEventListener('ended', startCrossfade);
+    vidB.addEventListener('ended', startCrossfade);
+
+    // Kick off: show video A
+    vidA.classList.add('crossfade-active');
+  })();
+  </script>
 </body>
 </html>
