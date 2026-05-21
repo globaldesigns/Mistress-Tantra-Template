@@ -2173,7 +2173,19 @@ section:has(.card-image-offering) .card-image-offering {
   .video-hero-tall { padding: 156px 0 104px; min-height: 416px; }
 }
 
-/* ─── About Page — Reduced overlap to reveal stream video ─── */
+/* ─── About Page — Reduced overlap & smaller image to reveal stream video ─── */
 #about .about-overlap-image {
   margin-top: -64px;
+}
+#about .about-overlap-image img {
+  height: 200px;
+}
+@media (max-width: 1024px) {
+  #about .about-overlap-image img { height: 168px; }
+}
+@media (max-width: 768px) {
+  #about .about-overlap-image img { height: 144px; }
+}
+@media (max-width: 480px) {
+  #about .about-overlap-image img { height: 120px; }
 }
