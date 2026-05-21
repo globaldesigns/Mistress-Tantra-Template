@@ -2023,11 +2023,6 @@ section:has(.card-image-offering) .card-image-offering {
   transform: translateY(0);
 }
 
-/* About page: minimal overlap so stream video is visible */
-#about .about-overlap-image {
-  margin-top: -40px;
-}
-
 @media (max-width: 1024px) {
   .about-hero-gradient { padding: 160px 0 120px; min-height: 440px; }
   .about-overlap-image { margin-top: -60px; }
@@ -2176,4 +2171,113 @@ section:has(.card-image-offering) .card-image-offering {
 
 @media (max-width: 480px) {
   .video-hero-tall { padding: 156px 0 104px; min-height: 416px; }
+}
+
+/* ─── About Page — Image Hero ─── */
+.about-hero-image {
+  position: relative;
+  overflow: hidden;
+  padding: 234px 0 182px;
+  min-height: 676px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: url('../images/hero-about.webp') center 20% / cover no-repeat;
+  background-color: #1a1510; /* fallback */
+}
+
+.about-hero-image .hero-overlay-dark {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 21, 16, 0.55) 0%,
+    rgba(26, 21, 16, 0.35) 40%,
+    rgba(26, 21, 16, 0.45) 70%,
+    rgba(26, 21, 16, 0.70) 100%
+  );
+  z-index: 1;
+}
+
+.about-hero-image .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.about-hero-image .hero-content h1 {
+  font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  color: var(--linen);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.about-hero-image .hero-content .about-subheader {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  color: var(--aman-gold);
+  font-weight: 300;
+  margin: 0.5rem auto 0;
+  text-align: center !important;
+  opacity: 0.85;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .about-hero-image { padding: 208px 0 156px; min-height: 572px; }
+}
+
+@media (max-width: 768px) {
+  .about-hero-image { padding: 182px 0 130px; min-height: 494px; }
+}
+
+@media (max-width: 480px) {
+  .about-hero-image { padding: 156px 0 104px; min-height: 416px; }
+}
+
+/* ─── About Page — Video in Overlap Slot ─── */
+.about-overlap-video {
+  position: relative;
+  z-index: 3;
+  margin-top: -80px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+.about-overlap-video video {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 1024px) {
+  .about-overlap-video { margin-top: -60px; }
+  .about-overlap-video video { height: 420px; }
+}
+
+@media (max-width: 768px) {
+  .about-overlap-video { margin-top: -50px; padding: 0 1.5rem; }
+  .about-overlap-video video { height: 360px; }
+}
+
+@media (max-width: 480px) {
+  .about-overlap-video { margin-top: -40px; padding: 0 1rem; }
+  .about-overlap-video video { height: 300px; }
+}
+
+.about-overlap-video + .section-linen {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
