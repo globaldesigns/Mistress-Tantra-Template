@@ -9,11 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=16">
+  <link rel="stylesheet" href="assets/css/styles.css?v=17">
   <link rel="stylesheet" href="assets/css/home.css">
-  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=2">
+  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=3">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <script src="assets/js/responsive-video.js"></script>
 </head>
 <body>
 
@@ -121,8 +122,9 @@
 
 <!-- Hero -->
   <section id="about" class="video-hero video-hero-tall">
-    <video autoplay muted loop playsinline>
-      <source src="assets/videos/rainforest-hero.webm?v=1" type="video/webm">
+    <video autoplay muted loop playsinline data-responsive>
+      <source data-src="assets/videos/{dir}/rainforest-hero.webm" type="video/webm">
+      <source data-src="assets/videos/{dir}/rainforest-hero.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay-dark"></div>
     <div class="hero-content">
@@ -132,7 +134,13 @@
   </section>
 
   <div class="about-overlap-image" id="aboutOverlapImage">
-    <img src="assets/images/hero-about.webp?v=3" alt="Mistress Tantra in meditation">
+    <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-about.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-about.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-about.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-about.webp" type="image/webp">
+      <img src="assets/images/hero-about.png" alt="Mistress Tantra in meditation" class="">
+    </picture>
   </div>
 
   <!-- Origin Story -->
@@ -156,7 +164,13 @@
           <p>That moment was the beginning of everything — a devotion to the ancient traditions of Tantra, the healing arts, and the radical, transformative power of sacred touch.</p>
         </div>
         <div class="fade-in-right">
-          <img src="assets/images/hero-home.png" alt="Mistress Tantra in sacred practice" class="img-hero-tall" style="object-position: center 30%;">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-home.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-home.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-home.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-home.webp" type="image/webp">
+      <img src="assets/images/hero-home.png" alt="Mistress Tantra in sacred practice" class="img-hero-tall" style="object-position: center 30%;">
+    </picture>
         </div>
       </div>
     </div>
@@ -199,7 +213,13 @@
     <div class="container">
       <div class="grid-2">
         <div class="fade-in-left" style="order: 1;">
-          <img src="assets/images/hero-connect.jpg" alt="Mistress Tantra's training journey" class="img-hero-medium" style="object-position: center 30%;">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-connect.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-connect.webp" type="image/webp">
+      <img src="assets/images/hero-connect.jpg" alt="Mistress Tantra's training journey" class="img-hero-medium" style="object-position: center 30%;">
+    </picture>
         </div>
         <div class="split-text fade-in-right" style="order: 2;">
           <p class="subtitle">Training & Lineage</p>

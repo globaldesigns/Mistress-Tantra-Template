@@ -9,10 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=17">
   <link rel="stylesheet" href="assets/css/home.css">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <script src="assets/js/responsive-video.js"></script>
 </head>
 <body>
 
@@ -120,7 +121,13 @@
 
 <!-- Hero -->
   <section id="blog" class="hero" style="padding-top: 160px;">
-    <img src="assets/images/hero-blog.png" alt="Sacred writings and reflections" class="hero-bg">
+    <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-blog.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-blog.webp" type="image/webp">
+      <img src="assets/images/hero-blog.png" alt="Sacred writings and reflections" class="hero-bg">
+    </picture>
     <div class="hero-overlay dark"></div>
     <div class="hero-content">
       <p class="subtitle">Sacred Writings</p>
@@ -139,7 +146,13 @@
     <div class="container">
       <p class="subtitle fade-in">Featured</p>
       <div class="blog-card fade-in" style="margin-top: var(--space-sm);">
-        <img src="assets/images/hero-about.png" alt="The Myth of the Broken Body – featured Tantra blog post by Mistress Tantra" class="blog-card-image" style="object-position: center 25%;">
+        <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-about.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-about.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-about.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-about.webp" type="image/webp">
+      <img src="assets/images/hero-about.png" alt="The Myth of the Broken Body – featured Tantra blog post by Mistress Tantra" class="blog-card-image" style="object-position: center 25%;">
+    </picture>
         <div class="blog-card-content">
           <span class="blog-date">April 2025</span>
           <h2>The Myth of the Broken Body: Why Your Sensuality Was Never the Problem</h2>
@@ -160,7 +173,13 @@
       <div class="grid-3" style="margin-top: var(--space-lg);">
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-offerings.jpg" alt="The Anatomy of Sacred Touch – Tantra blog article" class="card-image">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-offerings.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-offerings.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-offerings.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-offerings.webp" type="image/webp">
+      <img src="assets/images/hero-offerings.jpg" alt="The Anatomy of Sacred Touch – Tantra blog article" class="card-image">
+    </picture>
           </div>
           <div class="card-body">
             <span class="blog-date" style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage);">March 2025</span>
@@ -171,7 +190,13 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-connect.jpg" alt="Breath as Portal – Tantric Breathing guide article" class="card-image" style="object-position: center 30%;">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-connect.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-connect.webp" type="image/webp">
+      <img src="assets/images/hero-connect.jpg" alt="Breath as Portal – Tantric Breathing guide article" class="card-image" style="object-position: center 30%;">
+    </picture>
           </div>
           <div class="card-body">
             <span class="blog-date" style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage);">February 2025</span>
@@ -182,7 +207,13 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-home.png" alt="Desire Is Not the Enemy – reclaiming sensuality article" class="card-image" style="object-position: center 30%;">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-home.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-home.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-home.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-home.webp" type="image/webp">
+      <img src="assets/images/hero-home.png" alt="Desire Is Not the Enemy – reclaiming sensuality article" class="card-image" style="object-position: center 30%;">
+    </picture>
           </div>
           <div class="card-body">
             <span class="blog-date" style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage);">January 2025</span>
@@ -193,7 +224,13 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-blog.png" alt="The Art of Receiving – Tantra practice article" class="card-image" style="object-position: center 35%;">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-blog.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-blog.webp" type="image/webp">
+      <img src="assets/images/hero-blog.png" alt="The Art of Receiving – Tantra practice article" class="card-image" style="object-position: center 35%;">
+    </picture>
           </div>
           <div class="card-body">
             <span class="blog-date" style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage);">December 2024</span>
@@ -204,7 +241,13 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-about.png" alt="Tantra for Two – sacred practices for couples article" class="card-image" style="object-position: center 25%;">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-about.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-about.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-about.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-about.webp" type="image/webp">
+      <img src="assets/images/hero-about.png" alt="Tantra for Two – sacred practices for couples article" class="card-image" style="object-position: center 25%;">
+    </picture>
           </div>
           <div class="card-body">
             <span class="blog-date" style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage);">November 2024</span>
@@ -215,7 +258,13 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-offerings.jpg" alt="After the Session – Tantra integration practices article" class="card-image">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-offerings.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-offerings.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-offerings.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-offerings.webp" type="image/webp">
+      <img src="assets/images/hero-offerings.jpg" alt="After the Session – Tantra integration practices article" class="card-image">
+    </picture>
           </div>
           <div class="card-body">
             <span class="blog-date" style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage);">October 2024</span>

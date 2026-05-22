@@ -9,11 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=2">
+  <link rel="stylesheet" href="assets/css/styles.css?v=17">
   <link rel="stylesheet" href="assets/css/home.css">
-  <link rel="stylesheet" href="assets/css/sacred-geometry.css">
+  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=3">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <script src="assets/js/responsive-video.js"></script>
 </head>
 <body>
 
@@ -121,8 +122,9 @@
 
 <!-- Hero -->
   <section id="offerings" class="video-hero video-hero-tall">
-    <video autoplay muted loop playsinline>
-      <source src="assets/videos/lotus-pond-hero.webm?v=3" type="video/webm">
+    <video autoplay muted loop playsinline data-responsive>
+      <source data-src="assets/videos/{dir}/lotus-pond-hero.webm" type="video/webm">
+      <source data-src="assets/videos/{dir}/lotus-pond-hero.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay-dark"></div>
     <div class="hero-content">
@@ -132,7 +134,13 @@
   </section>
 
   <div class="about-overlap-image">
-    <img src="assets/images/offerings-hero.webp?v=2" alt="Sacred offerings of Mistress Tantra">
+    <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/offerings-hero.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/offerings-hero.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/offerings-hero.webp" type="image/webp">
+      <source srcset="assets/images/laptop/offerings-hero.webp" type="image/webp">
+      <img src="assets/images/offerings-hero.webp" alt="Sacred offerings of Mistress Tantra" class="">
+    </picture>
   </div>
 
   <!-- Offerings Introduction -->
@@ -159,7 +167,13 @@
           <a href="connect.html" class="btn btn-dark mt-md">Book This Offering</a>
         </div>
         <div class="fade-in-right">
-          <img src="assets/images/hero-offerings.webp?v=2" alt="Tantric Ritual offering" style="border-radius: 2px; width: 100%;">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-offerings.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-offerings.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-offerings.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-offerings.webp" type="image/webp">
+      <img src="assets/images/hero-offerings.jpg" alt="Tantric Ritual offering" class="" style="border-radius: 2px; width: 100%;">
+    </picture>
         </div>
       </div>
     </div>
@@ -170,7 +184,13 @@
     <div class="container">
       <div class="grid-2">
         <div class="fade-in-left" style="order: 1;">
-          <img src="assets/images/hero-about.png" alt="Sacred Intimacy offering" class="img-hero-medium">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-about.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-about.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-about.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-about.webp" type="image/webp">
+      <img src="assets/images/hero-about.png" alt="Sacred Intimacy offering" class="img-hero-medium">
+    </picture>
         </div>
         <div class="split-text fade-in-right" style="order: 2;">
           <p class="subtitle">Offering II</p>
@@ -200,7 +220,13 @@
           <a href="connect.html" class="btn btn-primary mt-md">Book This Offering</a>
         </div>
         <div class="fade-in-right">
-          <img src="assets/images/hero-blog.png" alt="Breathwork Journey offering" class="img-hero-medium">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-blog.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-blog.webp" type="image/webp">
+      <img src="assets/images/hero-blog.png" alt="Breathwork Journey offering" class="img-hero-medium">
+    </picture>
         </div>
       </div>
     </div>
@@ -211,7 +237,13 @@
     <div class="container">
       <div class="grid-2">
         <div class="fade-in-left" style="order: 1;">
-          <img src="assets/images/hero-home.png" alt="Couples Journey offering" class="img-hero-medium" style="object-position: center 30%;">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-home.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-home.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-home.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-home.webp" type="image/webp">
+      <img src="assets/images/hero-home.png" alt="Couples Journey offering" class="img-hero-medium" style="object-position: center 30%;">
+    </picture>
         </div>
         <div class="split-text fade-in-right" style="order: 2;">
           <p class="subtitle">Offering IV</p>
@@ -241,7 +273,13 @@
           <a href="connect.html" class="btn btn-dark mt-md">Inquire Now</a>
         </div>
         <div class="fade-in-right">
-          <img src="assets/images/hero-connect.jpg" alt="Private Retreat offering" class="img-hero-medium" style="object-position: center 30%;">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-connect.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-connect.webp" type="image/webp">
+      <img src="assets/images/hero-connect.jpg" alt="Private Retreat offering" class="img-hero-medium" style="object-position: center 30%;">
+    </picture>
         </div>
       </div>
     </div>

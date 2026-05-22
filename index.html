@@ -9,11 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=17">
   <link rel="stylesheet" href="assets/css/home.css">
-  <link rel="stylesheet" href="assets/css/sacred-geometry.css">
+  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=3">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <script src="assets/js/responsive-video.js"></script>
 </head>
 <body class="home-page">
 
@@ -123,9 +124,10 @@
   <section id="home" class="home-hero">
     <div class="home-hero__img" id="heroImage"></div>
 
-    <video class="home-hero__video" id="heroVideo"
+    <video class="home-hero__video" id="heroVideo" data-responsive
            autoplay muted loop playsinline preload="auto">
-      <source src="assets/video/hero-bg.mp4" type="video/mp4">
+      <source data-src="assets/videos/{dir}/hero-bg.webm" type="video/webm">
+      <source data-src="assets/videos/{dir}/hero-bg.mp4" type="video/mp4">
     </video>
 
     <div class="home-hero__vignette"></div>
@@ -176,7 +178,13 @@
           <a href="about.html" class="btn btn-dark mt-md">Discover More</a>
         </div>
         <div class="fade-in-right">
-          <img src="assets/images/hero-about.png" alt="Mistress Tantra in meditation" class="img-hero-tall">
+          <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-about.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-about.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-about.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-about.webp" type="image/webp">
+      <img src="assets/images/hero-about.png" alt="Mistress Tantra in meditation" class="img-hero-tall">
+    </picture>
         </div>
       </div>
     </div>
@@ -227,7 +235,13 @@
       <div class="grid-3 mt-lg">
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/offerings-square.png" alt="Tantric Ritual Session" class="card-image card-image-offering card-image-offering-ritual">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/offerings-square.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/offerings-square.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/offerings-square.webp" type="image/webp">
+      <source srcset="assets/images/laptop/offerings-square.webp" type="image/webp">
+      <img src="assets/images/offerings-square.png" alt="Tantric Ritual Session" class="card-image card-image-offering card-image-offering-ritual">
+    </picture>
           </div>
           <div class="card-body">
             <h3>Tantric Ritual Session</h3>
@@ -236,7 +250,13 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-connect.jpg" alt="Sacred Intimacy Session" class="card-image card-image-offering card-image-offering-intimacy">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-connect.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-connect.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-connect.webp" type="image/webp">
+      <img src="assets/images/hero-connect.jpg" alt="Sacred Intimacy Session" class="card-image card-image-offering card-image-offering-intimacy">
+    </picture>
           </div>
           <div class="card-body">
             <h3>Sacred Intimacy Session</h3>
@@ -245,7 +265,13 @@
         </div>
         <div class="card fade-in">
           <div class="card-image-wrapper">
-            <img src="assets/images/hero-blog.png" alt="Breathwork Journey Session" class="card-image card-image-offering card-image-offering-breathwork">
+            <picture>
+      <source media="(max-width: 480px)" srcset="assets/images/mobile/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 767px)" srcset="assets/images/tablet-p/hero-blog.webp" type="image/webp">
+      <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/hero-blog.webp" type="image/webp">
+      <source srcset="assets/images/laptop/hero-blog.webp" type="image/webp">
+      <img src="assets/images/hero-blog.png" alt="Breathwork Journey Session" class="card-image card-image-offering card-image-offering-breathwork">
+    </picture>
           </div>
           <div class="card-body">
             <h3>Breathwork Journey Session</h3>
