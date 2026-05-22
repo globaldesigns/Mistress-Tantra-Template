@@ -439,6 +439,10 @@
     align-items: flex-end;
     gap: 4px;
   }
+  .home-header__menu-btn .menu-label {
+    width: 28px;
+    text-align: right;
+  }
 
   /* Push menu further right */
   .home-header__menu-col {
