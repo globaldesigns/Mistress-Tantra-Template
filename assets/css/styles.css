@@ -884,9 +884,6 @@ section {
   .feature-item {
     min-width: 100%;
   }
-  .footer-top {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ---- GLOBAL 24px SIDE PADDING on mobile ---- */
@@ -1279,6 +1276,12 @@ img {
 .footer-social a:hover {
   color: var(--aman-gold);
   border-color: var(--aman-gold);
+}
+
+@media (max-width: 1024px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 768px) {
