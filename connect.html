@@ -11,9 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css?v=18">
   <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/faq.css">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
   <script src="assets/js/responsive-video.js"></script>
+  <script src="assets/js/faq-accordion.js" defer></script>
 </head>
 <body>
 
@@ -264,40 +266,167 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="section-linen">
-    <div class="container text-center">
-      <p class="subtitle fade-in">Questions & Answers</p>
-      <h2 class="fade-in">Frequently Asked Questions <em class="font-accent">About Tantra</em></h2>
-      <div class="divider divider-center fade-in"></div>
-    </div>
-    <div class="container" style="margin-top: var(--space-lg); max-width: 900px;">
-      <div class="fade-in" style="margin-bottom: var(--space-md); padding: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-        <h3 style="margin-bottom: 0.5rem;">Do I need prior experience with Tantra?</h3>
-        <p style="color: var(--raw-umber);">Not at all. Many of my clients come with no previous experience — only a sincere curiosity and a willingness to explore. Every session is tailored to your level of experience and comfort. The path meets you exactly where you are.</p>
-      </div>
-      <div class="fade-in" style="margin-bottom: var(--space-md); padding: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-        <h3 style="margin-bottom: 0.5rem;">Is this a sexual service?</h3>
-        <p style="color: var(--raw-umber);">My offerings exist in the realm of sacred intimacy and energetic healing. While the work is deeply sensual and may involve the entire body, it is not a sexual service in the conventional sense. It is a ceremonial, spiritual, and somatic practice rooted in the ancient traditions of Tantra.</p>
-      </div>
-      <div class="fade-in" style="margin-bottom: var(--space-md); padding: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-        <h3 style="margin-bottom: 0.5rem;">What should I expect during a session?</h3>
-        <p style="color: var(--raw-umber);">Every session is unique and guided by your intentions. You can expect to be welcomed, heard, and held with the utmost care. Sessions may include breathwork, guided meditation, conscious touch, energy work, and somatic inquiry. You remain in full control of your experience at all times.</p>
-      </div>
-      <div class="fade-in" style="margin-bottom: var(--space-md); padding: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-        <h3 style="margin-bottom: 0.5rem;">How do I know which offering is right for me?</h3>
-        <p style="color: var(--raw-umber);">Trust your instinct. The offering that draws your attention, quickens your pulse, or makes you slightly nervous — that is usually the one. If you are still unsure, reach out and we can explore together which pathway best aligns with your current needs and desires.</p>
-      </div>
-      <div class="fade-in" style="margin-bottom: var(--space-md); padding: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-        <h3 style="margin-bottom: 0.5rem;">Is everything confidential?</h3>
-        <p style="color: var(--raw-umber);">Absolutely and without exception. Confidentiality is not a policy — it is a sacred vow. Nothing that occurs within the temple is shared with anyone, ever. Your privacy is non-negotiable.</p>
-      </div>
-      <div class="fade-in" style="margin-bottom: var(--space-md); padding: var(--space-md);">
-        <h3 style="margin-bottom: 0.5rem;">Can I cancel or reschedule?</h3>
-        <p style="color: var(--raw-umber);">Yes. Life happens, and the body sometimes needs different things than the mind planned. I ask for at least 24 hours notice for any changes. Cancellations within 24 hours may be subject to a rescheduling fee, but this is always handled with compassion and understanding.</p>
+  <!-- ═══ FAQ MODULE — Elegant Accordion V1.0 ═══ -->
+  <div class="faq-module">
+
+    <!-- ── Hero ── -->
+    <div class="faq-hero">
+      <img src="assets/images/hero-connect.jpg" alt="Mistress Tantra sanctuary entrance" class="faq-hero-img" loading="eager">
+      <div class="faq-hero-overlay"></div>
+      <div class="faq-hero-accent-top"></div>
+      <div class="faq-hero-accent-bottom"></div>
+      <div class="faq-hero-content">
+        <p class="faq-hero-overline">Everything You'd Like to Know</p>
+        <h1 class="faq-hero-title">
+          FAQ
+          <span class="faq-hero-subtitle">Questions Answered with Reverence</span>
+        </h1>
+        <div class="faq-hero-bar"></div>
+        <p class="faq-hero-quote">The only foolish question is the one left unasked. Here, curiosity is welcomed as a doorway to truth.</p>
       </div>
     </div>
-  </section>
+
+    <!-- ── Intro Strip ── -->
+    <div class="faq-intro-strip">
+      <p>Honest Answers &middot; Sacred Transparency &middot; Your Peace of Mind</p>
+    </div>
+
+    <!-- ── FAQ Sections ── -->
+    <div class="faq-sections-wrap">
+      <div class="faq-sections-inner">
+
+        <!-- Category: The Practice -->
+        <div class="faq-category">
+          <div class="faq-category-header">
+            <div class="faq-category-line"></div>
+            <h2 class="faq-category-name">The Practice</h2>
+            <div class="faq-category-line"></div>
+          </div>
+          <div class="faq-category-items">
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">Do I need prior experience with Tantra?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Not at all. Many of my clients come with no previous experience — only a sincere curiosity and a willingness to explore. Every session is tailored to your level of experience and comfort. The path meets you exactly where you are.</p>
+              </div>
+            </div>
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">What should I expect during a session?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Every session is unique and guided by your intentions. You can expect to be welcomed, heard, and held with the utmost care. Sessions may include breathwork, guided meditation, conscious touch, energy work, and somatic inquiry. You remain in full control of your experience at all times.</p>
+              </div>
+            </div>
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">How do I know which offering is right for me?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Trust your instinct. The offering that draws your attention, quickens your pulse, or makes you slightly nervous — that is usually the one. If you are still unsure, reach out and we can explore together which pathway best aligns with your current needs and intentions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Privacy & Boundaries -->
+        <div class="faq-category">
+          <div class="faq-category-header">
+            <div class="faq-category-line"></div>
+            <h2 class="faq-category-name">Privacy &amp; Boundaries</h2>
+            <div class="faq-category-line"></div>
+          </div>
+          <div class="faq-category-items">
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">Is everything confidential?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Absolutely and without exception. Confidentiality is not a policy — it is a sacred vow. Nothing that occurs within the temple is shared with anyone, ever. Your privacy is non-negotiable.</p>
+              </div>
+            </div>
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">Is this a hands-on or hands-off practice?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">My offerings are rooted in the ancient traditions of Tantra — a ceremonial, spiritual, and somatic practice. Sessions may include breathwork, conscious touch, and energy work as part of a holistic healing experience. This is not a conventional hands-off coaching session, nor is it a conventional hands-on bodywork modality. It is its own sacred practice, and every session is guided by your boundaries and comfort.</p>
+              </div>
+            </div>
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">What if I feel emotional during a session?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Emotional release is a natural and welcome part of this work. Tears, laughter, trembling — all are honored here. You will never be rushed or judged. The space is held with deep compassion, and you remain in full control of your experience at every moment.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Logistics -->
+        <div class="faq-category">
+          <div class="faq-category-header">
+            <div class="faq-category-line"></div>
+            <h2 class="faq-category-name">Logistics</h2>
+            <div class="faq-category-line"></div>
+          </div>
+          <div class="faq-category-items">
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">Can I cancel or reschedule?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Yes. Life happens, and the body sometimes needs different things than the mind planned. I ask for at least 24 hours notice for any changes. Cancellations within 24 hours may be subject to a rescheduling fee, but this is always handled with compassion and understanding.</p>
+              </div>
+            </div>
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">Where do sessions take place?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Sessions are held in a private sanctuary in the heart of San Francisco. The exact address is shared upon booking confirmation, ensuring the utmost discretion and privacy for every guest. Select offerings may also be available in Boston — inquire for details.</p>
+              </div>
+            </div>
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-btn" aria-expanded="false">
+                <span class="faq-accordion-question">How do I prepare for my first session?</span>
+                <span class="faq-accordion-plus">+</span>
+              </button>
+              <div class="faq-accordion-answer-wrap">
+                <p class="faq-accordion-answer">Once your session is confirmed, you will receive guidance for preparing — body, mind, and spirit. This may include suggestions for what to wear, what to eat or avoid beforehand, and a simple meditation to set your intention. This preparation is part of the ritual itself.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Bottom CTA ── -->
+        <div class="faq-cta">
+          <div class="faq-cta-bg"></div>
+          <p class="faq-cta-overline">Still Curious?</p>
+          <h3 class="faq-cta-heading">
+            Let's talk. I'd love
+            <br>
+            <span class="faq-cta-heading-accent">to hear from you.</span>
+          </h3>
+          <div class="faq-cta-bar"></div>
+          <a href="mailto:hello@mistresstantra.com" class="faq-cta-btn">Reach Out</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- ═══ END FAQ MODULE ═══ -->
 
   <!-- CTA -->
   <section class="section-dark" style="padding: var(--space-xxl) 0;">
