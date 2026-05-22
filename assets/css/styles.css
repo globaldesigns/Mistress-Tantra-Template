@@ -2007,8 +2007,8 @@ section:has(.card-image-offering) .card-image-offering {
     min-height: 38px;
   }
 
-  /* Prevent horizontal sliding — contain all sections */
-  section,
+  /* Prevent horizontal sliding — contain all sections except video heroes */
+  section:not(.home-hero):not(.video-hero),
   .section-linen,
   .section-ivory,
   .section-dark,
