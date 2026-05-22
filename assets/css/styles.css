@@ -2350,38 +2350,48 @@ section:has(.card-image-offering) .card-image-offering {
    Connect Page — Full-Bleed Form Column with Shower Background Image
    ══════════════════════════════════════════════════════════════════════════════ */
 
-/* Section overrides — remove container padding so left column is flush */
+/* Section overrides — remove padding so columns are flush */
 .connect-section {
   padding: 0 !important;
 }
 
-/* Full-width two-column grid — no gap, no container constraints */
+/* Full-width two-column grid */
 .connect-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 700px;
 }
 
-/* Left column — full-bleed shower image */
+/* Left column — shower image, NOT cropped (contain shows full image) */
 .connect-form-col {
   position: relative;
   background-image: url('../images/shower.webp');
-  background-size: cover;
+  background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
+  background-color: var(--deep-forest);
   overflow: hidden;
 }
 
+/* Glass card box around all form content — creates breathing room */
 .connect-form-inner {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(32px, 5vw, 64px);
   height: 100%;
-  min-height: 700px;
   box-sizing: border-box;
+  padding: clamp(24px, 4vw, 48px);
+}
+
+/* Inner glass card wrapper — boxed content with spacing from edges */
+.connect-form-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: clamp(20px, 3vw, 36px);
 }
 
 /* Title — gold, no subtitle, no divider */
@@ -2389,24 +2399,24 @@ section:has(.card-image-offering) .card-image-offering {
   color: var(--aman-gold);
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-  margin-bottom: clamp(20px, 3vw, 36px);
+  margin-bottom: clamp(16px, 2vw, 24px);
   line-height: 1.2;
 }
 
-/* Sleek glass form groups — much less bulky */
-.connect-form-inner .form-group {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+/* Sleek glass form groups */
+.connect-form-glass .form-group {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   border-radius: 8px;
   padding: 8px 12px;
   margin-bottom: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.connect-form-inner .form-group label {
+.connect-form-glass .form-group label {
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.65rem;
   letter-spacing: 0.15em;
@@ -2415,8 +2425,8 @@ section:has(.card-image-offering) .card-image-offering {
   margin-bottom: 2px;
 }
 
-.connect-form-inner .form-group input,
-.connect-form-inner .form-group textarea {
+.connect-form-glass .form-group input,
+.connect-form-glass .form-group textarea {
   background: transparent;
   border: none;
   color: #ffffff;
@@ -2425,14 +2435,14 @@ section:has(.card-image-offering) .card-image-offering {
   font-size: 0.9rem;
 }
 
-.connect-form-inner .form-group input::placeholder,
-.connect-form-inner .form-group textarea::placeholder {
+.connect-form-glass .form-group input::placeholder,
+.connect-form-glass .form-group textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.85rem;
 }
 
 /* Select dropdown — legible with light text when closed, dark options when open */
-.connect-form-inner .form-group select {
+.connect-form-glass .form-group select {
   background: transparent;
   border: none;
   color: #ffffff;
@@ -2449,26 +2459,26 @@ section:has(.card-image-offering) .card-image-offering {
   background-size: 12px;
 }
 
-.connect-form-inner .form-group select option {
+.connect-form-glass .form-group select option {
   background: #2a2a2a;
   color: #ffffff;
   padding: 8px;
 }
 
-.connect-form-inner .form-group input:focus,
-.connect-form-inner .form-group select:focus,
-.connect-form-inner .form-group textarea:focus {
+.connect-form-glass .form-group input:focus,
+.connect-form-glass .form-group select:focus,
+.connect-form-glass .form-group textarea:focus {
   outline: 1px solid var(--aman-gold);
   outline-offset: -1px;
 }
 
 /* Submit button — sleek glass */
-.connect-form-inner .btn-dark {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+.connect-form-glass .btn-dark {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   color: var(--aman-gold);
   text-shadow: none;
   width: 100%;
@@ -2480,9 +2490,9 @@ section:has(.card-image-offering) .card-image-offering {
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-.connect-form-inner .btn-dark:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.4);
+.connect-form-glass .btn-dark:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 /* Right column — details */
@@ -2501,10 +2511,9 @@ section:has(.card-image-offering) .card-image-offering {
 @media (max-width: 1024px) {
   .connect-grid {
     grid-template-columns: 1fr;
-    min-height: auto;
   }
-  .connect-form-inner {
-    min-height: 500px;
+  .connect-form-col {
+    min-height: 600px;
   }
   .connect-details-col {
     background: var(--ivory-mist);
@@ -2512,9 +2521,14 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 @media (max-width: 768px) {
+  .connect-form-col {
+    min-height: 500px;
+  }
   .connect-form-inner {
-    padding: 24px;
-    min-height: 400px;
+    padding: 20px;
+  }
+  .connect-form-glass {
+    padding: 16px;
   }
   .connect-details-inner {
     padding: 24px;
