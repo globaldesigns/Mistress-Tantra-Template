@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=19">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20">
   <link rel="stylesheet" href="assets/css/home.css">
   <link rel="stylesheet" href="assets/css/faq.css">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
@@ -156,17 +156,12 @@
   </section>
 
   <!-- Contact Form + Details -->
-  <section class="section-ivory">
-    <div class="container">
-      <div class="grid-2">
-        <!-- Form — with Shower background image -->
-        <div class="connect-form-col fade-in-left">
-          <div class="connect-form-inner">
-            <div class="connect-form-header">
-              <p class="subtitle">Send a Message</p>
-              <h2>Send a Message & <em class="font-accent">Begin Your Journey</em></h2>
-              <div class="divider"></div>
-            </div>
+  <section class="section-ivory connect-section">
+    <div class="connect-grid">
+      <!-- Form — with Shower background image -->
+      <div class="connect-form-col fade-in-left">
+        <div class="connect-form-inner">
+          <h2 class="connect-form-title">Begin Your Journey</h2>
             <form style="margin-top: var(--space-md);">
               <div class="form-group">
                 <label for="name">Your Name</label>
@@ -198,33 +193,34 @@
         </div>
 
         <!-- Details -->
-        <div class="fade-in-right connect-details" style="padding-left: var(--space-md);">
-          <p class="subtitle">Sacred Details</p>
-          <h2>Session <em class="font-accent">Details & Booking Info</em></h2>
-          <div class="divider"></div>
-          <div style="margin-top: var(--space-md);">
-            <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-              <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Location</h3>
-              <p style="color: var(--warm-earth);">A private sanctuary in the heart of San Francisco. The exact address is shared upon booking confirmation, ensuring the utmost discretion and privacy for every guest.</p>
-            </div>
-            <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-              <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Availability</h3>
-              <p style="color: var(--warm-earth);">Sessions are available by appointment only, Tuesday through Sunday. Evening sessions are available upon request. Please allow at least 48 hours advance notice when booking.</p>
-            </div>
-            <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
-              <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Investment</h3>
-              <p style="color: var(--warm-earth);">Session rates are shared upon inquiry. Each offering is a sacred exchange, and the investment reflects the depth, preparation, and devotion that goes into every experience. Sliding scale options are available for those called to this work.</p>
-            </div>
-            <div>
-              <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Contact</h3>
-              <p style="color: var(--warm-earth);">For inquiries, bookings, or simply to connect:<br>
-              <a href="mailto:hello@mistresstantra.com" style="color: var(--sage); border-bottom: 1px solid rgba(90, 122, 90, 0.3);">hello@mistresstantra.com</a></p>
+        <div class="connect-details-col fade-in-right">
+          <div class="connect-details-inner">
+            <p class="subtitle">Sacred Details</p>
+            <h2>Session <em class="font-accent">Details & Booking Info</em></h2>
+            <div class="divider"></div>
+            <div style="margin-top: var(--space-md);">
+              <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
+                <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Location</h3>
+                <p style="color: var(--warm-earth);">A private sanctuary in the heart of San Francisco. The exact address is shared upon booking confirmation, ensuring the utmost discretion and privacy for every guest.</p>
+              </div>
+              <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
+                <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Availability</h3>
+                <p style="color: var(--warm-earth);">Sessions are available by appointment only, Tuesday through Sunday. Evening sessions are available upon request. Please allow at least 48 hours advance notice when booking.</p>
+              </div>
+              <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid rgba(196, 168, 130, 0.2);">
+                <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Investment</h3>
+                <p style="color: var(--warm-earth);">Session rates are shared upon inquiry. Each offering is a sacred exchange, and the investment reflects the depth, preparation, and devotion that goes into every experience. Sliding scale options are available for those called to this work.</p>
+              </div>
+              <div>
+                <h3 style="color: var(--sage); font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem;">Contact</h3>
+                <p style="color: var(--warm-earth);">For inquiries, bookings, or simply to connect:<br>
+                <a href="mailto:hello@mistresstantra.com" style="color: var(--sage); border-bottom: 1px solid rgba(90, 122, 90, 0.3);">hello@mistresstantra.com</a></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
   <!-- The Process -->
   <section class="section-dark sacred-path-section">

@@ -2347,114 +2347,176 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
-   Connect Page — Form Column with Shower Background Image
+   Connect Page — Full-Bleed Form Column with Shower Background Image
    ══════════════════════════════════════════════════════════════════════════════ */
 
+/* Section overrides — remove container padding so left column is flush */
+.connect-section {
+  padding: 0 !important;
+}
+
+/* Full-width two-column grid — no gap, no container constraints */
+.connect-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 700px;
+}
+
+/* Left column — full-bleed shower image */
 .connect-form-col {
   position: relative;
-  min-height: 600px;
   background-image: url('../images/shower.webp');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  border-radius: 12px;
   overflow: hidden;
 }
 
 .connect-form-inner {
   position: relative;
   z-index: 1;
-  padding: clamp(24px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 64px);
+  height: 100%;
+  min-height: 700px;
+  box-sizing: border-box;
 }
 
-/* Frosted glass cards for headings, form groups, and button */
-.connect-form-inner .subtitle,
-.connect-form-inner h2,
-.connect-form-inner .divider {
-  /* headings and dividers don't need background — they sit above the form card */
+/* Title — gold, no subtitle, no divider */
+.connect-form-title {
+  color: var(--aman-gold);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  margin-bottom: clamp(20px, 3vw, 36px);
+  line-height: 1.2;
 }
 
+/* Sleek glass form groups — much less bulky */
 .connect-form-inner .form-group {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-radius: 10px;
-  padding: 14px 16px;
-  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .connect-form-inner .form-group label {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2px;
 }
 
 .connect-form-inner .form-group input,
-.connect-form-inner .form-group select,
 .connect-form-inner .form-group textarea {
   background: transparent;
   border: none;
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  padding: 2px 0;
+  font-size: 0.9rem;
 }
 
 .connect-form-inner .form-group input::placeholder,
 .connect-form-inner .form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+/* Select dropdown — legible with light text when closed, dark options when open */
+.connect-form-inner .form-group select {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  padding: 2px 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='white' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 12px;
+}
+
+.connect-form-inner .form-group select option {
+  background: #2a2a2a;
+  color: #ffffff;
+  padding: 8px;
 }
 
 .connect-form-inner .form-group input:focus,
 .connect-form-inner .form-group select:focus,
 .connect-form-inner .form-group textarea:focus {
-  outline: 2px solid var(--aman-gold);
-  outline-offset: -2px;
+  outline: 1px solid var(--aman-gold);
+  outline-offset: -1px;
 }
 
+/* Submit button — sleek glass */
 .connect-form-inner .btn-dark {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--aman-gold);
+  text-shadow: none;
   width: 100%;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .connect-form-inner .btn-dark:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Form heading glass card */
-.connect-form-inner .connect-form-header {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-bottom: 20px;
+/* Right column — details */
+.connect-details-col {
+  display: flex;
+  align-items: center;
+  background: var(--ivory-mist);
 }
 
-.connect-form-inner .subtitle {
-  color: #ffffff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.connect-form-inner h2 {
-  color: #ffffff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-.connect-form-inner h2 .font-accent {
-  color: var(--aman-gold-light);
-}
-
-.connect-form-inner .divider {
-  background: rgba(255, 255, 255, 0.3);
+.connect-details-inner {
+  padding: clamp(32px, 5vw, 64px);
+  width: 100%;
 }
 
 /* Responsive: stack on mobile */
 @media (max-width: 1024px) {
-  .connect-form-col {
+  .connect-grid {
+    grid-template-columns: 1fr;
     min-height: auto;
+  }
+  .connect-form-inner {
+    min-height: 500px;
+  }
+  .connect-details-col {
+    background: var(--ivory-mist);
+  }
+}
+
+@media (max-width: 768px) {
+  .connect-form-inner {
+    padding: 24px;
+    min-height: 400px;
+  }
+  .connect-details-inner {
+    padding: 24px;
   }
 }
