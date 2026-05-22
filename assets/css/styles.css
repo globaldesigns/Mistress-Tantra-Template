@@ -2359,10 +2359,10 @@ section:has(.card-image-offering) .card-image-offering {
 .connect-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 70vh;
+  min-height: 850px;
 }
 
-/* Left column — image fills full width of column */
+/* Left column — image fills full width, NO CROPPING */
 .connect-form-col {
   position: relative;
   overflow: hidden;
@@ -2375,7 +2375,7 @@ section:has(.card-image-offering) .card-image-offering {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center center;
   pointer-events: none;
 }
@@ -2389,7 +2389,7 @@ section:has(.card-image-offering) .card-image-offering {
   justify-content: center;
   height: 100%;
   box-sizing: border-box;
-  padding: clamp(24px, 4vw, 48px);
+  padding: clamp(40px, 6vw, 80px);
 }
 
 /* Glass card box — form content boxed with space around it */
@@ -2399,7 +2399,7 @@ section:has(.card-image-offering) .card-image-offering {
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
-  padding: clamp(20px, 3vw, 36px);
+  padding: clamp(28px, 4vw, 48px);
 }
 
 /* Title — gold, no subtitle, no divider */
@@ -2511,21 +2511,21 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 .connect-details-inner {
-  padding: clamp(24px, 4vw, 48px);
+  padding: clamp(40px, 6vw, 80px);
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-/* Boxed content card within right column */
+/* Boxed content card within right column — no border */
 .connect-details-box {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(196, 168, 130, 0.18);
+  border: none;
   border-radius: 12px;
-  padding: clamp(24px, 3vw, 40px);
+  padding: clamp(28px, 4vw, 48px);
   width: 100%;
 }
 
@@ -2535,7 +2535,7 @@ section:has(.card-image-offering) .card-image-offering {
     grid-template-columns: 1fr;
   }
   .connect-form-col {
-    min-height: 600px;
+    min-height: 700px;
   }
   .connect-details-col {
     background: var(--ivory-mist);
@@ -2544,16 +2544,16 @@ section:has(.card-image-offering) .card-image-offering {
 
 @media (max-width: 768px) {
   .connect-form-col {
-    min-height: 500px;
+    min-height: 550px;
   }
   .connect-form-inner {
-    padding: 20px;
+    padding: 24px;
   }
   .connect-form-glass {
-    padding: 16px;
+    padding: 20px;
   }
   .connect-details-inner {
-    padding: 20px;
+    padding: 24px;
   }
   .connect-details-box {
     padding: 20px;
