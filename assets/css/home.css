@@ -408,19 +408,41 @@
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .home-hero__logo {
-    height: 64px;
-  }
-
-  .home-hero__logo {
-    height: 52px;
+    height: 72px;
   }
 
   .home-header {
-    padding: 0.45rem 0;
+    padding: 0.5rem 0;
   }
 
   .home-header__inner {
-    padding: 0 1.5rem;
+    padding: 0 1.2rem;
+  }
+
+  /* Smaller social icons, shifted more left */
+  .social-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+  }
+  .social-icon svg {
+    width: 9px;
+    height: 9px;
+  }
+  .home-header__social {
+    gap: 0.35rem;
+  }
+
+  /* Hamburger: stack bars above MENU label */
+  .home-header__menu-btn {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  /* Push menu further right */
+  .home-header__menu-col {
+    padding-right: 0;
   }
 
   .home-hero__text {
@@ -437,7 +459,24 @@
 
 @media (max-width: 480px) {
   .home-hero__logo {
-    height: 44px;
+    height: 62px;
+  }
+
+  /* Even smaller social icons on tiny screens */
+  .social-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .social-icon svg {
+    width: 8px;
+    height: 8px;
+  }
+  .home-header__social {
+    gap: 0.25rem;
+  }
+
+  .home-header__inner {
+    padding: 0 0.8rem;
   }
 
   .home-hero__title {
