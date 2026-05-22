@@ -441,10 +441,23 @@
     text-align: right;
   }
 
+  /* TASK 1: Hero text — larger and higher up on mobile */
   .home-hero__text {
-    bottom: 15%;
-    left: 24px;
-    right: 24px;
+    bottom: 25%;
+    left: 19px;
+    right: 19px;
+  }
+
+  .home-hero__title {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+
+  .home-hero__subtitle {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+  }
+
+  .home-hero__locations {
+    font-size: clamp(0.75rem, 2.8vw, 1rem);
   }
 
   .mandala-sep {
@@ -463,10 +476,14 @@
   }
 
   .home-hero__title {
-    font-size: clamp(2.4rem, 10vw, 3.5rem);
+    font-size: clamp(2.8rem, 13vw, 4rem);
   }
 
   .home-hero__subtitle {
-    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+    font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+  }
+
+  .home-hero__locations {
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
   }
 }

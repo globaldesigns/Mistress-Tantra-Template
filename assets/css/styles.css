@@ -73,6 +73,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -886,25 +887,25 @@ section {
   }
 }
 
-/* ---- GLOBAL 24px SIDE PADDING on mobile ---- */
+/* ---- GLOBAL 5px SIDE PADDING on mobile ---- */
 @media (max-width: 1024px) {
   .container,
   .container-narrow,
   .container-wide {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .hero-content {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
     max-width: 100%;
     grid-column: 1 / -1;
   }
   .split-text {
-    padding: var(--space-md) 24px;
+    padding: var(--space-md) 5px;
   }
   .blog-card-content {
-    padding: var(--space-md) 24px;
+    padding: var(--space-md) 5px;
   }
 }
 
@@ -1990,33 +1991,71 @@ section:has(.card-image-offering) .card-image-offering {
   .img-hero-medium { height: 260px; }
 }
 
-/* ─── GLOBAL MOBILE: 24px min side-padding + responsive fixes ─── */
+/* ─────── GLOBAL MOBILE: 5px side-padding + responsive fixes ─────── */
+@media (max-width: 768px) {
+  .container,
+  .container-narrow,
+  .container-wide {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+
+  /* Buttons — 50% less padding on mobile */
+  .btn {
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.68rem;
+    min-height: 38px;
+  }
+
+  /* Prevent horizontal sliding — contain all sections */
+  section,
+  .section-linen,
+  .section-ivory,
+  .section-dark,
+  .hero,
+  .page-hero,
+  .split-section,
+  .card,
+  .blog-card {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Contain absolute-positioned mandalas within sections */
+  .section-intro-sacred,
+  .section-pillars-sacred,
+  .offerings-mandala-section,
+  .training-mandala-section {
+    overflow: hidden !important;
+  }
+}
+
 @media (max-width: 480px) {
   .container,
   .container-narrow,
   .container-wide {
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
   }
   section {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .hero-content {
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
   }
   .split-text {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .footer-top {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .about-overlap-image {
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
   }
   /* Blog subscribe form stacks on mobile */
   .blog-subscribe-form {
