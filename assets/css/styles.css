@@ -2359,7 +2359,7 @@ section:has(.card-image-offering) .card-image-offering {
 .connect-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 850px;
+  min-height: 1200px;
 }
 
 /* Left column — image fills full width, NO CROPPING */
