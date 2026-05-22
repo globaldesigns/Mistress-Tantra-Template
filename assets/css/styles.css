@@ -2355,21 +2355,29 @@ section:has(.card-image-offering) .card-image-offering {
   padding: 0 !important;
 }
 
-/* Full-width two-column grid */
+/* Full-width two-column grid — sized to show full portrait image */
 .connect-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  min-height: max(700px, 70vh);
 }
 
-/* Left column — shower image, NOT cropped (contain shows full image) */
+/* Left column — shower image via <img> for no-crop guarantee */
 .connect-form-col {
   position: relative;
-  background-image: url('../images/shower.webp');
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: var(--deep-forest);
   overflow: hidden;
+  background: var(--deep-forest);
+}
+
+.connect-form-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  pointer-events: none;
 }
 
 /* Glass card box around all form content — creates breathing room */
