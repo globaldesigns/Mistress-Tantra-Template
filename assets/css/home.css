@@ -417,20 +417,17 @@
 
   .home-header__inner {
     padding: 0 1.2rem;
+    grid-template-columns: auto 1fr;
   }
 
-  /* Smaller social icons, shifted more left */
-  .social-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 2px;
-  }
-  .social-icon svg {
-    width: 9px;
-    height: 9px;
-  }
+  /* Hide social icons on mobile */
   .home-header__social {
-    gap: 0.35rem;
+    display: none;
+  }
+
+  /* Logo left-justified */
+  .home-header__logo-col {
+    justify-content: flex-start;
   }
 
   /* Hamburger: stack bars above MENU label */
@@ -442,11 +439,6 @@
   .home-header__menu-btn .menu-label {
     width: 28px;
     text-align: right;
-  }
-
-  /* Push menu further right */
-  .home-header__menu-col {
-    padding-right: 0;
   }
 
   .home-hero__text {
@@ -464,19 +456,6 @@
 @media (max-width: 480px) {
   .home-hero__logo {
     height: 62px;
-  }
-
-  /* Even smaller social icons on tiny screens */
-  .social-icon {
-    width: 18px;
-    height: 18px;
-  }
-  .social-icon svg {
-    width: 8px;
-    height: 8px;
-  }
-  .home-header__social {
-    gap: 0.25rem;
   }
 
   .home-header__inner {
