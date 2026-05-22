@@ -2355,14 +2355,14 @@ section:has(.card-image-offering) .card-image-offering {
   padding: 0 !important;
 }
 
-/* Full-width two-column grid — sized to show full portrait image */
+/* Full-width two-column grid */
 .connect-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: max(700px, 70vh);
+  min-height: 70vh;
 }
 
-/* Left column — shower image via <img> for no-crop guarantee */
+/* Left column — image fills full width of column */
 .connect-form-col {
   position: relative;
   overflow: hidden;
@@ -2375,12 +2375,12 @@ section:has(.card-image-offering) .card-image-offering {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
   pointer-events: none;
 }
 
-/* Glass card box around all form content — creates breathing room */
+/* Content positioned over the full-width image — boxed inside the column */
 .connect-form-inner {
   position: relative;
   z-index: 1;
@@ -2392,7 +2392,7 @@ section:has(.card-image-offering) .card-image-offering {
   padding: clamp(24px, 4vw, 48px);
 }
 
-/* Inner glass card wrapper — boxed content with spacing from edges */
+/* Glass card box — form content boxed with space around it */
 .connect-form-glass {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(6px);
@@ -2503,7 +2503,7 @@ section:has(.card-image-offering) .card-image-offering {
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* Right column — details */
+/* Right column — details, content boxed */
 .connect-details-col {
   display: flex;
   align-items: center;
@@ -2511,7 +2511,21 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 .connect-details-inner {
-  padding: clamp(32px, 5vw, 64px);
+  padding: clamp(24px, 4vw, 48px);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Boxed content card within right column */
+.connect-details-box {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(196, 168, 130, 0.18);
+  border-radius: 12px;
+  padding: clamp(24px, 3vw, 40px);
   width: 100%;
 }
 
@@ -2539,6 +2553,9 @@ section:has(.card-image-offering) .card-image-offering {
     padding: 16px;
   }
   .connect-details-inner {
-    padding: 24px;
+    padding: 20px;
+  }
+  .connect-details-box {
+    padding: 20px;
   }
 }
