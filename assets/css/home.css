@@ -114,11 +114,11 @@
 }
 
 
-/* ── Scroll animation — header compresses + deepens on scroll ── */
+/* ── Scroll animation — header compresses + solid dark gold on scroll ── */
 .home-header.scrolled {
-  background: rgba(160, 120, 40, 0.28);
-  backdrop-filter: blur(20px) saturate(200%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  background: linear-gradient(135deg, #1a1508 0%, #3d3428 40%, #2a2114 100%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   padding: 0.25rem 0;
   box-shadow: 0 1px 0 rgba(201, 169, 110, 0.25),
               0 4px 24px rgba(0, 0, 0, 0.18);
