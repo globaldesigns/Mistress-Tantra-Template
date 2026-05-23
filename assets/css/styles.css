@@ -2661,12 +2661,10 @@ section:has(.card-image-offering) .card-image-offering {
   padding: clamp(24px, 4vw, 48px);
 }
 
-/* Glass card box — form content boxed with space around it */
+/* Form content box — clean, no glass overlay */
 .connect-form-glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  border: none;
   border-radius: 12px;
   padding: clamp(16px, 2.5vw, 28px);
   width: 90%;
@@ -2674,34 +2672,32 @@ section:has(.card-image-offering) .card-image-offering {
   margin: 0 auto;
 }
 
-/* Title — gold, no subtitle, no divider */
+/* Title — black, no subtitle, no divider */
 .connect-form-title {
-  color: var(--aman-gold);
+  color: #000000;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  text-shadow: none;
   margin-bottom: clamp(16px, 2vw, 24px);
   line-height: 1.2;
 }
 
-/* Sleek glass form groups */
+/* Sleek form groups */
 .connect-form-glass .form-group {
   background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
   border-radius: 8px;
   padding: 4px 10px;
   margin-bottom: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .connect-form-glass .form-group label {
-  color: rgba(255, 255, 255, 0.85);
+  color: #000000;
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  text-shadow: none;
   margin-bottom: 2px;
 }
 
@@ -2709,39 +2705,40 @@ section:has(.card-image-offering) .card-image-offering {
 .connect-form-glass .form-group textarea {
   background: transparent;
   border: none;
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  color: #000000;
+  text-shadow: none;
   padding: 2px 0;
   font-size: 0.9rem;
 }
 
 .connect-form-glass .form-group input::placeholder,
 .connect-form-glass .form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.4);
   font-size: 0.85rem;
 }
 
-/* Select dropdown — legible with light text when closed, dark options when open */
+/* Select dropdown — white background, black text */
 .connect-form-glass .form-group select {
-  background: transparent;
-  border: none;
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  padding: 2px 0;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  color: #000000;
+  text-shadow: none;
+  padding: 2px 4px;
   font-size: 0.9rem;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='white' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23000' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 4px center;
   background-size: 12px;
 }
 
 .connect-form-glass .form-group select option {
-  background: #2a2a2a;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   padding: 8px;
 }
 
@@ -2752,16 +2749,13 @@ section:has(.card-image-offering) .card-image-offering {
   outline-offset: -1px;
 }
 
-/* Submit button — sleek glass */
+/* Submit button — clean, not full width, black text */
 .connect-form-glass .btn-dark {
   background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--aman-gold);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #000000;
   text-shadow: none;
-  width: 100%;
   margin-top: 6px;
   font-size: 0.85rem;
   letter-spacing: 0.15em;
@@ -2771,8 +2765,8 @@ section:has(.card-image-offering) .card-image-offering {
 }
 
 .connect-form-glass .btn-dark:hover {
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Right column — details, content boxed */
@@ -2799,6 +2793,12 @@ section:has(.card-image-offering) .card-image-offering {
   border-radius: 12px;
   padding: clamp(28px, 4vw, 48px);
   width: 100%;
+}
+
+/* Center divider in connect details */
+.connect-details-box .divider {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Responsive: stack on mobile */
