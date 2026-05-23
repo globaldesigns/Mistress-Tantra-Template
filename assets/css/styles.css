@@ -149,15 +149,15 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: clamp(2.8rem, 4.5vw, 5rem); /* Style Guide: 44.8px–80px */
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: 0.02em;
   line-height: 1.1;
   color: #000000;
 }
 
 h2 {
-  font-size: clamp(2rem, 3.5vw, 3.5rem);
-  font-weight: 500;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 600;
   letter-spacing: 0.01em;
   color: #000000;
 }
@@ -526,16 +526,33 @@ section {
 @media (max-width: 768px) {
   .hero-content {
     padding-top: 90px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 4%;
+    padding-right: 4%;
     max-width: 100%;
     grid-column: 1 / -1;
+  }
+  .hero-content h1 {
+    line-height: 1.05;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content {
     padding-top: 85px;
+    padding-left: 2% !important;
+    padding-right: 2% !important;
+  }
+  .hero-content h1 {
+    line-height: 1.0;
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+  .video-hero .hero-content h1 {
+    line-height: 1.0;
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+  .about-hero-gradient .hero-content h1 {
+    line-height: 1.0;
+    font-size: clamp(2rem, 7vw, 3rem);
   }
 }
 
@@ -667,7 +684,7 @@ section {
 
 .hero-content h1 {
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 300;
   margin-bottom: var(--space-sm);
   text-shadow: 0 2px 40px rgba(0,0,0,0.3);
 }
@@ -2247,8 +2264,8 @@ section:has(.card-image-offering) .card-image-offering {
     padding-right: 5px;
   }
   .hero-content {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
+    padding-left: 2% !important;
+    padding-right: 2% !important;
   }
   .split-text {
     padding-left: 5px;
@@ -2321,7 +2338,7 @@ section:has(.card-image-offering) .card-image-offering {
   font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2.8rem, 6vw, 4.5rem);
   color: var(--linen);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.15;
   margin-bottom: 0.5rem;
   text-align: center;
@@ -2456,7 +2473,7 @@ section:has(.card-image-offering) .card-image-offering {
   font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2.8rem, 6vw, 4.5rem);
   color: var(--linen);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.15;
   margin-bottom: 0.5rem;
   text-align: center;
