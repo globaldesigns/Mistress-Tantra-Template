@@ -591,6 +591,14 @@ section {
   object-position: center 35%;
 }
 
+/* Blog hero — stronger text shadow for readability without heavy overlay */
+#blog .hero-content h1,
+#blog .hero-content .tagline,
+#blog .hero-content p,
+#blog .hero-content .subtitle {
+  text-shadow: 0 2px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4);
+}
+
 /* Hero overlays — BLACK with transparency */
 .hero-overlay {
   position: absolute;
@@ -620,6 +628,17 @@ section {
     rgba(0, 0, 0, 0.68) 35%,
     rgba(0, 0, 0, 0.3) 65%,
     rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+/* Blog hero — minimal overlay so images aren't compromised */
+.hero-overlay.blog-subtle {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.40) 0%,
+    rgba(0, 0, 0, 0.22) 30%,
+    transparent 60%,
+    transparent 100%
   );
 }
 
@@ -1203,7 +1222,7 @@ img {
 }
 
 .blog-card-content {
-  padding: var(--space-lg);
+  padding: var(--space-md);
   display: flex;
   flex-direction: column;
   justify-content: center;
