@@ -653,3 +653,70 @@
   border-radius: 8px;
   padding: 1.5rem;
 }
+
+/* ============================================================
+   CONNECT PAGE — Sacred Path section mandala
+   ============================================================ */
+.sacred-path-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-path-mandala-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(680px, 62vw);
+  height: min(680px, 62vw);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.45;
+}
+
+.sacred-path-mandala-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: pillarsMandalaSpin 120s linear infinite;
+}
+
+/* Connect page bottom CTA mandala */
+.connect-cta-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.connect-cta-mandala-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, 58vw);
+  height: min(600px, 58vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.40;
+}
+
+.connect-cta-mandala-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: pillarsMandalaSpin 120s linear infinite reverse;
+}
+
+@media (max-width: 520px) {
+  .sacred-path-mandala-wrap {
+    width: min(420px, 105vw);
+    height: min(420px, 105vw);
+    opacity: 0.40;
+  }
+  .connect-cta-mandala-wrap {
+    width: min(400px, 100vw);
+    height: min(400px, 100vw);
+    opacity: 0.35;
+  }
+}

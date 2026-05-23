@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=44">
-  <link rel="stylesheet" href="assets/css/home.css?v=11">
-  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=6">
+  <link rel="stylesheet" href="assets/css/styles.css?v=45">
+  <link rel="stylesheet" href="assets/css/home.css?v=12">
+  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=7">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
   <script src="assets/js/responsive-video.js"></script>
@@ -152,7 +152,26 @@
     <!-- Scroll CTA -->
     <button class="home-hero__scroll" id="scrollBtn" aria-label="Scroll to content">
       <span class="scroll-word">SCROLL</span>
-      <div class="scroll-line-anim"></div>
+      <svg class="scroll-ornament-svg" viewBox="0 0 40 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Lotus/mandala top motif -->
+        <circle cx="20" cy="8" r="2" fill="none" stroke="rgba(201,169,110,0.85)" stroke-width="0.7"/>
+        <ellipse cx="20" cy="5.5" rx="3" ry="1.2" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.5"/>
+        <ellipse cx="20" cy="10.5" rx="3" ry="1.2" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.5"/>
+        <ellipse cx="17.2" cy="8" rx="1.2" ry="3" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.5" transform="rotate(-25 17.2 8)"/>
+        <ellipse cx="22.8" cy="8" rx="1.2" ry="3" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.5" transform="rotate(25 22.8 8)"/>
+        <circle cx="20" cy="8" r="0.7" fill="rgba(201,169,110,0.85)"/>
+        <!-- Central descending line -->
+        <line x1="20" y1="14" x2="20" y2="56" stroke="rgba(201,169,110,0.7)" stroke-width="0.6" stroke-dasharray="1.5 2.5"/>
+        <!-- Small diamond accents along the line -->
+        <path d="M20 24 L20.8 25.5 L20 27 L19.2 25.5 Z" fill="rgba(201,169,110,0.45)"/>
+        <path d="M20 38 L20.8 39.5 L20 41 L19.2 39.5 Z" fill="rgba(201,169,110,0.45)"/>
+        <!-- Curved side flourishes -->
+        <path d="M16 18 Q14 24 16 30" fill="none" stroke="rgba(201,169,110,0.35)" stroke-width="0.5"/>
+        <path d="M24 18 Q26 24 24 30" fill="none" stroke="rgba(201,169,110,0.35)" stroke-width="0.5"/>
+        <!-- Bottom chevron arrow -->
+        <path d="M14 58 Q17 63 20 64 Q23 63 26 58" fill="none" stroke="rgba(201,169,110,0.8)" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M16 61 Q18 65 20 66 Q22 65 24 61" fill="none" stroke="rgba(201,169,110,0.5)" stroke-width="0.6" stroke-linecap="round"/>
+      </svg>
     </button>
   </section>
 
@@ -217,7 +236,7 @@
     <div class="container text-center">
       <p class="subtitle fade-in">The Pillars</p>
       <h2 class="fade-in" style="color: var(--linen);">Three Pillars of Tantric Practice</h2>
-      <div class="divider divider-center fade-in"></div>
+      <div class="divider divider-center fade-in"><span class="divider-ornament">&#x2766;</span></div>
       <div class="feature-row mt-lg stagger-children">
         <div class="feature-item fade-in">
           <div class="feature-icon" style="color: var(--aman-gold);">〰</div>
@@ -249,7 +268,7 @@
     <div class="container text-center">
       <p class="subtitle fade-in">Begin the Journey</p>
       <h2 class="fade-in">Tantra Sessions & Sacred Offerings</h2>
-      <div class="divider divider-center fade-in"></div>
+      <div class="divider divider-center fade-in"><span class="divider-ornament">&#x2766;</span></div>
       <p class="container-narrow fade-in" style="color: var(--raw-umber);">Each offering is a doorway into a different dimension of sensual awakening. From the gentle first breath of exploration to the depths of advanced tantric practice, your path is honored exactly as you are.</p>
       <div class="grid-3 mt-lg stagger-children">
         <div class="card fade-in">
@@ -311,7 +330,7 @@
     <div class="container text-center">
       <p class="subtitle fade-in">Are You Ready?</p>
       <h2 class="fade-in" style="color: var(--linen); font-size: clamp(2rem, 4vw, 3.2rem);">Book a Tantric Session in San Francisco</h2>
-      <div class="divider divider-center fade-in"></div>
+      <div class="divider divider-center fade-in"><span class="divider-ornament">&#x2766;</span></div>
       <p class="container-narrow fade-in" style="color: var(--misty-sage); margin-bottom: var(--space-lg);">Whether you seek healing, exploration, or the simple profound pleasure of being truly seen and held — this space was created for you.</p>
       <a href="connect.html" class="btn btn-primary fade-in">Connect With Me</a>
     </div>
