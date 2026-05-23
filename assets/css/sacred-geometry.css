@@ -104,23 +104,18 @@
   }
 
   .sacred-mandala-wrap-sm {
-    display: none;
+    display: block;
+    top: -18%;
+    left: -10%;
+    width: min(280px, 72vw);
+    height: min(280px, 72vw);
   }
 
-  /* Stop mandala spinning on mobile — prevents GPU glitching */
-  .sacred-mandala-img,
-  .sacred-mandala-img-sm,
-  .pillars-mandala-img,
-  .offerings-mandala-img,
-  .training-mandala-img {
-    animation: none !important;
-    transform: none !important;
+  .sacred-mandala-wrap-sm.visible {
+    opacity: 0.45;
   }
 
-  /* Hide starburst canvas on mobile — heavy GPU usage causes glitching */
-  .sacred-starburst {
-    display: none !important;
-  }
+  /* Mandalas animate on mobile — same settings as desktop */
 }
 
 /* ============================================================
@@ -176,7 +171,38 @@
     width: min(420px, 105vw);
     height: min(420px, 105vw);
     opacity: 0.15;
+    top: 0;
+    transform: translate(-50%, 0);
   }
+
+  /* Duplicate pillars mandala positioned lower in the section on mobile */
+  .pillars-mandala-wrap-mobile-lower {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: min(420px, 105vw);
+    height: min(420px, 105vw);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.12;
+  }
+
+  .pillars-mandala-wrap-mobile-lower .pillars-mandala-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    will-change: transform;
+    contain: layout style;
+    animation: pillarsMandalaSpin 120s linear infinite reverse;
+  }
+}
+
+/* Desktop: hide mobile-lower duplicate */
+.pillars-mandala-wrap-mobile-lower {
+  display: none;
 }
 
 /* ============================================================
@@ -206,12 +232,13 @@
 .offerings-mandala-one {
   top: 10%;
   left: -8%;
+  opacity: 0.22;
 }
 
 .offerings-mandala-two {
   right: -9%;
   bottom: 7%;
-  opacity: 0.36;
+  opacity: 0.18;
 }
 
 .offerings-mandala-img {

@@ -212,6 +212,35 @@ p {
   margin-right: auto;
 }
 
+/* --- Ornamental Script Divider --- */
+.divider-ornamental {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: var(--space-md) 0;
+}
+
+.divider-ornamental-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to var(--dir, right),
+    transparent 0%,
+    var(--aman-gold) 100%
+  );
+}
+
+.divider-ornamental-line:last-child {
+  --dir: left;
+}
+
+.divider-ornamental-symbol {
+  color: var(--aman-gold);
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 0.85;
+}
+
 /* --- LAYOUT --- */
 .container {
   max-width: 1200px;
@@ -1315,37 +1344,106 @@ img {
 }
 
 /* --- ANIMATIONS --- */
-.fade-in {
+
+/* === ENTRANCE ANIMATION SYSTEM ===
+   Tantra is about movement and flow.
+   All sections animate into view with noticeable, elegant motion.
+   Three animation types: fade-up, fade-left, fade-right
+   Plus scale variant for emphasis elements.
+*/
+
+/* Base: hidden state */
+.fade-in,
+.fade-in-left,
+.fade-in-right,
+.fade-in-up,
+.fade-in-scale {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.fade-in.visible {
+/* Fade UP — stronger, more dramatic vertical motion */
+.fade-in,
+.fade-in-up {
+  transform: translateY(60px);
+}
+
+/* Fade LEFT — from left with subtle scale */
+.fade-in-left {
+  transform: translateX(-60px) scale(0.97);
+}
+
+/* Fade RIGHT — from right with subtle scale */
+.fade-in-right {
+  transform: translateX(60px) scale(0.97);
+}
+
+/* Fade SCALE — center emphasis with zoom */
+.fade-in-scale {
+  transform: scale(0.88);
+}
+
+/* Visible state — all animation types converge */
+.fade-in.visible,
+.fade-in-left.visible,
+.fade-in-right.visible,
+.fade-in-up.visible,
+.fade-in-scale.visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Staggered children — cards, features animate in sequence */
+.stagger-children .fade-in:nth-child(1) { transition-delay: 0.05s; }
+.stagger-children .fade-in:nth-child(2) { transition-delay: 0.18s; }
+.stagger-children .fade-in:nth-child(3) { transition-delay: 0.31s; }
+.stagger-children .fade-in:nth-child(4) { transition-delay: 0.44s; }
+.stagger-children .fade-in:nth-child(5) { transition-delay: 0.57s; }
+.stagger-children .fade-in:nth-child(6) { transition-delay: 0.70s; }
+
+/* Section entrance — subtle full-section breathe-in */
+.section-entrance {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-entrance.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.fade-in-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
+/* Mobile: slightly faster but still noticeable */
+@media (max-width: 768px) {
+  .fade-in,
+  .fade-in-left,
+  .fade-in-right,
+  .fade-in-up,
+  .fade-in-scale {
+    transition-duration: 0.8s;
+  }
 
-.fade-in-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
+  .fade-in,
+  .fade-in-up {
+    transform: translateY(40px);
+  }
 
-.fade-in-right {
-  opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
+  .fade-in-left {
+    transform: translateX(-40px) scale(0.97);
+  }
 
-.fade-in-right.visible {
-  opacity: 1;
-  transform: translateX(0);
+  .fade-in-right {
+    transform: translateX(40px) scale(0.97);
+  }
+
+  .stagger-children .fade-in:nth-child(1) { transition-delay: 0.03s; }
+  .stagger-children .fade-in:nth-child(2) { transition-delay: 0.12s; }
+  .stagger-children .fade-in:nth-child(3) { transition-delay: 0.21s; }
+  .stagger-children .fade-in:nth-child(4) { transition-delay: 0.30s; }
+  .stagger-children .fade-in:nth-child(5) { transition-delay: 0.39s; }
+  .stagger-children .fade-in:nth-child(6) { transition-delay: 0.48s; }
 }
 
 /* Parallax subtle effect */
@@ -2007,6 +2105,33 @@ section:has(.card-image-offering) .card-image-offering {
 @media (max-width: 480px) {
   .img-hero-tall { height: 300px; }
   .img-hero-medium { height: 260px; }
+}
+
+/* --- Intro section: meditation image full-width on mobile --- */
+@media (max-width: 768px) {
+  .section-over-hero .grid-2 .fade-in-right {
+    grid-column: 1 / -1;
+    margin-left: -5px;
+    margin-right: -5px;
+    width: calc(100% + 10px);
+  }
+  .section-over-hero .grid-2 .fade-in-right .img-hero-tall {
+    width: 100%;
+    height: 300px;
+    border-radius: 0;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-over-hero .grid-2 .fade-in-right {
+    margin-left: -5px;
+    margin-right: -5px;
+    width: calc(100% + 10px);
+  }
+  .section-over-hero .grid-2 .fade-in-right .img-hero-tall {
+    height: 240px;
+  }
 }
 
 /* ─────── GLOBAL MOBILE: 5px side-padding + responsive fixes ─────── */

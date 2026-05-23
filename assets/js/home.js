@@ -139,7 +139,7 @@
   /* ============================================================
      FADE-IN OBSERVER (sections below hero)
   ============================================================ */
-  var fadeEls = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+  var fadeEls = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .fade-in-up, .fade-in-scale, .section-entrance');
   if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -152,6 +152,25 @@
     fadeEls.forEach(function (el) { observer.observe(el); });
   } else {
     fadeEls.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  /* ============================================================
+     SECTION ENTRANCE OBSERVER
+     Triggers earlier than fade-in for full-section animations.
+  ============================================================ */
+  var sectionEntranceEls = document.querySelectorAll('.section-entrance');
+  if (sectionEntranceEls.length && 'IntersectionObserver' in window) {
+    var sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
+    sectionEntranceEls.forEach(function (el) { sectionObserver.observe(el); });
+  } else {
+    sectionEntranceEls.forEach(function (el) { el.classList.add('visible'); });
   }
 
   /* Update footer year */

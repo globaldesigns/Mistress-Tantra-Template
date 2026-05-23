@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- SCROLL ANIMATIONS (Intersection Observer) ---
-  const animatedElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+  const animatedElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .fade-in-up, .fade-in-scale, .section-entrance');
   if (animatedElements.length > 0) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -81,6 +81,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     animatedElements.forEach(el => observer.observe(el));
+  }
+
+  // --- SECTION ENTRANCE OBSERVER (triggers earlier) ---
+  const sectionEntranceEls = document.querySelectorAll('.section-entrance');
+  if (sectionEntranceEls.length > 0) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.05,
+      rootMargin: '0px 0px -5% 0px'
+    });
+    sectionEntranceEls.forEach(el => sectionObserver.observe(el));
   }
 
   // --- FIXED HERO BACKGROUND MANAGEMENT ---

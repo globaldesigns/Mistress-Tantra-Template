@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=41">
-  <link rel="stylesheet" href="assets/css/home.css?v=8">
-  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=3">
+  <link rel="stylesheet" href="assets/css/styles.css?v=42">
+  <link rel="stylesheet" href="assets/css/home.css?v=9">
+  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=4">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
   <script src="assets/js/responsive-video.js"></script>
@@ -155,7 +155,7 @@
   ════════════════════════════════════════════ -->
 
   <!-- Introduction -->
-  <section id="intro" class="section-linen section-over-hero section-intro-sacred">
+  <section id="intro" class="section-linen section-over-hero section-intro-sacred section-entrance">
     <!-- Sacred geometry background — Sri Yantra mandala, slow rotation -->
     <div class="sacred-mandala-wrap" id="sacredMandala">
                         <img src="assets/images/mandala-section.png" alt="" class="sacred-mandala-img" aria-hidden="true">
@@ -172,7 +172,11 @@
         <div class="split-text fade-in-left">
           <p class="subtitle">Welcome</p>
           <h2>Tantric Awakening & <br><em class="font-accent">Sacred Surrender</em></h2>
-          <div class="divider"></div>
+          <div class="divider-ornamental" aria-hidden="true">
+            <span class="divider-ornamental-line"></span>
+            <span class="divider-ornamental-symbol">&#x2766;</span>
+            <span class="divider-ornamental-line"></span>
+          </div>
           <p>In the heart of San Francisco, a private sanctuary awaits — a space where the noise of the world dissolves and the wisdom of the body is finally heard. Mistress Tantra guides you beyond the boundaries of ordinary experience into a realm where sensation becomes prayer and touch becomes transcendence.</p>
           <p>Rooted in the ancient traditions of Tantra and refined through years of devoted practice, every session is a journey — an unhurried unfolding of your deepest capacity for pleasure, presence, and connection.</p>
           <a href="about.html" class="btn btn-dark mt-md">Discover More</a>
@@ -191,17 +195,21 @@
   </section>
 
   <!-- Pillars -->
-  <section class="section-dark section-pillars-sacred">
+  <section class="section-dark section-pillars-sacred section-entrance">
     <div class="pillars-mandala-wrap" aria-hidden="true">
+      <img src="assets/images/mandala-pillars.png" alt="" class="pillars-mandala-img">
+    </div>
+    <!-- Duplicate mandala shown lower on mobile -->
+    <div class="pillars-mandala-wrap-mobile-lower" aria-hidden="true">
       <img src="assets/images/mandala-pillars.png" alt="" class="pillars-mandala-img">
     </div>
     <div class="container text-center">
       <p class="subtitle fade-in">The Pillars</p>
       <h2 class="fade-in" style="color: var(--linen);">Three Pillars of Tantric Practice</h2>
       <div class="divider divider-center fade-in"></div>
-      <div class="feature-row mt-lg">
+      <div class="feature-row mt-lg stagger-children">
         <div class="feature-item fade-in">
-          <div class="feature-icon">〰</div>
+          <div class="feature-icon" style="color: var(--aman-gold);">〰</div>
           <h3 style="color: var(--linen);">Breath & Conscious Awareness</h3>
           <p style="color: var(--misty-sage);">The bridge between body and spirit. Through conscious breath, we dissolve the walls that separate us from our deepest sensations and open the channel to ecstatic awareness.</p>
         </div>
@@ -220,7 +228,7 @@
   </section>
 
   <!-- Offerings Preview -->
-  <section class="section-linen offerings-mandala-section">
+  <section class="section-linen offerings-mandala-section section-entrance">
     <div class="offerings-mandala offerings-mandala-one" aria-hidden="true">
       <img src="assets/images/mandala-section.png" alt="" class="offerings-mandala-img">
     </div>
@@ -232,7 +240,7 @@
       <h2 class="fade-in">Tantra Sessions & Sacred Offerings</h2>
       <div class="divider divider-center fade-in"></div>
       <p class="container-narrow fade-in" style="color: var(--raw-umber);">Each offering is a doorway into a different dimension of sensual awakening. From the gentle first breath of exploration to the depths of advanced tantric practice, your path is honored exactly as you are.</p>
-      <div class="grid-3 mt-lg">
+      <div class="grid-3 mt-lg stagger-children">
         <div class="card fade-in">
           <div class="card-image-wrapper">
             <picture>
@@ -284,7 +292,7 @@
   </section>
 
   <!-- CTA -->
-  <section class="book-session-overlay-section section-dark" style="padding: var(--space-xxl) 0;">
+  <section class="book-session-overlay-section section-dark section-entrance" style="padding: var(--space-xxl) 0;">
     <div class="container text-center">
       <p class="subtitle fade-in">Are You Ready?</p>
       <h2 class="fade-in" style="color: var(--linen); font-size: clamp(2rem, 4vw, 3.2rem);">Book a Tantric Session in San Francisco</h2>
