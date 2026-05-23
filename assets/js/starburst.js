@@ -32,7 +32,7 @@
 
   /* Spread angle in radians from the focal point upward.
      Math.PI = full semicircle (180°). */
-  var SPREAD_ANGLE = Math.PI * 0.94;
+  var SPREAD_ANGLE = Math.PI * 0.88;
 
   /* Animation timing — alive, meditative, noticeable */
   var DRIFT_SPEED  = 0.00032;   /* Noticeable angular sway */
@@ -231,7 +231,7 @@
 
       /* Length oscillation — rays visibly breathe */
       var lengthMod = 0.60 + 0.40 * Math.sin(now * LENGTH_SPEED + ray.lengthPhase);
-      var length = ray.baseLength * lengthMod * h * 1.05;
+      var length = ray.baseLength * lengthMod * h * 0.72;
 
       /* Per-ray pulse — noticeable brightness variation */
       var rayPulse = 0.55 + 0.45 * Math.sin(now * PULSE_SPEED * 0.7 + ray.pulsePhase);

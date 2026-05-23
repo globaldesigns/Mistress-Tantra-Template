@@ -2111,9 +2111,9 @@ section:has(.card-image-offering) .card-image-offering {
 @media (max-width: 768px) {
   .section-over-hero .grid-2 .fade-in-right {
     grid-column: 1 / -1;
-    margin-left: -5px;
-    margin-right: -5px;
-    width: calc(100% + 10px);
+    margin-left: -10px;
+    margin-right: -10px;
+    width: calc(100% + 20px);
   }
   .section-over-hero .grid-2 .fade-in-right .img-hero-tall {
     width: 100%;
@@ -2125,9 +2125,9 @@ section:has(.card-image-offering) .card-image-offering {
 
 @media (max-width: 480px) {
   .section-over-hero .grid-2 .fade-in-right {
-    margin-left: -5px;
-    margin-right: -5px;
-    width: calc(100% + 10px);
+    margin-left: -10px;
+    margin-right: -10px;
+    width: calc(100% + 20px);
   }
   .section-over-hero .grid-2 .fade-in-right .img-hero-tall {
     height: 240px;

@@ -8,7 +8,7 @@
 
 .section-intro-sacred {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .section-intro-sacred .container {
@@ -72,8 +72,7 @@
 }
 
 /* Sacred starburst — radiant ray canvas (Stripe-style)
-   Now lives in its own dedicated section (starburst-section).
-   See .starburst-section rules below. */
+   Lives inside the content section; rays extend below via overflow:visible. */
 .sacred-starburst {
   position: absolute;
   bottom: 0;
@@ -88,46 +87,6 @@
 
 .sacred-starburst.visible {
   opacity: 1;
-}
-
-/* ============================================================
-   STARBURST DEDICATED SECTION
-   Starbursts are placed in their own thin section that clips
-   the canvas height, directly below the content section.
-   ============================================================ */
-.starburst-section {
-  position: relative;
-  overflow: hidden;
-  height: 220px;
-  pointer-events: none;
-}
-
-.starburst-section .sacred-starburst {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 300%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 3s ease 0.5s;
-}
-
-.starburst-section .sacred-starburst.visible {
-  opacity: 1;
-}
-
-@media (max-width: 768px) {
-  .starburst-section {
-    height: 160px;
-  }
-}
-
-@media (max-width: 480px) {
-  .starburst-section {
-    height: 120px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -191,6 +150,23 @@
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
+/* Second pillars mandala — positioned behind "Sacred Touch" */
+.pillars-mandala-wrap-lower {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, 56vw);
+  height: min(600px, 56vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.50;
+}
+
+.pillars-mandala-wrap-lower .pillars-mandala-img {
+  animation: pillarsMandalaSpin 120s linear infinite reverse;
+}
+
 @keyframes pillarsMandalaSpin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
@@ -202,6 +178,11 @@
     height: min(600px, 88vw);
     opacity: 0.75;
   }
+  .pillars-mandala-wrap-lower {
+    width: min(500px, 76vw);
+    height: min(500px, 76vw);
+    opacity: 0.50;
+  }
 }
 
 @media (max-width: 520px) {
@@ -211,6 +192,13 @@
     opacity: 0.75;
     top: 0;
     transform: translate(-50%, 0);
+  }
+
+  .pillars-mandala-wrap-lower {
+    width: min(380px, 95vw);
+    height: min(380px, 95vw);
+    opacity: 0.50;
+    top: 55%;
   }
 
   /* Duplicate pillars mandala positioned lower in the section on mobile */
@@ -239,6 +227,45 @@
 /* Desktop: hide mobile-lower duplicate */
 .pillars-mandala-wrap-mobile-lower {
   display: none;
+}
+
+/* ============================================================
+   BOOK A TANTRIC SESSION — centered mandala overlay
+   ============================================================ */
+.book-session-mandala-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(680px, 62vw);
+  height: min(680px, 62vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.50;
+}
+
+.book-session-mandala-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: pillarsMandalaSpin 120s linear infinite;
+}
+
+@media (max-width: 900px) {
+  .book-session-mandala-wrap {
+    width: min(560px, 80vw);
+    height: min(560px, 80vw);
+    opacity: 0.50;
+  }
+}
+
+@media (max-width: 520px) {
+  .book-session-mandala-wrap {
+    width: min(420px, 105vw);
+    height: min(420px, 105vw);
+    opacity: 0.45;
+  }
 }
 
 /* ============================================================
