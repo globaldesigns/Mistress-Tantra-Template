@@ -20,10 +20,10 @@
 .sacred-mandala-wrap {
   position: absolute;
   top: 64%;
-  right: -10%;
+  right: 0%;
   transform: translateY(-50%);
-  width: min(360px, 46vw);
-  height: min(360px, 46vw);
+  width: min(320px, 42vw);
+  height: min(320px, 42vw);
   pointer-events: none;
   z-index: 0;
   opacity: 0;
@@ -35,13 +35,13 @@
   opacity: 0.75;
 }
 
-/* Top-left mandala — placement kept as-is */
+/* Top-left mandala — visible at top-left of Welcome section */
 .sacred-mandala-wrap-sm {
   position: absolute;
-  top: -5%;
-  left: -4%;
-  width: min(240px, 35vw);
-  height: min(240px, 35vw);
+  top: 2%;
+  left: 2%;
+  width: min(220px, 32vw);
+  height: min(220px, 32vw);
   pointer-events: none;
   z-index: 0;
   opacity: 0;
@@ -92,9 +92,9 @@
 @media (max-width: 768px) {
   .sacred-mandala-wrap {
     top: 67%;
-    right: -24%;
-    width: min(300px, 78vw);
-    height: min(300px, 78vw);
+    right: -8%;
+    width: min(260px, 68vw);
+    height: min(260px, 68vw);
   }
 
   /* Mobile: same universal opacity as desktop */
@@ -104,10 +104,10 @@
 
   .sacred-mandala-wrap-sm {
     display: block;
-    top: -18%;
-    left: -10%;
-    width: min(280px, 72vw);
-    height: min(280px, 72vw);
+    top: 3%;
+    left: 3%;
+    width: min(200px, 55vw);
+    height: min(200px, 55vw);
   }
 
   /* Mobile: same universal opacity as desktop */
