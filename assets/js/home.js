@@ -242,3 +242,57 @@
     }
   }
 })();
+
+/* Offerings page: Tantric Ritual starburst + mandala visibility */
+(function(){
+  var ritualMandalaEls = [
+    document.getElementById('offeringsRitualMandala'),
+    document.getElementById('offeringsRitualMandalaSmall')
+  ].filter(Boolean);
+
+  var ritualStarburstCanvas = document.getElementById('offeringsRitualStarburst');
+
+  if (ritualMandalaEls.length && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          ritualMandalaEls.forEach(function(el) { el.classList.add('visible'); });
+          if (ritualStarburstCanvas) {
+            ritualStarburstCanvas.classList.add('visible');
+            if (window.SacredStarburst) window.SacredStarburst.init(ritualStarburstCanvas);
+          }
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.15 });
+    var ritualSection = document.getElementById('offeringsRitualSection');
+    if (ritualSection) obs.observe(ritualSection);
+  } else {
+    ritualMandalaEls.forEach(function(el) { el.classList.add('visible'); });
+    if (ritualStarburstCanvas) {
+      ritualStarburstCanvas.classList.add('visible');
+      if (window.SacredStarburst) window.SacredStarburst.init(ritualStarburstCanvas);
+    }
+  }
+})();
+
+/* Offerings + Connect pages: auto-show offerings-mandala elements when visible */
+(function(){
+  var mandalaImgs = document.querySelectorAll('.offerings-mandala-section .offerings-mandala');
+  if (!mandalaImgs.length) return;
+
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var mandalas = entry.target.querySelectorAll('.offerings-mandala');
+          mandalas.forEach(function(m) { m.style.opacity = ''; });
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.10 });
+    document.querySelectorAll('.offerings-mandala-section').forEach(function(section) {
+      obs.observe(section);
+    });
+  }
+})();

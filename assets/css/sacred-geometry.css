@@ -360,3 +360,130 @@
     opacity: 0.15;
   }
 }
+
+/* ============================================================
+   VARIED MANDALA SPACING — alt classes for different pages
+   Same mandala types, slightly different positions so pages
+   don't exactly copy the home page spacing.
+   ============================================================ */
+
+/* --- Offerings page: Intro section (alt1) --- */
+.offerings-mandala-section-alt1 .offerings-mandala-one {
+  top: 14%;
+  left: -6%;
+}
+.offerings-mandala-section-alt1 .offerings-mandala-two {
+  right: -11%;
+  bottom: 4%;
+  opacity: 0.30;
+}
+
+/* --- Offerings page: Sacred Intimacy section (alt2) --- */
+.offerings-mandala-section-alt2 .offerings-mandala-one {
+  top: 6%;
+  left: -12%;
+}
+.offerings-mandala-section-alt2 .offerings-mandala-two {
+  right: -7%;
+  bottom: 14%;
+  opacity: 0.32;
+}
+
+/* --- Offerings page: Couples Journey section (alt3) --- */
+.offerings-mandala-section-alt3 .offerings-mandala-one {
+  top: 18%;
+  left: -10%;
+}
+.offerings-mandala-section-alt3 .offerings-mandala-two {
+  right: -13%;
+  bottom: 10%;
+  opacity: 0.28;
+}
+
+/* --- Offerings page: Testimonial section (alt4) — single mandala, more subtle --- */
+.offerings-mandala-section-alt4 .offerings-mandala-one {
+  top: -8%;
+  right: -5%;
+  left: auto;
+  opacity: 0.22;
+}
+
+/* --- Connect page: Intro section (connect1) --- */
+.offerings-mandala-section-connect1 .offerings-mandala-one {
+  top: 8%;
+  left: -9%;
+}
+.offerings-mandala-section-connect1 .offerings-mandala-two {
+  right: -6%;
+  bottom: 10%;
+  opacity: 0.34;
+}
+
+/* --- Offerings page: Tantric Ritual mandala positions --- */
+#offeringsRitualMandala {
+  top: 58%;
+  right: -8%;
+  transform: none;
+  opacity: 0.70;
+}
+#offeringsRitualMandalaSmall {
+  top: -3%;
+  left: -3%;
+}
+
+/* Responsive adjustments for alt mandalas */
+@media (max-width: 768px) {
+  .offerings-mandala-section-alt1 .offerings-mandala-one,
+  .offerings-mandala-section-alt2 .offerings-mandala-one,
+  .offerings-mandala-section-alt3 .offerings-mandala-one,
+  .offerings-mandala-section-connect1 .offerings-mandala-one {
+    left: -30%;
+    top: 2%;
+  }
+  .offerings-mandala-section-alt1 .offerings-mandala-two,
+  .offerings-mandala-section-alt2 .offerings-mandala-two,
+  .offerings-mandala-section-alt3 .offerings-mandala-two,
+  .offerings-mandala-section-connect1 .offerings-mandala-two {
+    right: -32%;
+    bottom: 18%;
+  }
+  .offerings-mandala-section-alt4 .offerings-mandala-one {
+    right: -38%;
+    top: -4%;
+  }
+  #offeringsRitualMandala {
+    right: -22%;
+    top: 65%;
+  }
+}
+
+@media (max-width: 480px) {
+  .offerings-mandala-section-alt1 .offerings-mandala-one,
+  .offerings-mandala-section-alt2 .offerings-mandala-one,
+  .offerings-mandala-section-alt3 .offerings-mandala-one,
+  .offerings-mandala-section-connect1 .offerings-mandala-one {
+    left: -40%;
+    top: 1%;
+  }
+  .offerings-mandala-section-alt1 .offerings-mandala-two,
+  .offerings-mandala-section-alt2 .offerings-mandala-two,
+  .offerings-mandala-section-alt3 .offerings-mandala-two,
+  .offerings-mandala-section-connect1 .offerings-mandala-two {
+    right: -42%;
+    bottom: 22%;
+  }
+  .offerings-mandala-section-alt4 .offerings-mandala-one {
+    right: -48%;
+    top: -6%;
+  }
+  #offeringsRitualMandala {
+    right: -30%;
+    top: 68%;
+  }
+}
+
+/* Connect page: ensure form content is above mandala */
+.training-mandala-section > .connect-grid {
+  position: relative;
+  z-index: 1;
+}
