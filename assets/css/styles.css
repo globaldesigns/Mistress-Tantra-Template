@@ -1191,7 +1191,7 @@ img {
 
 /* --- FOOTER --- */
 .footer {
-  background: var(--charcoal);
+  background: linear-gradient(135deg, #1a1508 0%, #3d3428 40%, #2a2114 100%);
   color: var(--stone);
   padding: var(--space-xl) 0 var(--space-md);
 }
@@ -1286,8 +1286,26 @@ img {
 }
 
 @media (max-width: 768px) {
+  /* Move brand/logo to top of footer on mobile, center everything */
   .footer-top {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-brand {
+    order: -1;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-brand p {
+    max-width: 100%;
+  }
+  .footer-col {
+    text-align: center;
+  }
+  .footer-col a {
+    text-align: center;
   }
   .footer-bottom {
     flex-direction: column;
