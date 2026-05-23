@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=42">
+  <link rel="stylesheet" href="assets/css/styles.css?v=43">
   <link rel="stylesheet" href="assets/css/home.css?v=8">
-  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=4">
+  <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=5">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
   <script src="assets/js/responsive-video.js"></script>
@@ -133,13 +133,13 @@
     </div>
   </section>
 
-  <div class="about-overlap-image">
+  <div class="about-overlap-image overlap-immediate">
     <picture>
       <source media="(max-width: 480px)" srcset="assets/images/mobile/offerings-hero.webp" type="image/webp">
       <source media="(max-width: 767px)" srcset="assets/images/tablet-p/offerings-hero.webp" type="image/webp">
       <source media="(max-width: 1023px)" srcset="assets/images/tablet-l/offerings-hero.webp" type="image/webp">
       <source srcset="assets/images/laptop/offerings-hero.webp" type="image/webp">
-      <img src="assets/images/offerings-hero.webp" alt="Sacred offerings of Mistress Tantra" class="">
+      <img src="assets/images/offerings-hero.webp" alt="Sacred offerings of Mistress Tantra" class="visible">
     </picture>
   </div>
 
@@ -167,7 +167,6 @@
     <div class="sacred-mandala-wrap-sm" id="offeringsRitualMandalaSmall">
       <img src="assets/images/mandala-section.png" alt="" class="sacred-mandala-img sacred-mandala-img-sm" aria-hidden="true">
     </div>
-    <canvas class="sacred-starburst" id="offeringsRitualStarburst" aria-hidden="true"></canvas>
     <div class="container">
       <div class="grid-2">
         <div class="split-text fade-in-left">
@@ -190,6 +189,11 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- Starburst section -->
+  <section class="starburst-section section-ivory" aria-hidden="true">
+    <canvas class="sacred-starburst" id="offeringsRitualStarburst" aria-hidden="true"></canvas>
   </section>
 
   <!-- Offering 2: Sacred Intimacy -->
@@ -413,7 +417,7 @@
 
   <div class="back-to-top">↑</div>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/starburst.js"></script>
-  <script src="assets/js/home.js"></script>
+  <script src="assets/js/starburst.js?v=2"></script>
+  <script src="assets/js/home.js?v=2"></script>
 </body>
 </html>

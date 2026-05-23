@@ -185,18 +185,15 @@
     document.getElementById('sacredMandalaSmall')
   ].filter(Boolean);
 
-  /* Starburst canvas — init on intersection */
+  /* Starburst canvas — now in its own .starburst-section */
   var starburstCanvas = document.getElementById('sacredStarburst');
+  var starburstSection = starburstCanvas ? starburstCanvas.closest('.starburst-section') : null;
 
   if (sacredEls.length && 'IntersectionObserver' in window) {
     var sacredObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           sacredEls.forEach(function(el) { el.classList.add('visible'); });
-          if (starburstCanvas) {
-            starburstCanvas.classList.add('visible');
-            if (window.SacredStarburst) window.SacredStarburst.init(starburstCanvas);
-          }
           sacredObserver.disconnect();
         }
       });
@@ -205,10 +202,23 @@
     if (introSection) sacredObserver.observe(introSection);
   } else {
     sacredEls.forEach(function(el) { el.classList.add('visible'); });
-    if (starburstCanvas) {
-      starburstCanvas.classList.add('visible');
-      if (window.SacredStarburst) window.SacredStarburst.init(starburstCanvas);
-    }
+  }
+
+  /* Starburst init — observe its own section */
+  if (starburstCanvas && 'IntersectionObserver' in window) {
+    var starburstObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          starburstCanvas.classList.add('visible');
+          if (window.SacredStarburst) window.SacredStarburst.init(starburstCanvas);
+          starburstObs.disconnect();
+        }
+      });
+    }, { threshold: 0.05 });
+    if (starburstSection) starburstObs.observe(starburstSection);
+  } else if (starburstCanvas) {
+    starburstCanvas.classList.add('visible');
+    if (window.SacredStarburst) window.SacredStarburst.init(starburstCanvas);
   }
 
 
@@ -237,16 +247,13 @@
   ].filter(Boolean);
 
   var aboutStarburstCanvas = document.getElementById('aboutSacredStarburst');
+  var aboutStarburstSection = aboutStarburstCanvas ? aboutStarburstCanvas.closest('.starburst-section') : null;
 
   if (aboutSacredEls.length && 'IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           aboutSacredEls.forEach(function(el) { el.classList.add('visible'); });
-          if (aboutStarburstCanvas) {
-            aboutStarburstCanvas.classList.add('visible');
-            if (window.SacredStarburst) window.SacredStarburst.init(aboutStarburstCanvas);
-          }
           obs.disconnect();
         }
       });
@@ -255,10 +262,23 @@
     if (originSection) obs.observe(originSection);
   } else {
     aboutSacredEls.forEach(function(el) { el.classList.add('visible'); });
-    if (aboutStarburstCanvas) {
-      aboutStarburstCanvas.classList.add('visible');
-      if (window.SacredStarburst) window.SacredStarburst.init(aboutStarburstCanvas);
-    }
+  }
+
+  /* About starburst init — observe its own section */
+  if (aboutStarburstCanvas && 'IntersectionObserver' in window) {
+    var aboutStarburstObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          aboutStarburstCanvas.classList.add('visible');
+          if (window.SacredStarburst) window.SacredStarburst.init(aboutStarburstCanvas);
+          aboutStarburstObs.disconnect();
+        }
+      });
+    }, { threshold: 0.05 });
+    if (aboutStarburstSection) aboutStarburstObs.observe(aboutStarburstSection);
+  } else if (aboutStarburstCanvas) {
+    aboutStarburstCanvas.classList.add('visible');
+    if (window.SacredStarburst) window.SacredStarburst.init(aboutStarburstCanvas);
   }
 })();
 
@@ -270,16 +290,13 @@
   ].filter(Boolean);
 
   var ritualStarburstCanvas = document.getElementById('offeringsRitualStarburst');
+  var ritualStarburstSection = ritualStarburstCanvas ? ritualStarburstCanvas.closest('.starburst-section') : null;
 
   if (ritualMandalaEls.length && 'IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           ritualMandalaEls.forEach(function(el) { el.classList.add('visible'); });
-          if (ritualStarburstCanvas) {
-            ritualStarburstCanvas.classList.add('visible');
-            if (window.SacredStarburst) window.SacredStarburst.init(ritualStarburstCanvas);
-          }
           obs.disconnect();
         }
       });
@@ -288,10 +305,23 @@
     if (ritualSection) obs.observe(ritualSection);
   } else {
     ritualMandalaEls.forEach(function(el) { el.classList.add('visible'); });
-    if (ritualStarburstCanvas) {
-      ritualStarburstCanvas.classList.add('visible');
-      if (window.SacredStarburst) window.SacredStarburst.init(ritualStarburstCanvas);
-    }
+  }
+
+  /* Offerings starburst init — observe its own section */
+  if (ritualStarburstCanvas && 'IntersectionObserver' in window) {
+    var ritualStarburstObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          ritualStarburstCanvas.classList.add('visible');
+          if (window.SacredStarburst) window.SacredStarburst.init(ritualStarburstCanvas);
+          ritualStarburstObs.disconnect();
+        }
+      });
+    }, { threshold: 0.05 });
+    if (ritualStarburstSection) ritualStarburstObs.observe(ritualStarburstSection);
+  } else if (ritualStarburstCanvas) {
+    ritualStarburstCanvas.classList.add('visible');
+    if (window.SacredStarburst) window.SacredStarburst.init(ritualStarburstCanvas);
   }
 })();
 

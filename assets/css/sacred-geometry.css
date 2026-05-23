@@ -1,11 +1,14 @@
 /* ============================================================
    SACRED MANDALA — Tantric Awakening section
    Uses provided mandala PNG, cleaned to transparent background.
+   UNIVERSAL OPACITY: large mandala 0.75, small mandala 0.50
+   (except section-dark / deep-forest backgrounds)
    ============================================================ */
+
 
 .section-intro-sacred {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .section-intro-sacred .container {
@@ -27,7 +30,7 @@
   transition: opacity 2.5s ease;
 }
 
-/* Keep same opacity amount from previous version */
+/* UNIVERSAL: large mandala opacity = 0.75 */
 .sacred-mandala-wrap.visible {
   opacity: 0.75;
 }
@@ -45,7 +48,7 @@
   transition: opacity 2.5s ease;
 }
 
-/* Keep same opacity amount from previous version */
+/* UNIVERSAL: small mandala opacity = 0.50 */
 .sacred-mandala-wrap-sm.visible {
   opacity: 0.50;
 }
@@ -56,15 +59,11 @@
   height: 100%;
   object-fit: contain;
   transform-origin: center;
-  will-change: transform;
-  contain: layout style;
   animation: sacredMandalaSpin 95s linear infinite;
 }
 
 .sacred-mandala-img-sm {
   animation: sacredMandalaSpin 120s linear infinite reverse;
-  will-change: transform;
-  contain: layout style;
 }
 
 @keyframes sacredMandalaSpin {
@@ -73,14 +72,14 @@
 }
 
 /* Sacred starburst — radiant ray canvas (Stripe-style)
-   Canvas fills section width, extends 50% taller than section above.
-   Focal point sits at the section's bottom edge via JS. */
+   Now lives in its own dedicated section (starburst-section).
+   See .starburst-section rules below. */
 .sacred-starburst {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 150%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
   opacity: 0;
@@ -91,6 +90,46 @@
   opacity: 1;
 }
 
+/* ============================================================
+   STARBURST DEDICATED SECTION
+   Starbursts are placed in their own thin section that clips
+   the canvas height, directly below the content section.
+   ============================================================ */
+.starburst-section {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+  pointer-events: none;
+}
+
+.starburst-section .sacred-starburst {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 3s ease 0.5s;
+}
+
+.starburst-section .sacred-starburst.visible {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .starburst-section {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .starburst-section {
+    height: 120px;
+  }
+}
+
 @media (max-width: 768px) {
   .sacred-mandala-wrap {
     top: 67%;
@@ -99,8 +138,9 @@
     height: min(300px, 78vw);
   }
 
+  /* Mobile: same universal opacity as desktop */
   .sacred-mandala-wrap.visible {
-    opacity: 0.55;
+    opacity: 0.75;
   }
 
   .sacred-mandala-wrap-sm {
@@ -111,15 +151,15 @@
     height: min(280px, 72vw);
   }
 
+  /* Mobile: same universal opacity as desktop */
   .sacred-mandala-wrap-sm.visible {
-    opacity: 0.45;
+    opacity: 0.50;
   }
-
-  /* Mandalas animate on mobile — same settings as desktop */
 }
 
 /* ============================================================
    THREE PILLARS — centered mandala overlay
+   UNIVERSAL OPACITY: 0.75 (same as sacred-mandala-wrap)
    ============================================================ */
 .section-pillars-sacred {
   position: relative;
@@ -140,7 +180,7 @@
   height: min(720px, 66vw);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.24;
+  opacity: 0.75;
 }
 
 .pillars-mandala-img {
@@ -148,8 +188,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  will-change: transform;
-  contain: layout style;
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
@@ -162,7 +200,7 @@
   .pillars-mandala-wrap {
     width: min(600px, 88vw);
     height: min(600px, 88vw);
-    opacity: 0.18;
+    opacity: 0.75;
   }
 }
 
@@ -170,7 +208,7 @@
   .pillars-mandala-wrap {
     width: min(420px, 105vw);
     height: min(420px, 105vw);
-    opacity: 0.15;
+    opacity: 0.75;
     top: 0;
     transform: translate(-50%, 0);
   }
@@ -186,7 +224,7 @@
     height: min(420px, 105vw);
     pointer-events: none;
     z-index: 0;
-    opacity: 0.12;
+    opacity: 0.50;
   }
 
   .pillars-mandala-wrap-mobile-lower .pillars-mandala-img {
@@ -194,8 +232,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    will-change: transform;
-    contain: layout style;
     animation: pillarsMandalaSpin 120s linear infinite reverse;
   }
 }
@@ -208,6 +244,7 @@
 /* ============================================================
    OFFERINGS SECTION MANDALAS
    Same mandala artwork, size family, and slow animation as Tantric Awakening.
+   UNIVERSAL OPACITY: one = 0.75, two = 0.50
    ============================================================ */
 .offerings-mandala-section {
   position: relative;
@@ -226,19 +263,18 @@
   height: min(360px, 46vw);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.42;
 }
 
 .offerings-mandala-one {
   top: 10%;
   left: -8%;
-  opacity: 0.22;
+  opacity: 0.75;
 }
 
 .offerings-mandala-two {
   right: -9%;
   bottom: 7%;
-  opacity: 0.18;
+  opacity: 0.50;
 }
 
 .offerings-mandala-img {
@@ -247,8 +283,6 @@
   height: 100%;
   object-fit: contain;
   transform-origin: center;
-  will-change: transform;
-  contain: layout style;
   animation: sacredMandalaSpin 95s linear infinite;
 }
 
@@ -260,17 +294,18 @@
   .offerings-mandala {
     width: min(320px, 44vw);
     height: min(320px, 44vw);
-    opacity: 0.34;
   }
 
   .offerings-mandala-one {
     top: 8%;
     left: -16%;
+    opacity: 0.75;
   }
 
   .offerings-mandala-two {
     right: -17%;
     bottom: 12%;
+    opacity: 0.50;
   }
 }
 
@@ -278,18 +313,18 @@
   .offerings-mandala {
     width: min(260px, 58vw);
     height: min(260px, 58vw);
-    opacity: 0.25;
   }
 
   .offerings-mandala-one {
     top: 3%;
     left: -28%;
+    opacity: 0.75;
   }
 
   .offerings-mandala-two {
     right: -30%;
     bottom: 18%;
-    opacity: 0.22;
+    opacity: 0.50;
   }
 }
 
@@ -297,18 +332,18 @@
   .offerings-mandala {
     width: min(220px, 70vw);
     height: min(220px, 70vw);
-    opacity: 0.18;
   }
 
   .offerings-mandala-one {
     top: 2%;
     left: -42%;
+    opacity: 0.75;
   }
 
   .offerings-mandala-two {
     right: -44%;
     bottom: 24%;
-    opacity: 0.16;
+    opacity: 0.50;
   }
 }
 
@@ -316,6 +351,7 @@
 /* ============================================================
    ABOUT ORIGIN — unique mandala positions
    Same size/animation, different placement from home page
+   UNIVERSAL OPACITY: 0.75 / 0.50
    ============================================================ */
 #aboutSacredMandala {
   top: 22%;
@@ -339,6 +375,7 @@
 /* ============================================================
    ABOUT TRAINING & LINEAGE — big mandala background
    Same as Three Pillars on home, positioned in right column area
+   UNIVERSAL OPACITY: 0.75
    ============================================================ */
 .training-mandala-section {
   position: relative;
@@ -359,7 +396,7 @@
   height: min(720px, 50vw);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.24;
+  opacity: 0.75;
 }
 
 .training-mandala-img {
@@ -367,8 +404,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  will-change: transform;
-  contain: layout style;
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
@@ -376,7 +411,7 @@
   .training-mandala-wrap {
     width: min(500px, 70vw);
     height: min(500px, 70vw);
-    opacity: 0.18;
+    opacity: 0.75;
   }
 }
 
@@ -384,7 +419,7 @@
   .training-mandala-wrap {
     width: min(420px, 105vw);
     height: min(420px, 105vw);
-    opacity: 0.15;
+    opacity: 0.75;
   }
 }
 
@@ -392,58 +427,63 @@
    VARIED MANDALA SPACING — alt classes for different pages
    Same mandala types, slightly different positions so pages
    don't exactly copy the home page spacing.
+   UNIVERSAL OPACITY: one = 0.75, two = 0.50
    ============================================================ */
 
 /* --- Offerings page: Intro section (alt1) --- */
 .offerings-mandala-section-alt1 .offerings-mandala-one {
   top: 14%;
   left: -6%;
+  opacity: 0.75;
 }
 .offerings-mandala-section-alt1 .offerings-mandala-two {
   right: -11%;
   bottom: 4%;
-  opacity: 0.30;
+  opacity: 0.50;
 }
 
 /* --- Offerings page: Sacred Intimacy section (alt2) --- */
 .offerings-mandala-section-alt2 .offerings-mandala-one {
   top: 6%;
   left: -12%;
+  opacity: 0.75;
 }
 .offerings-mandala-section-alt2 .offerings-mandala-two {
   right: -7%;
   bottom: 14%;
-  opacity: 0.32;
+  opacity: 0.50;
 }
 
 /* --- Offerings page: Couples Journey section (alt3) --- */
 .offerings-mandala-section-alt3 .offerings-mandala-one {
   top: 18%;
   left: -10%;
+  opacity: 0.75;
 }
 .offerings-mandala-section-alt3 .offerings-mandala-two {
   right: -13%;
   bottom: 10%;
-  opacity: 0.28;
+  opacity: 0.50;
 }
 
-/* --- Offerings page: Testimonial section (alt4) — single mandala, more subtle --- */
+/* --- Offerings page: Testimonial section (alt4) — single mandala --- */
 .offerings-mandala-section-alt4 .offerings-mandala-one {
   top: -8%;
   right: -5%;
   left: auto;
-  opacity: 0.22;
+  opacity: 0.75;
 }
 
 /* --- Connect page: Intro section (connect1) --- */
 .offerings-mandala-section-connect1 .offerings-mandala-one {
   top: 8%;
   left: -9%;
+  opacity: 0.75;
 }
 .offerings-mandala-section-connect1 .offerings-mandala-two {
   right: -6%;
   bottom: 10%;
-  opacity: 0.34;
+  opacity: 0.50;
 }
 
 /* --- Offerings page: Tantric Ritual mandala positions --- */
@@ -451,11 +491,12 @@
   top: 58%;
   right: -8%;
   transform: none;
-  opacity: 0.70;
+  opacity: 0.75;
 }
 #offeringsRitualMandalaSmall {
   top: -3%;
   left: -3%;
+  opacity: 0.50;
 }
 
 /* Responsive adjustments for alt mandalas */
@@ -466,6 +507,7 @@
   .offerings-mandala-section-connect1 .offerings-mandala-one {
     left: -30%;
     top: 2%;
+    opacity: 0.75;
   }
   .offerings-mandala-section-alt1 .offerings-mandala-two,
   .offerings-mandala-section-alt2 .offerings-mandala-two,
@@ -473,14 +515,20 @@
   .offerings-mandala-section-connect1 .offerings-mandala-two {
     right: -32%;
     bottom: 18%;
+    opacity: 0.50;
   }
   .offerings-mandala-section-alt4 .offerings-mandala-one {
     right: -38%;
     top: -4%;
+    opacity: 0.75;
   }
   #offeringsRitualMandala {
     right: -22%;
     top: 65%;
+    opacity: 0.75;
+  }
+  #offeringsRitualMandalaSmall {
+    opacity: 0.50;
   }
 }
 
@@ -491,6 +539,7 @@
   .offerings-mandala-section-connect1 .offerings-mandala-one {
     left: -40%;
     top: 1%;
+    opacity: 0.75;
   }
   .offerings-mandala-section-alt1 .offerings-mandala-two,
   .offerings-mandala-section-alt2 .offerings-mandala-two,
@@ -498,14 +547,20 @@
   .offerings-mandala-section-connect1 .offerings-mandala-two {
     right: -42%;
     bottom: 22%;
+    opacity: 0.50;
   }
   .offerings-mandala-section-alt4 .offerings-mandala-one {
     right: -48%;
     top: -6%;
+    opacity: 0.75;
   }
   #offeringsRitualMandala {
     right: -30%;
     top: 68%;
+    opacity: 0.75;
+  }
+  #offeringsRitualMandalaSmall {
+    opacity: 0.50;
   }
 }
 
@@ -513,4 +568,61 @@
 .training-mandala-section > .connect-grid {
   position: relative;
   z-index: 1;
+}
+
+/* ============================================================
+   SCROLL PERFORMANCE OPTIMIZATIONS
+   - Promote mandala images to GPU layers for smooth animation
+   - Use content-visibility for off-screen sections
+   - Avoid will-change on too many elements (causes memory bloat)
+   ============================================================ */
+
+/* GPU-accelerated compositing for animated mandalas */
+.sacred-mandala-img,
+.sacred-mandala-img-sm,
+.pillars-mandala-img,
+.offerings-mandala-img,
+.training-mandala-img {
+  transform: translateZ(0);
+}
+
+/* Content-visibility for sections without mandalas (saves rendering) */
+.section-dark:not(.section-pillars-sacred) {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ============================================================
+   CONTENT BOX WHITE BACKGROUND — 15% opacity
+   All content containers in mandala sections (except section-dark)
+   get a subtle white wash so text remains readable over mandalas.
+   ============================================================ */
+
+/* Section-intro-sacred with mandalas (Origin Story, Tantric Ritual) */
+.section-intro-sacred:not(.section-dark) .grid-2 > div {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+/* Offerings mandala sections — content containers */
+.offerings-mandala-section:not(.section-dark) .grid-2 > div,
+.offerings-mandala-section:not(.section-dark) .quote-block {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+/* Offerings mandala sections — centered text sections (no grid-2) */
+.offerings-mandala-section:not(.section-dark) .container.text-center {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+/* Training mandala sections — NOT dark */
+.training-mandala-section:not(.section-dark) .grid-2 > div {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 1.5rem;
 }

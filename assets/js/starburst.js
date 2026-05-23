@@ -4,6 +4,8 @@
    Hundreds of thin lines fan outward from a bottom focal point,
    with color gradients in rich gold that transition to sage.
    Visible, alive, never a secret.
+   
+   Performance: pauses animation when canvas is off-screen.
    ============================================================ */
 
 (function () {
@@ -101,6 +103,7 @@
     this.rays = [];
     this.animId = null;
     this.running = false;
+    this.visible = false;
     this.lastTime = 0;
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -118,6 +121,23 @@
     /* Respect reduced motion */
     this.reducedMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Visibility observer — pause animation when off-screen */
+    if ('IntersectionObserver' in window) {
+      this._visObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          self.visible = entry.isIntersecting;
+          if (self.visible && self.running && !self.animId) {
+            /* Resume animation */
+            self.lastTime = performance.now();
+            self.animId = requestAnimationFrame(self._tick);
+          }
+        });
+      }, { threshold: 0 });
+      this._visObserver.observe(canvas);
+    } else {
+      this.visible = true;
+    }
   }
 
   StarburstInstance.prototype._resize = function () {
@@ -139,10 +159,16 @@
   StarburstInstance.prototype.start = function () {
     if (this.running) return;
     this.running = true;
+    this.visible = true;
     this.lastTime = performance.now();
     var self = this;
     if (!this.reducedMotion) {
       this._tick = function (now) {
+        /* Skip frame if not visible (off-screen) */
+        if (!self.visible) {
+          self.animId = null;
+          return;
+        }
         self._draw(now);
         self.animId = requestAnimationFrame(self._tick);
       };
@@ -160,6 +186,9 @@
       this.animId = null;
     }
     window.removeEventListener('resize', this._resizeHandler);
+    if (this._visObserver) {
+      this._visObserver.disconnect();
+    }
   };
 
   StarburstInstance.prototype._draw = function (now) {
@@ -168,6 +197,9 @@
     var h = this.height;
     var fx = this.focalX;
     var fy = this.focalY;
+
+    /* Skip if canvas has no dimensions */
+    if (w === 0 || h === 0) return;
 
     /* Clear */
     ctx.clearRect(0, 0, w, h);
@@ -209,16 +241,7 @@
       var endX = fx + Math.cos(angle) * length;
       var endY = fy + Math.sin(angle) * length;
 
-      /* Gradient along the ray — STRONG gold body, gentle fade at tips.
-         The ray holds its color and opacity through the mid-section
-         so it's visible as you scroll into the section.
-         0%:   warm gold base at origin
-         8%:   peak opacity — the ray is fully present
-         30%:  still strong — the visible "body" of the ray
-         55%:  starting to thin — transition zone
-         75%:  fading — approaching whisper
-         90%:  nearly gone
-         100%: transparent */
+      /* Gradient along the ray */
       var grad = ctx.createLinearGradient(fx, fy, endX, endY);
       grad.addColorStop(0,    'rgba(' + ray.colorBaseR + ',' + ray.colorBaseG + ',' + ray.colorBaseB + ',' + (opacity * 0.90).toFixed(3) + ')');
       grad.addColorStop(0.08, 'rgba(' + ray.colorR + ',' + ray.colorG + ',' + ray.colorB + ',' + (opacity * 1.0).toFixed(3) + ')');

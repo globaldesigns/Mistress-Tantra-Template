@@ -2305,6 +2305,13 @@ section:has(.card-image-offering) .card-image-offering {
   transform: translateY(0);
 }
 
+/* Offerings page: overlap image shows immediately on load, no fade-in */
+.about-overlap-image.overlap-immediate img {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 @media (max-width: 1024px) {
   .about-hero-gradient { padding: 160px 0 120px; min-height: 440px; }
   .about-overlap-image { margin-top: -60px; }
