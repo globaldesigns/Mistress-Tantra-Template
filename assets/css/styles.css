@@ -1192,7 +1192,7 @@ img {
 /* --- FOOTER --- */
 .footer {
   background: linear-gradient(135deg, #0d0a04 0%, #3a2c10 25%, #6b5530 50%, #3a2c10 75%, #0d0a04 100%);
-  color: var(--stone);
+  color: #ffffff;
   padding: var(--space-xl) 0 var(--space-md);
 }
 
@@ -1221,12 +1221,12 @@ img {
 .footer-brand p {
   font-size: 0.9rem;
   line-height: 1.7;
-  color: var(--stone);
+  color: #ffffff;
   max-width: 350px;
 }
 
 .footer-col h4 {
-  color: var(--warm-sand);
+  color: #ffffff;
   font-family: var(--font-body);
   font-size: 0.7rem;
   font-weight: 500;
@@ -1238,7 +1238,7 @@ img {
 .footer-col a {
   display: block;
   font-size: 0.9rem;
-  color: var(--stone);
+  color: #ffffff;
   padding: 0.25rem 0;
 }
 
@@ -1267,9 +1267,9 @@ img {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(138, 130, 120, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  color: var(--stone);
+  color: #ffffff;
   font-size: 0.85rem;
   transition: var(--transition-smooth);
 }
