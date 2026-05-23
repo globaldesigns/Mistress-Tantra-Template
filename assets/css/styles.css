@@ -2660,9 +2660,9 @@ section:has(.card-image-offering) .card-image-offering {
   padding: clamp(24px, 4vw, 48px);
 }
 
-/* Form content box — clean, no glass overlay */
+/* Form content box — solid background for readability over image */
 .connect-form-glass {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.88);
   border: none;
   border-radius: 12px;
   padding: clamp(16px, 2.5vw, 28px);
@@ -2684,11 +2684,11 @@ section:has(.card-image-offering) .card-image-offering {
 
 /* Sleek form groups */
 .connect-form-glass .form-group {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   padding: 4px 10px;
   margin-bottom: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .connect-form-glass .form-group label {
@@ -2716,14 +2716,13 @@ section:has(.card-image-offering) .card-image-offering {
   font-size: 0.85rem;
 }
 
-/* Select dropdown — white background, black text */
+/* Select dropdown — consistent with other form fields */
 .connect-form-glass .form-group select {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  background: transparent;
+  border: none;
   color: #000000;
   text-shadow: none;
-  padding: 2px 4px;
+  padding: 2px 0;
   font-size: 0.9rem;
   cursor: pointer;
   -webkit-appearance: none;
