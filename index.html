@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css?v=55">
-  <link rel="stylesheet" href="assets/css/home.css?v=17">
+  <link rel="stylesheet" href="assets/css/home.css?v=18">
   <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=10">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
@@ -128,12 +128,17 @@
 
 
 
-  <!-- Hero — full viewport video -->
+  <!-- Hero — full viewport video with seamless crossfade loop -->
   <section id="home" class="home-hero">
     <div class="home-hero__img" id="heroImage"></div>
 
-    <video class="home-hero__video" id="heroVideo" data-responsive
-           autoplay muted loop playsinline preload="auto">
+    <video class="home-hero__video" id="heroVideoA" data-responsive
+           autoplay muted playsinline preload="auto">
+      <source data-src="assets/videos/{dir}/hero-bg.webm" type="video/webm">
+      <source data-src="assets/videos/{dir}/hero-bg.mp4" type="video/mp4">
+    </video>
+    <video class="home-hero__video home-hero__video--alt" id="heroVideoB" data-responsive
+           muted playsinline preload="auto">
       <source data-src="assets/videos/{dir}/hero-bg.webm" type="video/webm">
       <source data-src="assets/videos/{dir}/hero-bg.mp4" type="video/mp4">
     </video>
@@ -145,9 +150,9 @@
       <h1 class="home-hero__title">Mistress Tantra</h1>
       <p class="home-hero__subtitle">TANTRICA GODDESS</p>
       <p class="home-hero__locations">
-        BOSTON
-        <img src="assets/images/mandala-divider.png" alt="" class="mandala-sep" aria-hidden="true">
         SAN FRANCISCO
+        <img src="assets/images/mandala-divider.png" alt="" class="mandala-sep" aria-hidden="true">
+        BOSTON
       </p>
     </div>
 
@@ -361,6 +366,6 @@
   <div class="back-to-top">↑</div>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/starburst.js?v=3"></script>
-  <script src="assets/js/home.js?v=3"></script>
+  <script src="assets/js/home.js?v=4"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /* ============================================================
    HOME PAGE JS
    - Anti-FOUT: show title only after Allonges font loaded
-   - Video fades in from dark base after 2s
+   - Video seamless crossfade loop (two <video> elements)
    - Sticky header darkens on scroll
    - Hamburger menu overlay
    - Smooth scroll on SCROLL button
@@ -12,7 +12,8 @@
   'use strict';
 
   /* -- Elements -- */
-  var heroVideo  = document.getElementById('heroVideo');
+  var heroVideoA = document.getElementById('heroVideoA');
+  var heroVideoB = document.getElementById('heroVideoB');
   var menuBtn    = document.getElementById('menuBtn');
   var menuClose  = document.getElementById('menuClose');
   var navOverlay = document.getElementById('navOverlay');
@@ -43,15 +44,58 @@
   }
 
   /* ============================================================
-     VIDEO FADE-IN
-     1. Page loads  -> dark background shown, video hidden (opacity:0)
-     2. After 2s    -> video fades IN (2s CSS transition)
-     3. Loops natively via loop attr
+     VIDEO SEAMLESS CROSSFADE LOOP
+     Two <video> elements alternate. When the active video
+     approaches its end, the other starts and fades in while
+     the active one fades out — no glitch, no skip, no pause.
+
+     CROSSFADE_DURATION = how long the overlap lasts (ms)
+     PRESTART           = how far from the end to start the
+                          next video (ms)
   ============================================================ */
-  if (heroVideo) {
+  var CROSSFADE_DURATION = 1500;  /* must match CSS transition */
+  var PRESTART           = 2000;  /* start next vid 2s before end */
+
+  if (heroVideoA && heroVideoB) {
+    var activeVid  = heroVideoA;    /* currently visible */
+    var standbyVid = heroVideoB;    /* hidden, ready to take over */
+    var swapLock   = false;         /* prevent double-swap */
+
+    /* After 2s dark intro, fade in the first video */
     setTimeout(function () {
-      heroVideo.classList.add('visible');
+      heroVideoA.classList.add('visible');
     }, 2000);
+
+    /* When a video is about to end, start the other and crossfade */
+    function onTimeUpdate() {
+      if (swapLock) return;
+      if (!activeVid.duration) return;
+      var remaining = (activeVid.duration - activeVid.currentTime) * 1000;
+      if (remaining <= PRESTART) {
+        swapLock = true;
+        /* Start standby from the beginning */
+        standbyVid.currentTime = 0;
+        standbyVid.play().then(function () {
+          /* Fade in standby, fade out active */
+          standbyVid.classList.add('visible');
+          activeVid.classList.remove('visible');
+          /* After crossfade completes, swap roles */
+          setTimeout(function () {
+            var temp   = activeVid;
+            activeVid  = standbyVid;
+            standbyVid = temp;
+            standbyVid.pause();
+            standbyVid.currentTime = 0;
+            swapLock = false;
+          }, CROSSFADE_DURATION + 100);
+        }).catch(function () {
+          swapLock = false;
+        });
+      }
+    }
+
+    heroVideoA.addEventListener('timeupdate', onTimeUpdate);
+    heroVideoB.addEventListener('timeupdate', onTimeUpdate);
   }
 
   /* ============================================================

@@ -30,7 +30,7 @@
   background-position: center center;
 }
 
-/* ── Video — fades in after 2s ── */
+/* ── Video — seamless crossfade loop ── */
 .home-hero__video {
   position: absolute;
   inset: 0;
@@ -39,12 +39,16 @@
   object-fit: cover;
   object-position: center center;
   z-index: 2;
-  opacity: 1;
-  transition: opacity 2s ease-in-out;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
 }
 
 .home-hero__video.visible {
   opacity: 1;
+}
+
+.home-hero__video--alt {
+  z-index: 1;
 }
 
 /* ── Vignette overlay for text legibility ── */
@@ -263,7 +267,7 @@
   text-shadow: 0 1px 12px rgba(0,0,0,0.4);
 }
 
-/* "BOSTON ◈ SAN FRANCISCO" — lighter, with mandala divider */
+/* "SAN FRANCISCO ◈ BOSTON" — lighter, with mandala divider */
 .home-hero__locations {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(0.8rem, 1.3vw, 1.1rem);
@@ -278,7 +282,7 @@
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
 }
 
-/* Mandala separator between BOSTON and SAN FRANCISCO */
+/* Mandala separator between SAN FRANCISCO and BOSTON */
 .mandala-sep {
   width: 16px;
   height: 16px;
@@ -670,7 +674,7 @@
   }
 
   .home-hero__title {
-    font-size: clamp(3rem, 12vw, 5rem);
+    font-size: clamp(3.5rem, 14vw, 6rem);
   }
 
   .home-hero__subtitle {
