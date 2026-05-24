@@ -114,18 +114,10 @@
     function loadVideoScene(videoEl, sceneIndex) {
       var scene = HERO_SCENES[sceneIndex];
       var srcs  = getHeroVideoSrc(scene);
-      /* Remove old sources */
-      while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
-      /* Add webm first (better compression) */
-      var srcWebm = document.createElement('source');
-      srcWebm.setAttribute('src', srcs.webm);
-      srcWebm.setAttribute('type', 'video/webm');
-      videoEl.appendChild(srcWebm);
-      /* Add mp4 fallback */
-      var srcMp4 = document.createElement('source');
-      srcMp4.setAttribute('src', srcs.mp4);
-      srcMp4.setAttribute('type', 'video/mp4');
-      videoEl.appendChild(srcMp4);
+      /* Use video.src directly — more reliable than <source> manipulation */
+      /* Prefer webm for better compression; mp4 as universal fallback */
+      var canWebm = videoEl.canPlayType('video/webm');
+      videoEl.src = canWebm ? srcs.webm : srcs.mp4;
       videoEl.load();
     }
 
