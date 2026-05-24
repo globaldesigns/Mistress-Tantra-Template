@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css?v=57">
-  <link rel="stylesheet" href="assets/css/home.css?v=19">
+  <link rel="stylesheet" href="assets/css/home.css?v=20">
   <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=11">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
   <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
@@ -132,11 +132,15 @@
   <section id="home" class="home-hero">
     <div class="home-hero__img" id="heroImage"></div>
 
-    <video class="home-hero__video" id="heroVideoA"
+    <video class="home-hero__video" id="heroVideoA" data-responsive
            autoplay muted playsinline preload="auto">
+      <source data-src="assets/videos/{dir}/hero-bg.webm" type="video/webm">
+      <source data-src="assets/videos/{dir}/hero-bg.mp4" type="video/mp4">
     </video>
-    <video class="home-hero__video home-hero__video--alt" id="heroVideoB"
+    <video class="home-hero__video home-hero__video--alt" id="heroVideoB" data-responsive
            muted playsinline preload="auto">
+      <source data-src="assets/videos/{dir}/hero-bg.webm" type="video/webm">
+      <source data-src="assets/videos/{dir}/hero-bg.mp4" type="video/mp4">
     </video>
 
     <div class="home-hero__vignette"></div>
@@ -236,7 +240,7 @@
       <h2 class="fade-in" style="color: var(--linen);">Three Pillars of Tantric Practice</h2>
       <div class="feature-row mt-lg stagger-children">
         <div class="feature-item fade-in">
-          <div class="feature-icon" style="color: var(--aman-gold);">✿</div>
+          <div class="feature-icon" style="color: var(--aman-gold);">〰</div>
           <h3 style="color: var(--linen);">Breath & Conscious Awareness</h3>
           <p style="color: var(--misty-sage);">The bridge between body and spirit. Through conscious breath, we dissolve the walls that separate us from our deepest sensations and open the channel to ecstatic awareness.</p>
         </div>
@@ -366,6 +370,6 @@
   <div class="back-to-top">↑</div>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/starburst.js?v=3"></script>
-  <script src="assets/js/home.js?v=6"></script>
+  <script src="assets/js/home.js?v=7"></script>
 </body>
 </html>

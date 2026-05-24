@@ -28,7 +28,6 @@
   background: #1a1208;
   background-size: cover;
   background-position: center center;
-  transition: opacity 1.5s ease-in-out;
 }
 
 /* ── Video — seamless crossfade loop ── */
@@ -727,7 +726,12 @@
     padding: 0.15em 0;
   }
 
-  /* Hero image carousel is managed by home.js */
+  /* Show new mobile hero image as fallback while video loads */
+  .home-hero__img {
+    background-image: url('../images/tablet-p/hero-home.webp');
+    background-size: cover;
+    background-position: center center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -740,5 +744,10 @@
     padding: 0.1em 0;
   }
 
-  /* Hero image carousel is managed by home.js */
+  /* Show new mobile hero image as fallback while video loads */
+  .home-hero__img {
+    background-image: url('../images/mobile/hero-home.webp');
+    background-size: cover;
+    background-position: center center;
+  }
 }
