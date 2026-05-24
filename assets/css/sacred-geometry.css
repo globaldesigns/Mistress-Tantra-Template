@@ -262,9 +262,9 @@
 
 @media (max-width: 520px) {
   .book-session-mandala-wrap {
-    width: min(320px, 85vw);
-    height: min(320px, 85vw);
-    opacity: 0.40;
+    width: min(420px, 105vw);
+    height: min(420px, 105vw);
+    opacity: 0.45;
   }
 }
 
