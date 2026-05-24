@@ -5,7 +5,6 @@
    (except section-dark / deep-forest backgrounds)
    ============================================================ */
 
-
 .section-intro-sacred {
   position: relative;
   overflow: visible;
@@ -150,23 +149,6 @@
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
-/* Second pillars mandala — positioned behind "Sacred Touch" */
-.pillars-mandala-wrap-lower {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(600px, 56vw);
-  height: min(600px, 56vw);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.50;
-}
-
-.pillars-mandala-wrap-lower .pillars-mandala-img {
-  animation: pillarsMandalaSpin 120s linear infinite reverse;
-}
-
 @keyframes pillarsMandalaSpin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
@@ -177,11 +159,6 @@
     width: min(600px, 88vw);
     height: min(600px, 88vw);
     opacity: 0.75;
-  }
-  .pillars-mandala-wrap-lower {
-    width: min(500px, 76vw);
-    height: min(500px, 76vw);
-    opacity: 0.50;
   }
 }
 
@@ -194,39 +171,8 @@
     transform: translate(-50%, 0);
   }
 
-  .pillars-mandala-wrap-lower {
-    width: min(380px, 95vw);
-    height: min(380px, 95vw);
-    opacity: 0.50;
-    top: 55%;
-  }
-
   /* Duplicate pillars mandala positioned lower in the section on mobile */
-  .pillars-mandala-wrap-mobile-lower {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: min(420px, 105vw);
-    height: min(420px, 105vw);
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.50;
-  }
 
-  .pillars-mandala-wrap-mobile-lower .pillars-mandala-img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    animation: pillarsMandalaSpin 120s linear infinite reverse;
-  }
-}
-
-/* Desktop: hide mobile-lower duplicate */
-.pillars-mandala-wrap-mobile-lower {
-  display: none;
 }
 
 /* ============================================================
@@ -373,7 +319,6 @@
     opacity: 0.50;
   }
 }
-
 
 /* ============================================================
    ABOUT ORIGIN — unique mandala positions
@@ -747,32 +692,11 @@
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
-.sacred-values-mandala-wrap-lower {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(600px, 56vw);
-  height: min(600px, 56vw);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.50;
-}
-
-.sacred-values-mandala-wrap-lower .sacred-values-mandala-img {
-  animation: pillarsMandalaSpin 120s linear infinite reverse;
-}
-
 @media (max-width: 900px) {
   .sacred-values-mandala-wrap {
     width: min(600px, 88vw);
     height: min(600px, 88vw);
     opacity: 0.75;
-  }
-  .sacred-values-mandala-wrap-lower {
-    width: min(500px, 76vw);
-    height: min(500px, 76vw);
-    opacity: 0.50;
   }
 }
 
@@ -783,12 +707,6 @@
     opacity: 0.75;
     top: 0;
     transform: translate(-50%, 0);
-  }
-  .sacred-values-mandala-wrap-lower {
-    width: min(380px, 95vw);
-    height: min(380px, 95vw);
-    opacity: 0.50;
-    top: 55%;
   }
 }
 
@@ -815,32 +733,11 @@
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
-.what-to-expect-mandala-wrap-lower {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(600px, 56vw);
-  height: min(600px, 56vw);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.50;
-}
-
-.what-to-expect-mandala-wrap-lower .what-to-expect-mandala-img {
-  animation: pillarsMandalaSpin 120s linear infinite reverse;
-}
-
 @media (max-width: 900px) {
   .what-to-expect-mandala-wrap {
     width: min(600px, 88vw);
     height: min(600px, 88vw);
     opacity: 0.75;
-  }
-  .what-to-expect-mandala-wrap-lower {
-    width: min(500px, 76vw);
-    height: min(500px, 76vw);
-    opacity: 0.50;
   }
 }
 
@@ -851,12 +748,6 @@
     opacity: 0.75;
     top: 0;
     transform: translate(-50%, 0);
-  }
-  .what-to-expect-mandala-wrap-lower {
-    width: min(380px, 95vw);
-    height: min(380px, 95vw);
-    opacity: 0.50;
-    top: 55%;
   }
 }
 
@@ -883,87 +774,26 @@
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
-.offerings-cta-mandala-wrap-lower {
-  position: absolute;
-  top: 60%;
-  left: 45%;
-  transform: translate(-50%, -50%);
-  width: min(480px, 46vw);
-  height: min(480px, 46vw);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.35;
-}
-
-.offerings-cta-mandala-wrap-lower .offerings-cta-mandala-img {
-  animation: pillarsMandalaSpin 120s linear infinite reverse;
-}
-
 @media (max-width: 520px) {
   .offerings-cta-mandala-wrap {
     width: min(400px, 100vw);
     height: min(400px, 100vw);
     opacity: 0.40;
   }
-  .offerings-cta-mandala-wrap-lower {
-    width: min(350px, 88vw);
-    height: min(350px, 88vw);
-    opacity: 0.30;
-  }
 }
 
 /* ============================================================
    CONNECT PAGE — Sacred Path second mandala
    ============================================================ */
-.sacred-path-mandala-wrap-lower {
-  position: absolute;
-  top: 60%;
-  left: 45%;
-  transform: translate(-50%, -50%);
-  width: min(560px, 52vw);
-  height: min(560px, 52vw);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.30;
-}
-
-.sacred-path-mandala-wrap-lower .sacred-path-mandala-img {
-  animation: pillarsMandalaSpin 120s linear infinite reverse;
-}
 
 @media (max-width: 520px) {
-  .sacred-path-mandala-wrap-lower {
-    width: min(380px, 95vw);
-    height: min(380px, 95vw);
-    opacity: 0.30;
-  }
 }
 
 /* ============================================================
    CONNECT PAGE — CTA section second mandala
    ============================================================ */
-.connect-cta-mandala-wrap-lower {
-  position: absolute;
-  top: 60%;
-  left: 45%;
-  transform: translate(-50%, -50%);
-  width: min(480px, 46vw);
-  height: min(480px, 46vw);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.30;
-}
-
-.connect-cta-mandala-wrap-lower .connect-cta-mandala-img {
-  animation: pillarsMandalaSpin 120s linear infinite;
-}
 
 @media (max-width: 520px) {
-  .connect-cta-mandala-wrap-lower {
-    width: min(350px, 88vw);
-    height: min(350px, 88vw);
-    opacity: 0.25;
-  }
 }
 
 /* ============================================================
@@ -989,31 +819,10 @@
   animation: pillarsMandalaSpin 120s linear infinite;
 }
 
-.blog-quote-mandala-wrap-lower {
-  position: absolute;
-  top: 60%;
-  left: 45%;
-  transform: translate(-50%, -50%);
-  width: min(480px, 46vw);
-  height: min(480px, 46vw);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.35;
-}
-
-.blog-quote-mandala-wrap-lower .blog-quote-mandala-img {
-  animation: pillarsMandalaSpin 120s linear infinite reverse;
-}
-
 @media (max-width: 520px) {
   .blog-quote-mandala-wrap {
     width: min(400px, 100vw);
     height: min(400px, 100vw);
     opacity: 0.40;
-  }
-  .blog-quote-mandala-wrap-lower {
-    width: min(350px, 88vw);
-    height: min(350px, 88vw);
-    opacity: 0.30;
   }
 }

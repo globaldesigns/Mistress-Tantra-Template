@@ -1357,7 +1357,7 @@ img {
 }
 
 .footer-brand p {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   line-height: 1.7;
   color: #ffffff;
   max-width: 400px;
@@ -1394,7 +1394,7 @@ img {
 }
 
 .footer-nav a {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #ffffff;
   padding: 0.25rem 0;
   transition: color 0.3s ease;
@@ -1406,7 +1406,7 @@ img {
 
 .footer-sep {
   color: var(--aman-gold);
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   margin: 0 0.4rem;
   opacity: 0.7;
 }
@@ -1426,7 +1426,7 @@ img {
   justify-content: center;
   align-items: center;
   padding-top: var(--space-sm);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   text-align: center;
 }
 
