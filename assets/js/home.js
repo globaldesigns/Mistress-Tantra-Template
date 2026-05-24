@@ -1,7 +1,7 @@
 /* ============================================================
    HOME PAGE JS
    - Anti-FOUT: show title only after Allonges font loaded
-   - Video seamless crossfade loop (two <video> elements)
+   - Hero Carousel: image crossfade (mobile) / video crossfade (desktop)
    - Sticky header darkens on scroll
    - Hamburger menu overlay
    - Smooth scroll on SCROLL button
@@ -14,11 +14,179 @@
   /* -- Elements -- */
   var heroVideoA = document.getElementById('heroVideoA');
   var heroVideoB = document.getElementById('heroVideoB');
+  var heroImg    = document.getElementById('heroImage');
   var menuBtn    = document.getElementById('menuBtn');
   var menuClose  = document.getElementById('menuClose');
   var navOverlay = document.getElementById('navOverlay');
   var scrollBtn  = document.getElementById('scrollBtn');
   var homeHeader = document.getElementById('homeHeader');
+
+  /* ============================================================
+     HERO CAROUSEL CONFIGURATION
+     Scenes cycle through with smooth crossfade transitions.
+     Mobile uses background-image crossfade (reliable).
+     Desktop uses video crossfade (cinematic).
+  ============================================================ */
+  var HERO_SCENES = [
+    { id: 'home',       image: 'hero-home',       video: 'hero-bg' },
+    { id: 'candles',    image: 'hero-candles',     video: 'candles-hero' },
+    { id: 'lotus',      image: 'hero-lotus',       video: 'lotus-pond-hero' },
+    { id: 'rainforest', image: 'hero-rainforest',  video: 'rainforest-hero' }
+  ];
+
+  var SCENE_DISPLAY_MS = 6000;   /* how long each scene is fully visible */
+  var CROSSFADE_MS     = 1500;   /* must match CSS transition duration */
+
+  function getDeviceDir() {
+    var w = window.innerWidth;
+    if (w <= 480) return 'mobile';
+    if (w <= 767) return 'tablet-p';
+    if (w <= 1023) return 'tablet-l';
+    return 'laptop';
+  }
+
+  function getHeroImageSrc(scene) {
+    return 'assets/images/' + getDeviceDir() + '/' + scene.image + '.webp';
+  }
+
+  function getHeroVideoSrc(scene) {
+    var dir = getDeviceDir();
+    return {
+      webm: 'assets/videos/' + dir + '/' + scene.video + '.webm',
+      mp4:  'assets/videos/' + dir + '/' + scene.video + '.mp4'
+    };
+  }
+
+  var isMobileView = window.innerWidth <= 768;
+
+  /* ─── IMAGE CAROUSEL (mobile ≤768px) ─── */
+  if (isMobileView && heroImg && HERO_SCENES.length >= 2) {
+    /* Hide videos on mobile — they are unreliable */
+    if (heroVideoA) heroVideoA.style.display = 'none';
+    if (heroVideoB) heroVideoB.style.display = 'none';
+
+    /* Setup heroImage for crossfade */
+    heroImg.style.zIndex = '3';
+    heroImg.style.backgroundSize = 'cover';
+    heroImg.style.backgroundPosition = 'center center';
+    heroImg.style.transition = 'opacity ' + CROSSFADE_MS + 'ms ease-in-out';
+
+    /* Preload all scene images */
+    var preloadedImages = [];
+    HERO_SCENES.forEach(function (scene, i) {
+      var src = getHeroImageSrc(scene);
+      preloadedImages[i] = src;
+      var img = new Image();
+      img.src = src;
+    });
+
+    /* Set first scene */
+    heroImg.style.backgroundImage = 'url(' + preloadedImages[0] + ')';
+    heroImg.style.opacity = '1';
+
+    var mobileSceneIdx = 0;
+
+    function mobileAdvance() {
+      /* Fade out */
+      heroImg.style.opacity = '0';
+
+      setTimeout(function () {
+        mobileSceneIdx = (mobileSceneIdx + 1) % HERO_SCENES.length;
+        heroImg.style.backgroundImage = 'url(' + preloadedImages[mobileSceneIdx] + ')';
+        /* Force reflow so the transition restarts */
+        void heroImg.offsetHeight;
+        /* Fade in */
+        heroImg.style.opacity = '1';
+      }, CROSSFADE_MS);
+    }
+
+    setInterval(mobileAdvance, SCENE_DISPLAY_MS + CROSSFADE_MS);
+  }
+
+  /* ─── VIDEO CAROUSEL (desktop >768px) ─── */
+  if (!isMobileView && heroVideoA && heroVideoB && HERO_SCENES.length >= 2) {
+    var desktopSceneIdx = 0;
+    var activeVid  = heroVideoA;
+    var standbyVid = heroVideoB;
+    var swapLock   = false;
+
+    /* Load a video scene into a <video> element */
+    function loadVideoScene(videoEl, sceneIndex) {
+      var scene = HERO_SCENES[sceneIndex];
+      var srcs  = getHeroVideoSrc(scene);
+      /* Remove old sources */
+      while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
+      /* Add webm first (better compression) */
+      var srcWebm = document.createElement('source');
+      srcWebm.setAttribute('src', srcs.webm);
+      srcWebm.setAttribute('type', 'video/webm');
+      videoEl.appendChild(srcWebm);
+      /* Add mp4 fallback */
+      var srcMp4 = document.createElement('source');
+      srcMp4.setAttribute('src', srcs.mp4);
+      srcMp4.setAttribute('type', 'video/mp4');
+      videoEl.appendChild(srcMp4);
+      videoEl.load();
+    }
+
+    /* Start first scene on heroVideoA */
+    loadVideoScene(heroVideoA, 0);
+    heroVideoA.play().then(function () {
+      heroVideoA.classList.add('visible');
+      /* Fade out static image behind */
+      if (heroImg) heroImg.style.opacity = '0';
+    }).catch(function () {
+      /* Autoplay blocked — try muted */
+      heroVideoA.muted = true;
+      heroVideoA.play().catch(function () {});
+    });
+
+    /* Crossfade to next scene */
+    function desktopAdvance() {
+      if (swapLock) return;
+      swapLock = true;
+
+      desktopSceneIdx = (desktopSceneIdx + 1) % HERO_SCENES.length;
+
+      /* Load next scene into standby */
+      loadVideoScene(standbyVid, desktopSceneIdx);
+
+      standbyVid.play().then(function () {
+        standbyVid.classList.add('visible');
+        activeVid.classList.remove('visible');
+
+        setTimeout(function () {
+          /* Swap roles */
+          var temp = activeVid;
+          activeVid = standbyVid;
+          standbyVid = temp;
+          /* Pause and reset the old active */
+          standbyVid.pause();
+          standbyVid.classList.remove('visible');
+          swapLock = false;
+        }, CROSSFADE_MS + 100);
+      }).catch(function () {
+        /* Video failed to play — try muted */
+        standbyVid.muted = true;
+        standbyVid.play().then(function () {
+          standbyVid.classList.add('visible');
+          activeVid.classList.remove('visible');
+          setTimeout(function () {
+            var temp = activeVid;
+            activeVid = standbyVid;
+            standbyVid = temp;
+            standbyVid.pause();
+            standbyVid.classList.remove('visible');
+            swapLock = false;
+          }, CROSSFADE_MS + 100);
+        }).catch(function () {
+          swapLock = false;
+        });
+      });
+    }
+
+    setInterval(desktopAdvance, SCENE_DISPLAY_MS + CROSSFADE_MS);
+  }
 
   /* ============================================================
      ANTI-FOUT
@@ -41,61 +209,6 @@
     }
     /* Hard fallback - never wait more than 800ms */
     setTimeout(revealTitle, 800);
-  }
-
-  /* ============================================================
-     VIDEO SEAMLESS CROSSFADE LOOP
-     Two <video> elements alternate. When the active video
-     approaches its end, the other starts and fades in while
-     the active one fades out — no glitch, no skip, no pause.
-
-     CROSSFADE_DURATION = how long the overlap lasts (ms)
-     PRESTART           = how far from the end to start the
-                          next video (ms)
-  ============================================================ */
-  var CROSSFADE_DURATION = 1500;  /* must match CSS transition */
-  var PRESTART           = 2000;  /* start next vid 2s before end */
-
-  if (heroVideoA && heroVideoB) {
-    var activeVid  = heroVideoA;    /* currently visible */
-    var standbyVid = heroVideoB;    /* hidden, ready to take over */
-    var swapLock   = false;         /* prevent double-swap */
-
-    /* After 2s dark intro, fade in the first video */
-    setTimeout(function () {
-      heroVideoA.classList.add('visible');
-    }, 2000);
-
-    /* When a video is about to end, start the other and crossfade */
-    function onTimeUpdate() {
-      if (swapLock) return;
-      if (!activeVid.duration) return;
-      var remaining = (activeVid.duration - activeVid.currentTime) * 1000;
-      if (remaining <= PRESTART) {
-        swapLock = true;
-        /* Start standby from the beginning */
-        standbyVid.currentTime = 0;
-        standbyVid.play().then(function () {
-          /* Fade in standby, fade out active */
-          standbyVid.classList.add('visible');
-          activeVid.classList.remove('visible');
-          /* After crossfade completes, swap roles */
-          setTimeout(function () {
-            var temp   = activeVid;
-            activeVid  = standbyVid;
-            standbyVid = temp;
-            standbyVid.pause();
-            standbyVid.currentTime = 0;
-            swapLock = false;
-          }, CROSSFADE_DURATION + 100);
-        }).catch(function () {
-          swapLock = false;
-        });
-      }
-    }
-
-    heroVideoA.addEventListener('timeupdate', onTimeUpdate);
-    heroVideoB.addEventListener('timeupdate', onTimeUpdate);
   }
 
   /* ============================================================
