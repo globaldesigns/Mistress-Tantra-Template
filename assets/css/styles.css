@@ -1306,10 +1306,11 @@ img {
 
 .footer-top {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-template-columns: 1.5fr 1fr;
   gap: var(--space-lg);
   padding-bottom: var(--space-lg);
   border-bottom: 1px solid rgba(138, 130, 120, 0.2);
+  align-items: center;
 }
 
 .footer-brand {
@@ -1330,28 +1331,48 @@ img {
   font-size: 0.9rem;
   line-height: 1.7;
   color: #ffffff;
-  max-width: 350px;
+  max-width: 400px;
 }
 
-.footer-col h4 {
-  color: #ffffff;
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: var(--space-sm);
+.footer-cta {
+  margin-top: var(--space-sm);
+  align-self: flex-start;
 }
 
-.footer-col a {
-  display: block;
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-self: end;
+  text-align: right;
+}
+
+.footer-nav a {
   font-size: 0.9rem;
   color: #ffffff;
   padding: 0.25rem 0;
+  transition: color 0.3s ease;
 }
 
-.footer-col a:hover {
+.footer-nav a:hover {
   color: var(--aman-gold);
+}
+
+.footer-sep {
+  color: var(--aman-gold);
+  font-size: 0.7rem;
+  margin: 0 0.4rem;
+  opacity: 0.7;
+}
+
+.footer-bottom p a {
+  color: var(--aman-gold);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom p a:hover {
+  color: #ffffff;
 }
 
 .footer-bottom {
@@ -1394,7 +1415,6 @@ img {
 }
 
 @media (max-width: 768px) {
-  /* Move brand/logo to top of footer on mobile, center everything */
   .footer-top {
     display: flex;
     flex-direction: column;
@@ -1409,11 +1429,12 @@ img {
   .footer-brand p {
     max-width: 100%;
   }
-  .footer-col {
-    text-align: center;
+  .footer-cta {
+    align-self: center;
   }
-  .footer-col a {
+  .footer-nav {
     text-align: center;
+    justify-self: center;
   }
   .footer-bottom {
     flex-direction: column;
