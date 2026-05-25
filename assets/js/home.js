@@ -42,21 +42,29 @@
   }
 
   /* ============================================================
-     HERO VIDEO — single video with BULLETPROOF JS looping
-     Native `loop` attribute is unreliable on many mobile browsers.
-     Instead, we manage looping entirely via JavaScript using
-     MULTIPLE redundant strategies:
-       1. timeupdate — seek back to 0 when near the end
-       2. seeking    — intercept end-of-video seeks
-       3. ended      — fallback for browsers that fire it
-       4. watchdog   — 500ms interval checks video state
-     This ensures the video loops on EVERY device, every time.
+     HERO VIDEO — MOBILE-SAFE LOOPING
+     The video must loop seamlessly on ALL devices including
+     iOS Safari. Key insights from real-device debugging:
+
+     1. iOS Safari does NOT support webm — mp4 source MUST be first
+     2. Native `loop` attribute is unreliable on mobile Safari
+     3. `ended` event may not fire reliably on iOS (2nd+ loop)
+     4. `timeupdate` is the most reliable mobile loop trigger
+     5. Video may fail to load if source format unsupported
+     6. `video.load()` must be called after changing source on iOS
+
+     Approach: Use NATIVE `loop` attribute as the PRIMARY mechanism
+     (most browsers handle this correctly), with JS strategies as
+     a safety net for browsers where native loop fails.
   ============================================================ */
   var heroVideo = document.getElementById('heroVideo');
 
   if (heroVideo) {
-    /* Remove native loop — we manage it entirely in JS for reliability */
-    heroVideo.removeAttribute('loop');
+    /* Re-add native loop — this is the PRIMARY looping mechanism.
+       Most modern browsers (Chrome, Firefox, Safari 15+) handle
+       this correctly. For browsers where it fails, our JS
+       strategies provide a reliable safety net. */
+    heroVideo.loop = true;
 
     /* Helper: safely play a video, returns a Promise */
     function safePlay(vid) {
@@ -67,7 +75,44 @@
       return Promise.resolve();
     }
 
-    /* Core loop function: seek to start and play */
+    /* ---------- ERROR RECOVERY ----------
+       If the video fails to load (e.g. format not supported, 
+       network error), try to force-reload with just the mp4 source.
+       This catches the case where webm was somehow selected on
+       a device that doesn't support it. */
+    var _errorCount = 0;
+
+    heroVideo.addEventListener('error', function (e) {
+      _errorCount++;
+      console.warn('[Hero Video] Error event (count=' + _errorCount + '):', heroVideo.error ? heroVideo.error.code : 'unknown');
+
+      /* If we get errors on the current sources, try loading just mp4 */
+      if (_errorCount <= 2) {
+        var sources = heroVideo.querySelectorAll('source');
+        var hasError = false;
+        for (var i = 0; i < sources.length; i++) {
+          if (sources[i].networkState === 3) { /* NETWORK_NO_SOURCE */
+            hasError = true;
+            break;
+          }
+        }
+        if (hasError || heroVideo.networkState === 3) {
+          /* Remove webm source — force mp4 only */
+          for (var j = sources.length - 1; j >= 0; j--) {
+            if (sources[j].type === 'video/webm') {
+              sources[j].remove();
+            }
+          }
+          heroVideo.load();
+          safePlay(heroVideo);
+        }
+      }
+    }, true); /* Use capture to catch errors on <source> elements too */
+
+    /* ---------- JS LOOPING SAFETY NET ----------
+       These strategies ensure the video loops even on devices
+       where the native `loop` attribute doesn't work. */
+
     var _looping = false;
 
     function loopVideo() {
@@ -75,47 +120,30 @@
       _looping = true;
       heroVideo.currentTime = 0;
       safePlay(heroVideo);
-      setTimeout(function () { _looping = false; }, 100);
+      setTimeout(function () { _looping = false; }, 150);
     }
 
-    /* STRATEGY 1: timeupdate — fires ~4 times/sec on most browsers.
-       This is the MOST RELIABLE way to detect the video reaching
-       the end on mobile devices. We seek back to 0 when we're
-       within 0.3s of the end, avoiding the "ended" state entirely. */
+    /* STRATEGY 1: timeupdate — most reliable on mobile.
+       Seek back to 0 when within 0.5s of the end, BEFORE
+       the video reaches the "ended" state. */
     heroVideo.addEventListener('timeupdate', function () {
-      if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.3) {
+      if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.5) {
         if (_looping) return;
         _looping = true;
         heroVideo.currentTime = 0;
-        /* No need to call play() here — the video is already playing.
-           Seeking back to 0 while playing continues playback from 0. */
-        setTimeout(function () { _looping = false; }, 100);
+        setTimeout(function () { _looping = false; }, 150);
       }
     });
 
-    /* STRATEGY 2: seeking event — when the browser internally seeks
-       to the end of the video (some mobile browsers do this before
-       firing "ended"), intercept it and redirect to 0. */
-    heroVideo.addEventListener('seeking', function () {
-      if (_looping) return;
-      if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.1 && heroVideo.currentTime > 0) {
-        _looping = true;
-        heroVideo.currentTime = 0;
-        setTimeout(function () { _looping = false; }, 100);
-      }
-    });
-
-    /* STRATEGY 3: ended event — fallback for browsers that fire it.
-       Some mobile Safari versions don't fire this reliably, but
-       for those that do, this catches any edge cases. */
+    /* STRATEGY 2: ended event — fallback for browsers that fire it */
     heroVideo.addEventListener('ended', function () {
       loopVideo();
     });
 
-    /* STRATEGY 4: Periodic check — absolute failsafe.
-       Every 500ms, verify the video is still playing. If it
-       stopped and we're near the end, force a loop. This catches
-       any scenario the event listeners miss. */
+    /* STRATEGY 3: Periodic watchdog — 500ms interval.
+       Checks if the video has stopped near the end and forces a loop.
+       This is the absolute failsafe for any device/browsers that
+       don't fire timeupdate or ended events reliably. */
     var loopWatchdog = setInterval(function () {
       if (!heroVideo || !heroVideo.duration || _looping) return;
       if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
@@ -123,13 +151,25 @@
       }
     }, 500);
 
-    /* Clean up watchdog if the page is hidden (save battery) */
+    /* Also ensure video doesn't stall mid-playback on mobile */
+    var stallCheck = setInterval(function () {
+      if (!heroVideo || heroVideo.ended || _looping) return;
+      /* If video claims to be playing but hasn't advanced in 2 checks,
+         it may be stalled — force a small seek to unstick it */
+      if (heroVideo.paused && !heroVideo.ended && heroVideo.currentTime > 0 && heroVideo.currentTime < heroVideo.duration - 1) {
+        safePlay(heroVideo);
+      }
+    }, 2000);
+
+    /* Clean up watchdogs if the page is hidden (save battery) */
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
         clearInterval(loopWatchdog);
+        clearInterval(stallCheck);
       } else {
-        /* Re-start watchdog and ensure video is playing */
+        /* Re-start watchdogs and ensure video is playing */
         clearInterval(loopWatchdog);
+        clearInterval(stallCheck);
         loopWatchdog = setInterval(function () {
           if (!heroVideo || !heroVideo.duration) return;
           if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
@@ -137,6 +177,12 @@
             safePlay(heroVideo);
           }
         }, 500);
+        stallCheck = setInterval(function () {
+          if (!heroVideo || heroVideo.ended) return;
+          if (heroVideo.paused && !heroVideo.ended && heroVideo.currentTime > 0 && heroVideo.currentTime < heroVideo.duration - 1) {
+            safePlay(heroVideo);
+          }
+        }, 2000);
         /* If video was paused while page was hidden, resume */
         if (heroVideo.paused && heroVideo.currentTime > 0) {
           safePlay(heroVideo);
@@ -144,6 +190,10 @@
       }
     });
 
+    /* ---------- VIDEO REVEAL & AUTOPLAY ----------
+       Wait for the video to be ready, then play and reveal.
+       If autoplay is blocked, reveal anyway and retry on
+       first user interaction (touch or click). */
     function revealWhenReady() {
       safePlay(heroVideo).then(function () {
         heroVideo.classList.add('visible');

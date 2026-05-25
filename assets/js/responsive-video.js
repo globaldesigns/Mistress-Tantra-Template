@@ -50,10 +50,15 @@
       var realSrc = dataSrc.replace('{dir}', dir);
       sources[i].setAttribute('src', realSrc);
     }
-    // Load all responsive videos
+    // Load all responsive videos and re-apply loop property
+    // (video.load() can reset the loop attribute on some mobile browsers)
     var videos = document.querySelectorAll('video[data-responsive]');
     for (var j = 0; j < videos.length; j++) {
+      var hadLoop = videos[j].loop;
       videos[j].load();
+      if (hadLoop) {
+        videos[j].loop = true;
+      }
     }
   }
 
