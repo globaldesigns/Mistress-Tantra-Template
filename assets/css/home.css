@@ -55,7 +55,14 @@
 }
 
 /* Tablet portrait: adjust video framing so subject (girl in green) face shows */
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 768px) {
+  .home-hero__video {
+    object-position: center 10%;
+  }
+}
+
+/* Tablet landscape: adjust video framing for waterfall/girl scene */
+@media (min-width: 769px) and (max-width: 1024px) {
   .home-hero__video {
     object-position: center 20%;
   }
@@ -740,7 +747,7 @@
   .home-hero__img {
     background-image: url('../images/tablet-p/hero-home.webp');
     background-size: cover;
-    background-position: center 20%;
+    background-position: center 10%;
   }
 }
 

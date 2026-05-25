@@ -26,8 +26,8 @@
 
   var BREAKPOINTS = [
     { maxWidth: 480, dir: 'mobile' },
-    { maxWidth: 767, dir: 'tablet-p' },
-    { maxWidth: 1023, dir: 'tablet-l' },
+    { maxWidth: 768, dir: 'tablet-p' },
+    { maxWidth: 1024, dir: 'tablet-l' },
     { maxWidth: Infinity, dir: 'laptop' }
   ];
 

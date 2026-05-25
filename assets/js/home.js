@@ -75,6 +75,13 @@
       });
     }
 
+    /* Safety net: enforce looping via JS in case native `loop`
+       attribute is ignored by some mobile browsers */
+    heroVideo.addEventListener('ended', function () {
+      heroVideo.currentTime = 0;
+      safePlay(heroVideo);
+    });
+
     /* Wait for video to be ready, then play and reveal */
     if (heroVideo.readyState >= 3) {
       revealWhenReady();
