@@ -51,6 +51,20 @@
   z-index: 1;
 }
 
+/* Mobile: adjust video framing so subject (girl/waterfall) is centered */
+@media (max-width: 480px) {
+  .home-hero__video {
+    object-position: center 25%;
+  }
+}
+
+/* Tablet portrait: adjust video framing so subject (girl in green) face shows */
+@media (min-width: 481px) and (max-width: 767px) {
+  .home-hero__video {
+    object-position: center 20%;
+  }
+}
+
 /* ── Vignette overlay for text legibility ── */
 .home-hero__vignette {
   position: absolute;
@@ -237,7 +251,7 @@
 /* "Mistress Tantra" — Allonges Regular, large script matching mockup */
 .home-hero__title {
   font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(3.15rem, 6.75vw, 6.75rem);  /* -10% from previous */
+  font-size: clamp(3.15rem, 7.5vw, 7.5rem);
   font-weight: 400;
   font-style: normal;
   color: white;
@@ -257,7 +271,7 @@
 /* "TANTRICA GODDESS" — bold, spaced caps */
 .home-hero__subtitle {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.8rem);
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -270,7 +284,7 @@
 /* "SAN FRANCISCO ◈ BOSTON" — lighter, with mandala divider */
 .home-hero__locations {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(0.8rem, 1.3vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.6vw, 1.3rem);
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -674,15 +688,15 @@
   }
 
   .home-hero__title {
-    font-size: clamp(3.5rem, 14vw, 6rem);
+    font-size: clamp(3.8rem, 15vw, 6.5rem);
   }
 
   .home-hero__subtitle {
-    font-size: clamp(1rem, 4vw, 1.4rem);
+    font-size: clamp(1.15rem, 4.5vw, 1.6rem);
   }
 
   .home-hero__locations {
-    font-size: clamp(0.75rem, 2.8vw, 1rem);
+    font-size: clamp(0.85rem, 3vw, 1.15rem);
   }
 
   .mandala-sep {
@@ -701,15 +715,15 @@
   }
 
   .home-hero__title {
-    font-size: clamp(2.8rem, 13vw, 4rem);
+    font-size: clamp(3rem, 14vw, 4.5rem);
   }
 
   .home-hero__subtitle {
-    font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+    font-size: clamp(1.05rem, 5vw, 1.35rem);
   }
 
   .home-hero__locations {
-    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    font-size: clamp(0.8rem, 3.2vw, 1rem);
   }
 }
 
@@ -726,11 +740,11 @@
     padding: 0.15em 0;
   }
 
-  /* Show new mobile hero image as fallback while video loads */
+  /* Show new tablet hero image as fallback while video loads */
   .home-hero__img {
     background-image: url('../images/tablet-p/hero-home.webp');
     background-size: cover;
-    background-position: center center;
+    background-position: center 20%;
   }
 }
 
@@ -748,6 +762,6 @@
   .home-hero__img {
     background-image: url('../images/mobile/hero-home.webp');
     background-size: cover;
-    background-position: center center;
+    background-position: center 25%;
   }
 }
