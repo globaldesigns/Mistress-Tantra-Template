@@ -363,7 +363,7 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: linear-gradient(160deg, #2e2414 0%, #4a3a1e 20%, #5e4a28 40%, #4a3a1e 60%, #3a2e18 80%, #2e2414 100%);
+  background: linear-gradient(160deg, #3d3018 0%, #5c4928 18%, #7a6235 35%, #8a7340 50%, #7a6235 65%, #5c4928 82%, #3d3018 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
