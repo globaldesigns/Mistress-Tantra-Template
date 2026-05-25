@@ -12,8 +12,6 @@
   'use strict';
 
   /* -- Elements -- */
-  var heroVideoA = document.getElementById('heroVideoA');
-  var heroVideoB = document.getElementById('heroVideoB');
   var menuBtn    = document.getElementById('menuBtn');
   var menuClose  = document.getElementById('menuClose');
   var navOverlay = document.getElementById('navOverlay');
@@ -44,27 +42,15 @@
   }
 
   /* ============================================================
-     VIDEO SEAMLESS CROSSFADE LOOP
-     Two <video> elements alternate. When the active video
-     approaches its end, the other starts and fades in while
-     the active one fades out — no glitch, no skip, no pause.
-
-     CROSSFADE_DURATION = how long the overlap lasts (ms)
-     PRESTART           = how far from the end to start the
-                          next video (ms)
-
-     Mobile robustness: ensures autoplay kicks in after
-     responsive-video.js loads the correct sources.
+     HERO VIDEO — single looping video
+     Uses native `loop` attribute for guaranteed seamless looping
+     on ALL devices (desktop, tablet, mobile).
+     JS handles: fade-in after load, mobile autoplay retry.
   ============================================================ */
-  var CROSSFADE_DURATION = 1500;  /* must match CSS transition */
-  var PRESTART           = 2000;  /* start next vid 2s before end */
+  var heroVideo = document.getElementById('heroVideo');
 
-  if (heroVideoA && heroVideoB) {
-    var activeVid  = heroVideoA;    /* currently visible */
-    var standbyVid = heroVideoB;    /* hidden, ready to take over */
-    var swapLock   = false;         /* prevent double-swap */
-
-    /* Helper: safely play a video, retry on mobile if needed */
+  if (heroVideo) {
+    /* Helper: safely play a video, returns a Promise */
     function safePlay(vid) {
       var p = vid.play();
       if (p && typeof p.catch === 'function') {
@@ -73,77 +59,33 @@
       return Promise.resolve();
     }
 
-    /* Ensure first video is playing before we show it.
-       Wait for canplay event (fired after responsive-video.js
-       sets the correct source), then play and reveal. */
-    function initHeroVideo() {
-      /* If video already has data and is playing, just reveal */
-      if (heroVideoA.readyState >= 3 && !heroVideoA.paused) {
-        heroVideoA.classList.add('visible');
-        return;
-      }
+    function revealWhenReady() {
+      safePlay(heroVideo).then(function () {
+        heroVideo.classList.add('visible');
+      }).catch(function () {
+        /* Autoplay blocked — reveal anyway, retry on user interaction */
+        heroVideo.classList.add('visible');
+        function retryPlay() {
+          safePlay(heroVideo);
+          document.removeEventListener('touchstart', retryPlay);
+          document.removeEventListener('click', retryPlay);
+        }
+        document.addEventListener('touchstart', retryPlay, { once: true });
+        document.addEventListener('click', retryPlay, { once: true });
+      });
+    }
 
-      function revealWhenReady() {
-        safePlay(heroVideoA).then(function () {
-          heroVideoA.classList.add('visible');
-        }).catch(function () {
-          /* Autoplay blocked — try again on first user interaction */
-          heroVideoA.classList.add('visible');
-          function retryPlay() {
-            safePlay(heroVideoA);
-            document.removeEventListener('touchstart', retryPlay);
-            document.removeEventListener('click', retryPlay);
-          }
-          document.addEventListener('touchstart', retryPlay, { once: true });
-          document.addEventListener('click', retryPlay, { once: true });
-        });
-      }
-
-      if (heroVideoA.readyState >= 3) {
+    /* Wait for video to be ready, then play and reveal */
+    if (heroVideo.readyState >= 3) {
+      revealWhenReady();
+    } else {
+      heroVideo.addEventListener('canplay', revealWhenReady, { once: true });
+      /* Fallback: if canplay never fires, try after 3s */
+      setTimeout(function () {
+        heroVideo.removeEventListener('canplay', revealWhenReady);
         revealWhenReady();
-      } else {
-        heroVideoA.addEventListener('canplay', revealWhenReady, { once: true });
-        /* Fallback: if canplay never fires, try after 3s */
-        setTimeout(function () {
-          heroVideoA.removeEventListener('canplay', revealWhenReady);
-          revealWhenReady();
-        }, 3000);
-      }
+      }, 3000);
     }
-
-    /* Start init after a short dark intro */
-    setTimeout(initHeroVideo, 1500);
-
-    /* When a video is about to end, start the other and crossfade */
-    function onTimeUpdate() {
-      if (swapLock) return;
-      if (!activeVid.duration) return;
-      var remaining = (activeVid.duration - activeVid.currentTime) * 1000;
-      if (remaining <= PRESTART) {
-        swapLock = true;
-        /* Start standby from the beginning */
-        standbyVid.currentTime = 0;
-        safePlay(standbyVid).then(function () {
-          /* Fade in standby, fade out active */
-          standbyVid.classList.add('visible');
-          activeVid.classList.remove('visible');
-          /* After crossfade completes, swap roles */
-          setTimeout(function () {
-            var temp   = activeVid;
-            activeVid  = standbyVid;
-            standbyVid = temp;
-            standbyVid.pause();
-            standbyVid.currentTime = 0;
-            swapLock = false;
-          }, CROSSFADE_DURATION + 100);
-        }).catch(function () {
-          swapLock = false;
-        });
-      }
-    }
-
-    heroVideoA.addEventListener('timeupdate', onTimeUpdate);
-    heroVideoB.addEventListener('timeupdate', onTimeUpdate);
   }
 
   /* ============================================================

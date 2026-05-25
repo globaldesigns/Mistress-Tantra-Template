@@ -30,7 +30,7 @@
   background-position: center center;
 }
 
-/* ── Video — seamless crossfade loop ── */
+/* ── Video — looping hero background ── */
 .home-hero__video {
   position: absolute;
   inset: 0;
@@ -45,10 +45,6 @@
 
 .home-hero__video.visible {
   opacity: 1;
-}
-
-.home-hero__video--alt {
-  z-index: 1;
 }
 
 /* Mobile: adjust video framing so subject (girl/waterfall) is centered */
