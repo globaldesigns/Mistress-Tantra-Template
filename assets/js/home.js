@@ -42,14 +42,22 @@
   }
 
   /* ============================================================
-     HERO VIDEO — single looping video
-     Uses native `loop` attribute for guaranteed seamless looping
-     on ALL devices (desktop, tablet, mobile).
-     JS handles: fade-in after load, mobile autoplay retry.
+     HERO VIDEO — single video with BULLETPROOF JS looping
+     Native `loop` attribute is unreliable on many mobile browsers.
+     Instead, we manage looping entirely via JavaScript using
+     MULTIPLE redundant strategies:
+       1. timeupdate — seek back to 0 when near the end
+       2. seeking    — intercept end-of-video seeks
+       3. ended      — fallback for browsers that fire it
+       4. watchdog   — 500ms interval checks video state
+     This ensures the video loops on EVERY device, every time.
   ============================================================ */
   var heroVideo = document.getElementById('heroVideo');
 
   if (heroVideo) {
+    /* Remove native loop — we manage it entirely in JS for reliability */
+    heroVideo.removeAttribute('loop');
+
     /* Helper: safely play a video, returns a Promise */
     function safePlay(vid) {
       var p = vid.play();
@@ -58,6 +66,83 @@
       }
       return Promise.resolve();
     }
+
+    /* Core loop function: seek to start and play */
+    var _looping = false;
+
+    function loopVideo() {
+      if (_looping) return;
+      _looping = true;
+      heroVideo.currentTime = 0;
+      safePlay(heroVideo);
+      setTimeout(function () { _looping = false; }, 100);
+    }
+
+    /* STRATEGY 1: timeupdate — fires ~4 times/sec on most browsers.
+       This is the MOST RELIABLE way to detect the video reaching
+       the end on mobile devices. We seek back to 0 when we're
+       within 0.3s of the end, avoiding the "ended" state entirely. */
+    heroVideo.addEventListener('timeupdate', function () {
+      if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.3) {
+        if (_looping) return;
+        _looping = true;
+        heroVideo.currentTime = 0;
+        /* No need to call play() here — the video is already playing.
+           Seeking back to 0 while playing continues playback from 0. */
+        setTimeout(function () { _looping = false; }, 100);
+      }
+    });
+
+    /* STRATEGY 2: seeking event — when the browser internally seeks
+       to the end of the video (some mobile browsers do this before
+       firing "ended"), intercept it and redirect to 0. */
+    heroVideo.addEventListener('seeking', function () {
+      if (_looping) return;
+      if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.1 && heroVideo.currentTime > 0) {
+        _looping = true;
+        heroVideo.currentTime = 0;
+        setTimeout(function () { _looping = false; }, 100);
+      }
+    });
+
+    /* STRATEGY 3: ended event — fallback for browsers that fire it.
+       Some mobile Safari versions don't fire this reliably, but
+       for those that do, this catches any edge cases. */
+    heroVideo.addEventListener('ended', function () {
+      loopVideo();
+    });
+
+    /* STRATEGY 4: Periodic check — absolute failsafe.
+       Every 500ms, verify the video is still playing. If it
+       stopped and we're near the end, force a loop. This catches
+       any scenario the event listeners miss. */
+    var loopWatchdog = setInterval(function () {
+      if (!heroVideo || !heroVideo.duration || _looping) return;
+      if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
+        loopVideo();
+      }
+    }, 500);
+
+    /* Clean up watchdog if the page is hidden (save battery) */
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        clearInterval(loopWatchdog);
+      } else {
+        /* Re-start watchdog and ensure video is playing */
+        clearInterval(loopWatchdog);
+        loopWatchdog = setInterval(function () {
+          if (!heroVideo || !heroVideo.duration) return;
+          if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
+            heroVideo.currentTime = 0;
+            safePlay(heroVideo);
+          }
+        }, 500);
+        /* If video was paused while page was hidden, resume */
+        if (heroVideo.paused && heroVideo.currentTime > 0) {
+          safePlay(heroVideo);
+        }
+      }
+    });
 
     function revealWhenReady() {
       safePlay(heroVideo).then(function () {
@@ -74,13 +159,6 @@
         document.addEventListener('click', retryPlay, { once: true });
       });
     }
-
-    /* Safety net: enforce looping via JS in case native `loop`
-       attribute is ignored by some mobile browsers */
-    heroVideo.addEventListener('ended', function () {
-      heroVideo.currentTime = 0;
-      safePlay(heroVideo);
-    });
 
     /* Wait for video to be ready, then play and reveal */
     if (heroVideo.readyState >= 3) {
