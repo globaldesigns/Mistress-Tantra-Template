@@ -1377,20 +1377,30 @@ img {
   align-self: flex-end;
 }
 
-/* Divider line between top and nav */
+/* Decorative divider between nav and copyright */
 .footer-divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(138, 130, 120, 0.2);
+  margin: 0 auto;
+  padding: 0;
 }
 
-/* Horizontal nav, above copyright */
+.footer-divider .divider-ornament {
+  opacity: 0.6;
+}
+
+/* Nav wrapper — holds hamburger + nav */
+.footer-nav-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md) 0;
+}
+
+/* Horizontal nav, above decorative divider */
 .footer-nav {
   display: flex;
   flex-direction: row;
   gap: 2rem;
   justify-content: center;
-  padding: var(--space-md) 0;
 }
 
 .footer-nav a {
@@ -1404,10 +1414,41 @@ img {
   color: var(--aman-gold);
 }
 
+/* Footer hamburger — hidden on desktop, shown on mobile */
+.footer-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+  margin-bottom: var(--space-sm);
+}
+
+.footer-hamburger span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--aman-gold);
+  transition: var(--transition-smooth);
+}
+
+.footer-hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 5px);
+}
+
+.footer-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.footer-hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -5px);
+}
+
 .footer-sep {
   color: var(--aman-gold);
-  font-size: 0.6rem;
-  margin: 0 0.4rem;
+  font-size: 0.5rem;
+  margin: 0 0.3rem;
   opacity: 0.7;
 }
 
@@ -1426,7 +1467,7 @@ img {
   justify-content: center;
   align-items: center;
   padding-top: var(--space-sm);
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   text-align: center;
 }
 
@@ -1486,10 +1527,29 @@ img {
     gap: 1.5rem;
     flex-wrap: wrap;
   }
+  .footer-hamburger {
+    display: flex;
+  }
+  .footer-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: var(--space-sm) 0;
+  }
+  .footer-nav.open {
+    display: flex;
+  }
+  .footer-nav a {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+  }
   .footer-bottom {
     flex-direction: column;
     gap: var(--space-sm);
     text-align: center;
+    font-size: 0.5rem;
   }
 }
 

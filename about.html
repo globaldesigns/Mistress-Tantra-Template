@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=58">
+  <link rel="stylesheet" href="assets/css/styles.css?v=59">
   <link rel="stylesheet" href="assets/css/home.css?v=15">
   <link rel="stylesheet" href="assets/css/sacred-geometry.css?v=12">
   <link rel="icon" href="assets/images/favicon.png" type="image/png">
@@ -311,14 +311,19 @@
           </div>
         </div>
       </div>
-      <div class="footer-divider" aria-hidden="true"></div>
-      <nav class="footer-nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="offerings.html">Offerings</a>
-        <a href="connect.html">Connect</a>
-        <a href="blog.html">Blog</a>
-      </nav>
+      <div class="footer-nav-wrapper">
+        <button class="footer-hamburger" id="footerHamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="footer-nav" id="footerNav">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="offerings.html">Offerings</a>
+          <a href="connect.html">Connect</a>
+          <a href="blog.html">Blog</a>
+        </nav>
+      </div>
+      <div class="footer-divider divider divider-center" aria-hidden="true"><span class="divider-ornament">&#x2766;</span></div>
       <div class="footer-bottom">
         <p>&copy; 2026 Mistress Tantra <span class="footer-sep">&#x2766;</span> Site Created by <a href="https://www.elegantmarketinggroup.com" target="_blank" rel="noopener noreferrer">Elegant Marketing Group</a> <span class="footer-sep">&#x2766;</span> All rights reserved.</p>
       </div>
@@ -326,7 +331,7 @@
   </footer>
 
   <div class="back-to-top">↑</div>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js?v=2"></script>
   <script src="assets/js/starburst.js?v=3"></script>
   <script src="assets/js/home.js?v=3"></script>
 </body>

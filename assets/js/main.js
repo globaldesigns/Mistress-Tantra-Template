@@ -151,4 +151,20 @@ document.addEventListener('DOMContentLoaded', () => {
     yearEl.textContent = new Date().getFullYear();
   }
 
+  // --- FOOTER HAMBURGER MENU ---
+  const footerHamburger = document.getElementById('footerHamburger');
+  const footerNav = document.getElementById('footerNav');
+  if (footerHamburger && footerNav) {
+    footerHamburger.addEventListener('click', () => {
+      footerHamburger.classList.toggle('open');
+      footerNav.classList.toggle('open');
+    });
+    footerNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        footerHamburger.classList.remove('open');
+        footerNav.classList.remove('open');
+      });
+    });
+  }
+
 });
