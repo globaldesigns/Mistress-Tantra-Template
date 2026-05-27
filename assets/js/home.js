@@ -57,55 +57,12 @@
     };
   }
 
-  var isMobileView = window.innerWidth <= 768;
-
-  /* ─── IMAGE CAROUSEL (mobile ≤768px) ─── */
-  if (isMobileView && heroImg && HERO_SCENES.length >= 2) {
-    /* Hide videos on mobile — they are unreliable */
-    if (heroVideoA) heroVideoA.style.display = 'none';
-    if (heroVideoB) heroVideoB.style.display = 'none';
-
-    /* Setup heroImage for crossfade */
-    heroImg.style.zIndex = '3';
-    heroImg.style.backgroundSize = 'cover';
-    heroImg.style.backgroundPosition = 'center center';
-    heroImg.style.transition = 'opacity ' + CROSSFADE_MS + 'ms ease-in-out';
-
-    /* Preload all scene images */
-    var preloadedImages = [];
-    HERO_SCENES.forEach(function (scene, i) {
-      var src = getHeroImageSrc(scene);
-      preloadedImages[i] = src;
-      var img = new Image();
-      img.src = src;
-    });
-
-    /* Set first scene */
-    heroImg.style.backgroundImage = 'url(' + preloadedImages[0] + ')';
-    heroImg.style.opacity = '1';
-
-    var mobileSceneIdx = 0;
-
-    function mobileAdvance() {
-      /* Fade out */
-      heroImg.style.opacity = '0';
-
-      setTimeout(function () {
-        mobileSceneIdx = (mobileSceneIdx + 1) % HERO_SCENES.length;
-        heroImg.style.backgroundImage = 'url(' + preloadedImages[mobileSceneIdx] + ')';
-        /* Force reflow so the transition restarts */
-        void heroImg.offsetHeight;
-        /* Fade in */
-        heroImg.style.opacity = '1';
-      }, CROSSFADE_MS);
-    }
-
-    setInterval(mobileAdvance, SCENE_DISPLAY_MS + CROSSFADE_MS);
-  }
-
-  /* ─── VIDEO CAROUSEL (desktop >768px) ─── */
-  if (!isMobileView && heroVideoA && heroVideoB && HERO_SCENES.length >= 2) {
-    var desktopSceneIdx = 0;
+  /* ─── VIDEO CAROUSEL (ALL devices) ───
+     Both mobile and desktop use video crossfade via heroVideoA/heroVideoB.
+     getDeviceDir() returns the correct folder (mobile, tablet-p, etc.)
+     so each device loads its properly-formatted video files. */
+  if (heroVideoA && heroVideoB && HERO_SCENES.length >= 2) {
+    var sceneIdx   = 0;
     var activeVid  = heroVideoA;
     var standbyVid = heroVideoB;
     var swapLock   = false;
@@ -116,16 +73,16 @@
       var srcs  = getHeroVideoSrc(scene);
       /* Remove old sources */
       while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
-      /* Add webm first (better compression) */
-      var srcWebm = document.createElement('source');
-      srcWebm.setAttribute('src', srcs.webm);
-      srcWebm.setAttribute('type', 'video/webm');
-      videoEl.appendChild(srcWebm);
-      /* Add mp4 fallback */
+      /* mp4 first for iOS Safari compatibility */
       var srcMp4 = document.createElement('source');
       srcMp4.setAttribute('src', srcs.mp4);
       srcMp4.setAttribute('type', 'video/mp4');
       videoEl.appendChild(srcMp4);
+      /* webm fallback (better compression) */
+      var srcWebm = document.createElement('source');
+      srcWebm.setAttribute('src', srcs.webm);
+      srcWebm.setAttribute('type', 'video/webm');
+      videoEl.appendChild(srcWebm);
       videoEl.load();
     }
 
@@ -142,14 +99,14 @@
     });
 
     /* Crossfade to next scene */
-    function desktopAdvance() {
+    function advanceScene() {
       if (swapLock) return;
       swapLock = true;
 
-      desktopSceneIdx = (desktopSceneIdx + 1) % HERO_SCENES.length;
+      sceneIdx = (sceneIdx + 1) % HERO_SCENES.length;
 
       /* Load next scene into standby */
-      loadVideoScene(standbyVid, desktopSceneIdx);
+      loadVideoScene(standbyVid, sceneIdx);
 
       standbyVid.play().then(function () {
         standbyVid.classList.add('visible');
@@ -185,7 +142,7 @@
       });
     }
 
-    setInterval(desktopAdvance, SCENE_DISPLAY_MS + CROSSFADE_MS);
+    setInterval(advanceScene, SCENE_DISPLAY_MS + CROSSFADE_MS);
   }
 
   /* ============================================================
