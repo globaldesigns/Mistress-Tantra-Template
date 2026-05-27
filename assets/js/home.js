@@ -37,7 +37,7 @@
     { id: 'massage',   image: 'hero-massage',      video: 'massage-hero' }
   ];
 
-  var SCENE_DISPLAY_MS = 2000;   /* how long each scene is fully visible before next crossfade starts */
+  var SCENE_DISPLAY_MS = 2000;   /* how long each scene is fully visible */
   var CROSSFADE_MS     = 800;    /* must match CSS transition duration */
 
   function getDeviceDir() {
@@ -60,47 +60,58 @@
     };
   }
 
-  /* ─────────────────────────────────────────────────────────────
-     HERO CAROUSEL — REWRITTEN for seamless, consistent timing
+  /* ──── HERO CAROUSEL ────
+     Two <video> elements alternate (A/B crossfade).
+     Scene 0 is image-only; scenes 1-3 are video.
      
-     KEY DESIGN PRINCIPLES:
-     1. Pre-buffer: load the NEXT scene immediately after the
-        current transition ends, so it's ready when the timer fires
-     2. setTimeout chaining: each cycle schedules the next, so
-        timing is always exactly SCENE_DISPLAY_MS from one
-        crossfade-start to the next — no skipped beats
-     3. Crossfade starts INSTANTLY when the timer fires — no
-        waiting for canplay/play promises. The next scene was
-        already buffered in the previous cycle.
-     4. Layered z-index: new content fades in ON TOP of old
-        content. Old content stays visible until new content
-        is fully opaque. NEVER a moment where nothing is visible.
-     5. Video-to-Image: image fades in on top (z-index 5), video
-        stays visible underneath until image is fully opaque, then
-        video is paused and hidden.
-     6. Image-to-Video: video fades in on top, image stays visible
-        underneath until video is fully opaque, then image fades.
-     7. Video-to-Video: standby video fades in on top, active
-        video fades out underneath. After crossfade, roles swap.
-  ───────────────────────────────────────────────────────────── */
+     KEY FIXES vs old version:
+     - Videos have loop attribute in HTML for continuous play
+     - play() is called with proper error handling and muted fallback
+     - swapLock has a safety timeout so it can never permanently lock
+     - Before swapping, we wait for 'canplay' event on the standby video
+     - standby video is preloaded and actually playing before we fade it in
+  */
 
-  var sceneIdx   = 0;          /* index of the CURRENTLY VISIBLE scene */
-  var activeVid  = heroVideoA; /* the <video> element currently showing */
-  var standbyVid = heroVideoB; /* the <video> element available for next scene */
+  var sceneIdx   = 0;
+  var swapLock   = false;
+  var activeVid  = heroVideoA;
+  var standbyVid = heroVideoB;
+  var carouselTimer = null;
 
-  /* Tracks whether the next scene has been pre-buffered and is ready */
-  var nextReady    = false;
-  var nextSceneIdx = -1;
+  /* Safety: ensure swapLock can never stay true forever */
+  function releaseSwapLock() {
+    swapLock = false;
+  }
 
-  /* ── Load video sources into a <video> element ── */
-  function loadVideoSources(videoEl, idx) {
-    var scene = HERO_SCENES[idx];
+  /* Hide both video elements */
+  function hideAllVideos() {
+    heroVideoA.classList.remove('visible');
+    heroVideoB.classList.remove('visible');
+    heroVideoA.pause();
+    heroVideoB.pause();
+  }
+
+  /* Show an image-only scene */
+  function showImageScene(sceneIndex) {
+    var scene = HERO_SCENES[sceneIndex];
+    heroImg.style.backgroundImage = 'url(' + getHeroImageSrc(scene) + ')';
+    heroImg.style.opacity = '1';
+    heroImg.style.zIndex = '3';
+    hideAllVideos();
+  }
+
+  /* Load video sources into a <video> element */
+  function loadVideoSources(videoEl, sceneIndex) {
+    var scene = HERO_SCENES[sceneIndex];
     var srcs  = getHeroVideoSrc(scene);
+    /* Remove old sources */
     while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
+    /* Add mp4 source (primary) */
     var srcMp4 = document.createElement('source');
     srcMp4.setAttribute('src', srcs.mp4);
     srcMp4.setAttribute('type', 'video/mp4');
     videoEl.appendChild(srcMp4);
+    /* Add webm source (fallback) */
     var srcWebm = document.createElement('source');
     srcWebm.setAttribute('src', srcs.webm);
     srcWebm.setAttribute('type', 'video/webm');
@@ -108,226 +119,160 @@
     videoEl.load();
   }
 
-  /* ── Try to play a video, with muted retry ── */
+  /* Try to play a video element, with muted retry */
   function tryPlay(videoEl) {
     return videoEl.play().catch(function () {
       videoEl.muted = true;
       return videoEl.play().catch(function () {
+        /* Give up silently — the video element may not be ready */
         return Promise.resolve();
       });
     });
   }
 
-  /* ── Pre-buffer the next scene ──
-     Called immediately after a transition completes.
-     For video scenes: loads sources into standbyVid and attempts
-     to play (muted, in background). The video will be buffered
-     and ready when the timer fires.
-     For image scenes: preloads the image into memory.
-     
-     IMPORTANT: The standby video is kept invisible (opacity 0)
-     but is actually playing and buffering frames. When the
-     crossfade timer fires, we just make it visible — no loading
-     delay at all.
-  */
-  function prebufferNext() {
-    nextSceneIdx = (sceneIdx + 1) % HERO_SCENES.length;
-    var nextScene = HERO_SCENES[nextSceneIdx];
-    nextReady = false;
-
-    if (nextScene.video) {
-      /* Load video into standby element */
-      loadVideoSources(standbyVid, nextSceneIdx);
-
-      /* Wait for it to be ready, then start playing in background */
-      var onReady = function () {
-        standbyVid.removeEventListener('canplay', onReady);
-        standbyVid.removeEventListener('loadeddata', onReady);
-        tryPlay(standbyVid).then(function () {
-          nextReady = true;
-        }).catch(function () {
-          nextReady = true; /* still mark ready — we'll try again on crossfade */
-        });
-      };
-
-      if (standbyVid.readyState >= 3) {
-        onReady();
-      } else {
-        standbyVid.addEventListener('canplay', onReady);
-        standbyVid.addEventListener('loadeddata', onReady);
-        /* Fallback: mark ready after 1.5s even if events don't fire */
-        setTimeout(function () {
-          standbyVid.removeEventListener('canplay', onReady);
-          standbyVid.removeEventListener('loadeddata', onReady);
-          if (!nextReady) {
-            tryPlay(standbyVid);
-            nextReady = true;
-          }
-        }, 1500);
-      }
+  /* Show a video scene on the given element (first scene only) */
+  function showVideoSceneFirst(videoEl, sceneIndex) {
+    heroImg.style.opacity = '0';
+    heroImg.style.zIndex = '1';
+    loadVideoSources(videoEl, sceneIndex);
+    
+    /* Wait for the video to be ready, then play and show */
+    var onReady = function () {
+      videoEl.removeEventListener('canplay', onReady);
+      videoEl.removeEventListener('loadeddata', onReady);
+      tryPlay(videoEl).then(function () {
+        videoEl.classList.add('visible');
+      });
+    };
+    
+    if (videoEl.readyState >= 3) {
+      onReady();
     } else {
-      /* Preload image */
-      var imgSrc = getHeroImageSrc(nextScene);
-      var preload = new Image();
-      preload.onload = function () { nextReady = true; };
-      preload.onerror = function () { nextReady = true; };
-      preload.src = imgSrc;
-      /* Also set the background-image now so it's in the CSS cache */
-      heroImg.style.backgroundImage = 'url(' + imgSrc + ')';
+      videoEl.addEventListener('canplay', onReady);
+      videoEl.addEventListener('loadeddata', onReady);
+      /* Fallback: show after 2s even if canplay never fires */
+      setTimeout(function () {
+        videoEl.removeEventListener('canplay', onReady);
+        videoEl.removeEventListener('loadeddata', onReady);
+        tryPlay(videoEl);
+        videoEl.classList.add('visible');
+      }, 2000);
     }
   }
 
-  /* ── Perform the crossfade to the next scene ──
-     This is called by the timer. It starts the crossfade
-     IMMEDIATELY — no async waiting. The next scene was
-     pre-buffered in the previous cycle.
-  */
-  function crossfadeToNext() {
-    var nextIdx = (sceneIdx + 1) % HERO_SCENES.length;
-    var nextScene = HERO_SCENES[nextIdx];
-
-    /* Update the scene index */
-    sceneIdx = nextIdx;
+  /* Advance to next scene with crossfade */
+  function advanceScene() {
+    if (swapLock) return;
+    swapLock = true;
+    
+    /* Safety: release lock after max 5s no matter what */
+    var safetyTimeout = setTimeout(releaseSwapLock, 5000);
+    
+    sceneIdx = (sceneIdx + 1) % HERO_SCENES.length;
+    var nextScene = HERO_SCENES[sceneIdx];
 
     if (nextScene.video) {
       /* ── Next scene is a VIDEO ── */
-
-      /* Ensure standby video sources are loaded (in case prebuffer
-         didn't finish, or this is the first cycle) */
-      if (standbyVid.readyState < 3) {
-        loadVideoSources(standbyVid, sceneIdx);
-      }
-
-      /* Try to play if not already playing */
-      if (standbyVid.paused) {
-        tryPlay(standbyVid);
-      }
-
-      /* IMMEDIATELY start crossfade — fade in standby on top of everything */
-      standbyVid.style.zIndex = '5';           /* above image (1) and active video (2) */
-      standbyVid.classList.add('visible');       /* opacity 0 → 1 via CSS transition */
-
-      /* After crossfade completes, clean up the old layers */
-      setTimeout(function () {
-        /* Hide the active video (now the OLD scene) */
-        activeVid.classList.remove('visible');
-        activeVid.pause();
-
-        /* Hide the image layer if it was showing */
-        heroImg.style.opacity = '0';
-        heroImg.style.zIndex = '1';
-
-        /* Swap A/B roles */
-        var temp = activeVid;
-        activeVid = standbyVid;
-        standbyVid = temp;
-
-        /* Reset the new standby (old active) */
-        standbyVid.classList.remove('visible');
-        standbyVid.style.zIndex = '';
-        standbyVid.pause();
-
-        /* Reset the new active video z-index to normal */
-        activeVid.style.zIndex = '';
-
-        /* Pre-buffer the NEXT scene for the upcoming cycle */
-        prebufferNext();
-
-        /* Schedule the next crossfade */
-        scheduleNext();
-
-      }, CROSSFADE_MS + 50);
-
-    } else {
-      /* ── Next scene is an IMAGE ── */
-
-      /* Set the image source (may already be set from prebuffer) */
-      var imgSrc = getHeroImageSrc(nextScene);
-      heroImg.style.backgroundImage = 'url(' + imgSrc + ')';
-
-      /* IMMEDIATELY start crossfade — fade image in ON TOP of video(s) */
-      heroImg.style.zIndex = '5';    /* above both videos */
-      heroImg.style.opacity = '1';   /* opacity 0 → 1 via CSS transition */
-
-      /* After crossfade completes, clean up the video layers underneath */
-      setTimeout(function () {
-        /* Pause and hide both videos — they're now covered by the image */
-        heroVideoA.classList.remove('visible');
-        heroVideoA.pause();
-        heroVideoB.classList.remove('visible');
-        heroVideoB.pause();
-
-        /* Reset image z-index to normal resting state */
-        heroImg.style.zIndex = '3';
-
-        /* Pre-buffer the NEXT scene for the upcoming cycle */
-        prebufferNext();
-
-        /* Schedule the next crossfade */
-        scheduleNext();
-
-      }, CROSSFADE_MS + 50);
-    }
-  }
-
-  /* ── Schedule the next crossfade ── */
-  function scheduleNext() {
-    setTimeout(crossfadeToNext, SCENE_DISPLAY_MS);
-  }
-
-  /* ── Initialize first scene ── */
-  function initCarousel() {
-    var firstScene = HERO_SCENES[0];
-
-    if (firstScene.video) {
-      /* First scene is a video — load into VideoA and show it */
-      loadVideoSources(heroVideoA, 0);
-      var onFirstReady = function () {
-        heroVideoA.removeEventListener('canplay', onFirstReady);
-        heroVideoA.removeEventListener('loadeddata', onFirstReady);
-        tryPlay(heroVideoA).then(function () {
-          heroVideoA.classList.add('visible');
-          /* Image hidden behind video */
+      /* Pre-load into standby video */
+      loadVideoSources(standbyVid, sceneIdx);
+      
+      var onStandbyReady = function () {
+        standbyVid.removeEventListener('canplay', onStandbyReady);
+        standbyVid.removeEventListener('loadeddata', onStandbyReady);
+        
+        /* Start playing the standby video */
+        tryPlay(standbyVid).then(function () {
+          /* Crossfade: fade in standby, fade out active */
           heroImg.style.opacity = '0';
           heroImg.style.zIndex = '1';
-          /* Pre-buffer scene 1 and start the timer */
-          prebufferNext();
-          scheduleNext();
+          standbyVid.classList.add('visible');
+          activeVid.classList.remove('visible');
+          
+          /* After crossfade completes, swap roles */
+          setTimeout(function () {
+            var temp = activeVid;
+            activeVid = standbyVid;
+            standbyVid = temp;
+            /* Pause and hide the old active video */
+            standbyVid.pause();
+            standbyVid.classList.remove('visible');
+            clearTimeout(safetyTimeout);
+            swapLock = false;
+          }, CROSSFADE_MS + 200);
+        }).catch(function () {
+          /* Play failed — still try to show the video */
+          standbyVid.classList.add('visible');
+          activeVid.classList.remove('visible');
+          clearTimeout(safetyTimeout);
+          swapLock = false;
         });
       };
-      if (heroVideoA.readyState >= 3) {
-        onFirstReady();
+      
+      if (standbyVid.readyState >= 3) {
+        onStandbyReady();
       } else {
-        heroVideoA.addEventListener('canplay', onFirstReady);
-        heroVideoA.addEventListener('loadeddata', onFirstReady);
-        /* Fallback: start anyway after 2s */
+        standbyVid.addEventListener('canplay', onStandbyReady);
+        standbyVid.addEventListener('loadeddata', onStandbyReady);
+        /* Fallback: proceed after 3s even if canplay never fires */
         setTimeout(function () {
-          heroVideoA.removeEventListener('canplay', onFirstReady);
-          heroVideoA.removeEventListener('loadeddata', onFirstReady);
-          if (!heroVideoA.classList.contains('visible')) {
-            tryPlay(heroVideoA);
-            heroVideoA.classList.add('visible');
+          standbyVid.removeEventListener('canplay', onStandbyReady);
+          standbyVid.removeEventListener('loadeddata', onStandbyReady);
+          if (swapLock) {
+            tryPlay(standbyVid);
             heroImg.style.opacity = '0';
             heroImg.style.zIndex = '1';
-            prebufferNext();
-            scheduleNext();
+            standbyVid.classList.add('visible');
+            activeVid.classList.remove('visible');
+            setTimeout(function () {
+              var temp = activeVid;
+              activeVid = standbyVid;
+              standbyVid = temp;
+              standbyVid.pause();
+              standbyVid.classList.remove('visible');
+              clearTimeout(safetyTimeout);
+              swapLock = false;
+            }, CROSSFADE_MS + 200);
           }
-        }, 2000);
+        }, 3000);
       }
+      
     } else {
-      /* First scene is an image */
-      var imgSrc = getHeroImageSrc(firstScene);
-      heroImg.style.backgroundImage = 'url(' + imgSrc + ')';
-      heroImg.style.zIndex = '3';
-      heroImg.style.opacity = '1';
-      /* Pre-buffer scene 1 and start the timer */
-      prebufferNext();
-      scheduleNext();
+      /* ── Next scene is IMAGE-ONLY ── */
+      /* Preload the image */
+      var imgSrc = getHeroImageSrc(nextScene);
+      var preload = new Image();
+      preload.onload = function () {
+        heroImg.style.backgroundImage = 'url(' + imgSrc + ')';
+        heroImg.style.zIndex = '3';
+        heroImg.style.opacity = '1';
+        hideAllVideos();
+        setTimeout(function () {
+          clearTimeout(safetyTimeout);
+          swapLock = false;
+        }, CROSSFADE_MS + 200);
+      };
+      preload.onerror = function () {
+        /* Image failed to load — still switch */
+        heroImg.style.backgroundImage = 'url(' + imgSrc + ')';
+        heroImg.style.zIndex = '3';
+        heroImg.style.opacity = '1';
+        hideAllVideos();
+        clearTimeout(safetyTimeout);
+        swapLock = false;
+      };
+      preload.src = imgSrc;
     }
   }
 
-  /* ── Start! ── */
-  initCarousel();
+  /* ── Start first scene ── */
+  if (HERO_SCENES[0].video) {
+    showVideoSceneFirst(heroVideoA, 0);
+  } else {
+    showImageScene(0);
+  }
+
+  /* Start the carousel timer */
+  carouselTimer = setInterval(advanceScene, SCENE_DISPLAY_MS + CROSSFADE_MS);
 
   /* ============================================================
      ANTI-FOUT
