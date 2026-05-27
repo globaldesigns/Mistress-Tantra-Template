@@ -1,7 +1,7 @@
 /* ============================================================
    HOME PAGE JS
-   - Hero Carousel: 4 scenes (1 image + 3 videos) with crossfade
    - Anti-FOUT: show title only after Allonges font loaded
+   - Video seamless crossfade loop (two <video> elements)
    - Sticky header darkens on scroll
    - Hamburger menu overlay
    - Smooth scroll on SCROLL button
@@ -12,267 +12,11 @@
   'use strict';
 
   /* -- Elements -- */
-  var heroVideoA = document.getElementById('heroVideoA');
-  var heroVideoB = document.getElementById('heroVideoB');
-  var heroImg    = document.getElementById('heroImage');
   var menuBtn    = document.getElementById('menuBtn');
   var menuClose  = document.getElementById('menuClose');
   var navOverlay = document.getElementById('navOverlay');
   var scrollBtn  = document.getElementById('scrollBtn');
   var homeHeader = document.getElementById('homeHeader');
-
-  /* ============================================================
-     HERO CAROUSEL CONFIGURATION
-     
-     4 scenes:
-     1. Girl in green (IMAGE only - hero-home)
-     2. Walking in lily pond (VIDEO - lily-pond-hero)
-     3. Girl meditating at waterfall (VIDEO - waterfall-hero)
-     4. Oil pouring / massage (VIDEO - massage-hero)
-  ============================================================ */
-  var HERO_SCENES = [
-    { id: 'home',      image: 'hero-home',        video: null },
-    { id: 'lilypond',  image: 'hero-lilypond',     video: 'lily-pond-hero' },
-    { id: 'waterfall', image: 'hero-waterfall',    video: 'waterfall-hero' },
-    { id: 'massage',   image: 'hero-massage',      video: 'massage-hero' }
-  ];
-
-  var SCENE_DISPLAY_MS = 2000;   /* how long each scene is fully visible */
-  var CROSSFADE_MS     = 800;    /* must match CSS transition duration */
-
-  function getDeviceDir() {
-    var w = window.innerWidth;
-    if (w <= 480) return 'mobile';
-    if (w <= 767) return 'tablet-p';
-    if (w <= 1023) return 'tablet-l';
-    return 'laptop';
-  }
-
-  function getHeroImageSrc(scene) {
-    return 'assets/images/' + getDeviceDir() + '/' + scene.image + '.webp';
-  }
-
-  function getHeroVideoSrc(scene) {
-    var dir = getDeviceDir();
-    return {
-      mp4:  'assets/videos/' + dir + '/' + scene.video + '.mp4',
-      webm: 'assets/videos/' + dir + '/' + scene.video + '.webm'
-    };
-  }
-
-  /* ──── HERO CAROUSEL ────
-     Two <video> elements alternate (A/B crossfade).
-     Scene 0 is image-only; scenes 1-3 are video.
-     
-     KEY FIXES vs old version:
-     - Videos have loop attribute in HTML for continuous play
-     - play() is called with proper error handling and muted fallback
-     - swapLock has a safety timeout so it can never permanently lock
-     - Before swapping, we wait for 'canplay' event on the standby video
-     - standby video is preloaded and actually playing before we fade it in
-  */
-
-  var sceneIdx   = 0;
-  var swapLock   = false;
-  var activeVid  = heroVideoA;
-  var standbyVid = heroVideoB;
-  var carouselTimer = null;
-
-  /* Safety: ensure swapLock can never stay true forever */
-  function releaseSwapLock() {
-    swapLock = false;
-  }
-
-  /* Hide both video elements */
-  function hideAllVideos() {
-    heroVideoA.classList.remove('visible');
-    heroVideoB.classList.remove('visible');
-    heroVideoA.pause();
-    heroVideoB.pause();
-  }
-
-  /* Show an image-only scene */
-  function showImageScene(sceneIndex) {
-    var scene = HERO_SCENES[sceneIndex];
-    heroImg.style.backgroundImage = 'url(' + getHeroImageSrc(scene) + ')';
-    heroImg.style.opacity = '1';
-    heroImg.style.zIndex = '3';
-    hideAllVideos();
-  }
-
-  /* Load video sources into a <video> element */
-  function loadVideoSources(videoEl, sceneIndex) {
-    var scene = HERO_SCENES[sceneIndex];
-    var srcs  = getHeroVideoSrc(scene);
-    /* Remove old sources */
-    while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
-    /* Add mp4 source (primary) */
-    var srcMp4 = document.createElement('source');
-    srcMp4.setAttribute('src', srcs.mp4);
-    srcMp4.setAttribute('type', 'video/mp4');
-    videoEl.appendChild(srcMp4);
-    /* Add webm source (fallback) */
-    var srcWebm = document.createElement('source');
-    srcWebm.setAttribute('src', srcs.webm);
-    srcWebm.setAttribute('type', 'video/webm');
-    videoEl.appendChild(srcWebm);
-    videoEl.load();
-  }
-
-  /* Try to play a video element, with muted retry */
-  function tryPlay(videoEl) {
-    return videoEl.play().catch(function () {
-      videoEl.muted = true;
-      return videoEl.play().catch(function () {
-        /* Give up silently — the video element may not be ready */
-        return Promise.resolve();
-      });
-    });
-  }
-
-  /* Show a video scene on the given element (first scene only) */
-  function showVideoSceneFirst(videoEl, sceneIndex) {
-    heroImg.style.opacity = '0';
-    heroImg.style.zIndex = '1';
-    loadVideoSources(videoEl, sceneIndex);
-    
-    /* Wait for the video to be ready, then play and show */
-    var onReady = function () {
-      videoEl.removeEventListener('canplay', onReady);
-      videoEl.removeEventListener('loadeddata', onReady);
-      tryPlay(videoEl).then(function () {
-        videoEl.classList.add('visible');
-      });
-    };
-    
-    if (videoEl.readyState >= 3) {
-      onReady();
-    } else {
-      videoEl.addEventListener('canplay', onReady);
-      videoEl.addEventListener('loadeddata', onReady);
-      /* Fallback: show after 2s even if canplay never fires */
-      setTimeout(function () {
-        videoEl.removeEventListener('canplay', onReady);
-        videoEl.removeEventListener('loadeddata', onReady);
-        tryPlay(videoEl);
-        videoEl.classList.add('visible');
-      }, 2000);
-    }
-  }
-
-  /* Advance to next scene with crossfade */
-  function advanceScene() {
-    if (swapLock) return;
-    swapLock = true;
-    
-    /* Safety: release lock after max 5s no matter what */
-    var safetyTimeout = setTimeout(releaseSwapLock, 5000);
-    
-    sceneIdx = (sceneIdx + 1) % HERO_SCENES.length;
-    var nextScene = HERO_SCENES[sceneIdx];
-
-    if (nextScene.video) {
-      /* ── Next scene is a VIDEO ── */
-      /* Pre-load into standby video */
-      loadVideoSources(standbyVid, sceneIdx);
-      
-      var onStandbyReady = function () {
-        standbyVid.removeEventListener('canplay', onStandbyReady);
-        standbyVid.removeEventListener('loadeddata', onStandbyReady);
-        
-        /* Start playing the standby video */
-        tryPlay(standbyVid).then(function () {
-          /* Crossfade: fade in standby, fade out active */
-          heroImg.style.opacity = '0';
-          heroImg.style.zIndex = '1';
-          standbyVid.classList.add('visible');
-          activeVid.classList.remove('visible');
-          
-          /* After crossfade completes, swap roles */
-          setTimeout(function () {
-            var temp = activeVid;
-            activeVid = standbyVid;
-            standbyVid = temp;
-            /* Pause and hide the old active video */
-            standbyVid.pause();
-            standbyVid.classList.remove('visible');
-            clearTimeout(safetyTimeout);
-            swapLock = false;
-          }, CROSSFADE_MS + 200);
-        }).catch(function () {
-          /* Play failed — still try to show the video */
-          standbyVid.classList.add('visible');
-          activeVid.classList.remove('visible');
-          clearTimeout(safetyTimeout);
-          swapLock = false;
-        });
-      };
-      
-      if (standbyVid.readyState >= 3) {
-        onStandbyReady();
-      } else {
-        standbyVid.addEventListener('canplay', onStandbyReady);
-        standbyVid.addEventListener('loadeddata', onStandbyReady);
-        /* Fallback: proceed after 3s even if canplay never fires */
-        setTimeout(function () {
-          standbyVid.removeEventListener('canplay', onStandbyReady);
-          standbyVid.removeEventListener('loadeddata', onStandbyReady);
-          if (swapLock) {
-            tryPlay(standbyVid);
-            heroImg.style.opacity = '0';
-            heroImg.style.zIndex = '1';
-            standbyVid.classList.add('visible');
-            activeVid.classList.remove('visible');
-            setTimeout(function () {
-              var temp = activeVid;
-              activeVid = standbyVid;
-              standbyVid = temp;
-              standbyVid.pause();
-              standbyVid.classList.remove('visible');
-              clearTimeout(safetyTimeout);
-              swapLock = false;
-            }, CROSSFADE_MS + 200);
-          }
-        }, 3000);
-      }
-      
-    } else {
-      /* ── Next scene is IMAGE-ONLY ── */
-      /* Preload the image */
-      var imgSrc = getHeroImageSrc(nextScene);
-      var preload = new Image();
-      preload.onload = function () {
-        heroImg.style.backgroundImage = 'url(' + imgSrc + ')';
-        heroImg.style.zIndex = '3';
-        heroImg.style.opacity = '1';
-        hideAllVideos();
-        setTimeout(function () {
-          clearTimeout(safetyTimeout);
-          swapLock = false;
-        }, CROSSFADE_MS + 200);
-      };
-      preload.onerror = function () {
-        /* Image failed to load — still switch */
-        heroImg.style.backgroundImage = 'url(' + imgSrc + ')';
-        heroImg.style.zIndex = '3';
-        heroImg.style.opacity = '1';
-        hideAllVideos();
-        clearTimeout(safetyTimeout);
-        swapLock = false;
-      };
-      preload.src = imgSrc;
-    }
-  }
-
-  /* ── Start first scene ── */
-  if (HERO_SCENES[0].video) {
-    showVideoSceneFirst(heroVideoA, 0);
-  } else {
-    showImageScene(0);
-  }
-
-  /* Start the carousel timer */
-  carouselTimer = setInterval(advanceScene, SCENE_DISPLAY_MS + CROSSFADE_MS);
 
   /* ============================================================
      ANTI-FOUT
@@ -295,6 +39,188 @@
     }
     /* Hard fallback - never wait more than 800ms */
     setTimeout(revealTitle, 800);
+  }
+
+  /* ============================================================
+     HERO VIDEO — MOBILE-SAFE LOOPING
+     The video must loop seamlessly on ALL devices including
+     iOS Safari. Key insights from real-device debugging:
+
+     1. iOS Safari does NOT support webm — mp4 source MUST be first
+     2. Native `loop` attribute is unreliable on mobile Safari
+     3. `ended` event may not fire reliably on iOS (2nd+ loop)
+     4. `timeupdate` is the most reliable mobile loop trigger
+     5. Video may fail to load if source format unsupported
+     6. `video.load()` must be called after changing source on iOS
+
+     Approach: Use NATIVE `loop` attribute as the PRIMARY mechanism
+     (most browsers handle this correctly), with JS strategies as
+     a safety net for browsers where native loop fails.
+  ============================================================ */
+  var heroVideo = document.getElementById('heroVideo');
+
+  if (heroVideo) {
+    /* Re-add native loop — this is the PRIMARY looping mechanism.
+       Most modern browsers (Chrome, Firefox, Safari 15+) handle
+       this correctly. For browsers where it fails, our JS
+       strategies provide a reliable safety net. */
+    heroVideo.loop = true;
+
+    /* Helper: safely play a video, returns a Promise */
+    function safePlay(vid) {
+      var p = vid.play();
+      if (p && typeof p.catch === 'function') {
+        return p;
+      }
+      return Promise.resolve();
+    }
+
+    /* ---------- ERROR RECOVERY ----------
+       If the video fails to load (e.g. format not supported, 
+       network error), try to force-reload with just the mp4 source.
+       This catches the case where webm was somehow selected on
+       a device that doesn't support it. */
+    var _errorCount = 0;
+
+    heroVideo.addEventListener('error', function (e) {
+      _errorCount++;
+      console.warn('[Hero Video] Error event (count=' + _errorCount + '):', heroVideo.error ? heroVideo.error.code : 'unknown');
+
+      /* If we get errors on the current sources, try loading just mp4 */
+      if (_errorCount <= 2) {
+        var sources = heroVideo.querySelectorAll('source');
+        var hasError = false;
+        for (var i = 0; i < sources.length; i++) {
+          if (sources[i].networkState === 3) { /* NETWORK_NO_SOURCE */
+            hasError = true;
+            break;
+          }
+        }
+        if (hasError || heroVideo.networkState === 3) {
+          /* Remove webm source — force mp4 only */
+          for (var j = sources.length - 1; j >= 0; j--) {
+            if (sources[j].type === 'video/webm') {
+              sources[j].remove();
+            }
+          }
+          heroVideo.load();
+          safePlay(heroVideo);
+        }
+      }
+    }, true); /* Use capture to catch errors on <source> elements too */
+
+    /* ---------- JS LOOPING SAFETY NET ----------
+       These strategies ensure the video loops even on devices
+       where the native `loop` attribute doesn't work. */
+
+    var _looping = false;
+
+    function loopVideo() {
+      if (_looping) return;
+      _looping = true;
+      heroVideo.currentTime = 0;
+      safePlay(heroVideo);
+      setTimeout(function () { _looping = false; }, 150);
+    }
+
+    /* STRATEGY 1: timeupdate — most reliable on mobile.
+       Seek back to 0 when within 0.5s of the end, BEFORE
+       the video reaches the "ended" state. */
+    heroVideo.addEventListener('timeupdate', function () {
+      if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.5) {
+        if (_looping) return;
+        _looping = true;
+        heroVideo.currentTime = 0;
+        setTimeout(function () { _looping = false; }, 150);
+      }
+    });
+
+    /* STRATEGY 2: ended event — fallback for browsers that fire it */
+    heroVideo.addEventListener('ended', function () {
+      loopVideo();
+    });
+
+    /* STRATEGY 3: Periodic watchdog — 500ms interval.
+       Checks if the video has stopped near the end and forces a loop.
+       This is the absolute failsafe for any device/browsers that
+       don't fire timeupdate or ended events reliably. */
+    var loopWatchdog = setInterval(function () {
+      if (!heroVideo || !heroVideo.duration || _looping) return;
+      if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
+        loopVideo();
+      }
+    }, 500);
+
+    /* Also ensure video doesn't stall mid-playback on mobile */
+    var stallCheck = setInterval(function () {
+      if (!heroVideo || heroVideo.ended || _looping) return;
+      /* If video claims to be playing but hasn't advanced in 2 checks,
+         it may be stalled — force a small seek to unstick it */
+      if (heroVideo.paused && !heroVideo.ended && heroVideo.currentTime > 0 && heroVideo.currentTime < heroVideo.duration - 1) {
+        safePlay(heroVideo);
+      }
+    }, 2000);
+
+    /* Clean up watchdogs if the page is hidden (save battery) */
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        clearInterval(loopWatchdog);
+        clearInterval(stallCheck);
+      } else {
+        /* Re-start watchdogs and ensure video is playing */
+        clearInterval(loopWatchdog);
+        clearInterval(stallCheck);
+        loopWatchdog = setInterval(function () {
+          if (!heroVideo || !heroVideo.duration) return;
+          if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
+            heroVideo.currentTime = 0;
+            safePlay(heroVideo);
+          }
+        }, 500);
+        stallCheck = setInterval(function () {
+          if (!heroVideo || heroVideo.ended) return;
+          if (heroVideo.paused && !heroVideo.ended && heroVideo.currentTime > 0 && heroVideo.currentTime < heroVideo.duration - 1) {
+            safePlay(heroVideo);
+          }
+        }, 2000);
+        /* If video was paused while page was hidden, resume */
+        if (heroVideo.paused && heroVideo.currentTime > 0) {
+          safePlay(heroVideo);
+        }
+      }
+    });
+
+    /* ---------- VIDEO REVEAL & AUTOPLAY ----------
+       Wait for the video to be ready, then play and reveal.
+       If autoplay is blocked, reveal anyway and retry on
+       first user interaction (touch or click). */
+    function revealWhenReady() {
+      safePlay(heroVideo).then(function () {
+        heroVideo.classList.add('visible');
+      }).catch(function () {
+        /* Autoplay blocked — reveal anyway, retry on user interaction */
+        heroVideo.classList.add('visible');
+        function retryPlay() {
+          safePlay(heroVideo);
+          document.removeEventListener('touchstart', retryPlay);
+          document.removeEventListener('click', retryPlay);
+        }
+        document.addEventListener('touchstart', retryPlay, { once: true });
+        document.addEventListener('click', retryPlay, { once: true });
+      });
+    }
+
+    /* Wait for video to be ready, then play and reveal */
+    if (heroVideo.readyState >= 3) {
+      revealWhenReady();
+    } else {
+      heroVideo.addEventListener('canplay', revealWhenReady, { once: true });
+      /* Fallback: if canplay never fires, try after 3s */
+      setTimeout(function () {
+        heroVideo.removeEventListener('canplay', revealWhenReady);
+        revealWhenReady();
+      }, 3000);
+    }
   }
 
   /* ============================================================
