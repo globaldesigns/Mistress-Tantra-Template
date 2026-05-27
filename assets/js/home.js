@@ -37,7 +37,7 @@
     { id: 'massage',   image: 'hero-massage',      video: 'massage-hero' }
   ];
 
-  var SCENE_DISPLAY_MS = 4000;   /* how long each scene is fully visible */
+  var SCENE_DISPLAY_MS = 2000;   /* how long each scene is fully visible */
   var CROSSFADE_MS     = 800;    /* must match CSS transition duration */
 
   function getDeviceDir() {
