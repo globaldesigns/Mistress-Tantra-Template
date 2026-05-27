@@ -31,7 +31,14 @@
   transition: opacity 0.8s ease-in-out;
 }
 
-/* ── Video — seamless crossfade loop ── */
+/* ── Video — seamless crossfade loop ──
+     z-index is managed dynamically by JS:
+     - Resting state: video z-index defaults to 2
+     - During crossfade: incoming video gets z-index 5 (above everything)
+     - After crossfade: z-index resets
+     The --alt class no longer sets a lower z-index so JS can
+     freely control stacking without fighting static CSS.
+*/
 .home-hero__video {
   position: absolute;
   inset: 0;
@@ -48,9 +55,7 @@
   opacity: 1;
 }
 
-.home-hero__video--alt {
-  z-index: 1;
-}
+/* No longer force --alt to z-index 1 — JS manages z-index dynamically */
 
 /* ── Vignette overlay for text legibility ── */
 .home-hero__vignette {
