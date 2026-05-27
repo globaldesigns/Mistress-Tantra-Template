@@ -1467,7 +1467,7 @@ img {
   justify-content: center;
   align-items: center;
   padding-top: var(--space-sm);
-  font-size: 0.5rem;
+  font-size: 0.4rem;
   text-align: center;
 }
 
@@ -1549,7 +1549,7 @@ img {
     flex-direction: column;
     gap: var(--space-sm);
     text-align: center;
-    font-size: 0.4rem;
+    font-size: 0.35rem;
   }
 }
 
