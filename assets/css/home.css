@@ -28,9 +28,10 @@
   background: #1a1208;
   background-size: cover;
   background-position: center center;
+  transition: opacity 1.5s ease-in-out;
 }
 
-/* ── Video — looping hero background ── */
+/* ── Video — seamless crossfade loop ── */
 .home-hero__video {
   position: absolute;
   inset: 0;
@@ -47,25 +48,8 @@
   opacity: 1;
 }
 
-/* Mobile: adjust video framing so subject (girl/waterfall) is centered */
-@media (max-width: 480px) {
-  .home-hero__video {
-    object-position: center 25%;
-  }
-}
-
-/* Tablet portrait: adjust video framing so subject (girl in green) face shows */
-@media (min-width: 481px) and (max-width: 768px) {
-  .home-hero__video {
-    object-position: center 10%;
-  }
-}
-
-/* Tablet landscape: adjust video framing for waterfall/girl scene */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .home-hero__video {
-    object-position: center 20%;
-  }
+.home-hero__video--alt {
+  z-index: 1;
 }
 
 /* ── Vignette overlay for text legibility ── */
@@ -254,7 +238,7 @@
 /* "Mistress Tantra" — Allonges Regular, large script matching mockup */
 .home-hero__title {
   font-family: 'Allonges', 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(3.15rem, 7.5vw, 7.5rem);
+  font-size: clamp(3.15rem, 6.75vw, 6.75rem);  /* -10% from previous */
   font-weight: 400;
   font-style: normal;
   color: white;
@@ -274,7 +258,7 @@
 /* "TANTRICA GODDESS" — bold, spaced caps */
 .home-hero__subtitle {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -287,7 +271,7 @@
 /* "SAN FRANCISCO ◈ BOSTON" — lighter, with mandala divider */
 .home-hero__locations {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+  font-size: clamp(0.8rem, 1.3vw, 1.1rem);
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -487,9 +471,9 @@
   width: 220px;
   height: 220px;
   object-fit: contain;
-  opacity: 0.30;
+  opacity: 0.14;
   animation: navMandalaSpin 90s linear infinite;
-  filter: brightness(2) saturate(0.7);
+  filter: brightness(1.3) saturate(0.6);
 }
 
 /* Top-left corner — peeks into view */
@@ -498,7 +482,7 @@
   left: 3%;
   width: 200px;
   height: 200px;
-  opacity: 0.22;
+  opacity: 0.10;
   animation-duration: 110s;
 }
 
@@ -508,7 +492,7 @@
   right: 4%;
   width: 180px;
   height: 180px;
-  opacity: 0.22;
+  opacity: 0.10;
   animation-direction: reverse;
   animation-duration: 95s;
 }
@@ -519,7 +503,7 @@
   left: 2%;
   width: 240px;
   height: 240px;
-  opacity: 0.32;
+  opacity: 0.16;
   animation-duration: 100s;
   animation-direction: reverse;
 }
@@ -530,7 +514,7 @@
   right: 2%;
   width: 260px;
   height: 260px;
-  opacity: 0.32;
+  opacity: 0.16;
   animation-duration: 85s;
 }
 
@@ -541,7 +525,7 @@
   transform: translateX(-50%);
   width: 300px;
   height: 300px;
-  opacity: 0.36;
+  opacity: 0.18;
   animation-direction: reverse;
   animation-duration: 80s;
 }
@@ -565,41 +549,41 @@
   .nav-mandala {
     width: 160px;
     height: 160px;
-    opacity: 0.24;
+    opacity: 0.12;
   }
   .nav-mandala--top-left {
     top: 2%;
     left: 0%;
     width: 140px;
     height: 140px;
-    opacity: 0.18;
+    opacity: 0.08;
   }
   .nav-mandala--top-right {
     top: 3%;
     right: 0%;
     width: 130px;
     height: 130px;
-    opacity: 0.18;
+    opacity: 0.08;
   }
   .nav-mandala--mid-left {
     top: 40%;
     left: -6%;
     width: 180px;
     height: 180px;
-    opacity: 0.28;
+    opacity: 0.13;
   }
   .nav-mandala--mid-right {
     top: 36%;
     right: -6%;
     width: 190px;
     height: 190px;
-    opacity: 0.28;
+    opacity: 0.13;
   }
   .nav-mandala--bottom-center {
     bottom: 2%;
     width: 220px;
     height: 220px;
-    opacity: 0.30;
+    opacity: 0.15;
   }
 }
 
@@ -607,41 +591,41 @@
   .nav-mandala {
     width: 120px;
     height: 120px;
-    opacity: 0.20;
+    opacity: 0.10;
   }
   .nav-mandala--top-left {
     top: 1%;
     left: -4%;
     width: 110px;
     height: 110px;
-    opacity: 0.15;
+    opacity: 0.07;
   }
   .nav-mandala--top-right {
     top: 2%;
     right: -3%;
     width: 100px;
     height: 100px;
-    opacity: 0.15;
+    opacity: 0.07;
   }
   .nav-mandala--mid-left {
     top: 38%;
     left: -8%;
     width: 140px;
     height: 140px;
-    opacity: 0.22;
+    opacity: 0.10;
   }
   .nav-mandala--mid-right {
     top: 34%;
     right: -8%;
     width: 150px;
     height: 150px;
-    opacity: 0.22;
+    opacity: 0.10;
   }
   .nav-mandala--bottom-center {
     bottom: 1%;
     width: 180px;
     height: 180px;
-    opacity: 0.25;
+    opacity: 0.12;
   }
 }
 
@@ -691,15 +675,15 @@
   }
 
   .home-hero__title {
-    font-size: clamp(3.8rem, 15vw, 6.5rem);
+    font-size: clamp(3.5rem, 14vw, 6rem);
   }
 
   .home-hero__subtitle {
-    font-size: clamp(1.15rem, 4.5vw, 1.6rem);
+    font-size: clamp(1rem, 4vw, 1.4rem);
   }
 
   .home-hero__locations {
-    font-size: clamp(0.85rem, 3vw, 1.15rem);
+    font-size: clamp(0.75rem, 2.8vw, 1rem);
   }
 
   .mandala-sep {
@@ -718,15 +702,15 @@
   }
 
   .home-hero__title {
-    font-size: clamp(3rem, 14vw, 4.5rem);
+    font-size: clamp(2.8rem, 13vw, 4rem);
   }
 
   .home-hero__subtitle {
-    font-size: clamp(1.05rem, 5vw, 1.35rem);
+    font-size: clamp(0.95rem, 4.5vw, 1.2rem);
   }
 
   .home-hero__locations {
-    font-size: clamp(0.8rem, 3.2vw, 1rem);
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
   }
 }
 
@@ -743,12 +727,7 @@
     padding: 0.15em 0;
   }
 
-  /* Show new tablet hero image as fallback while video loads */
-  .home-hero__img {
-    background-image: url('../images/tablet-p/hero-home.webp');
-    background-size: cover;
-    background-position: center 10%;
-  }
+  /* Hero image carousel is managed by home.js */
 }
 
 @media (max-width: 480px) {
@@ -761,10 +740,5 @@
     padding: 0.1em 0;
   }
 
-  /* Show new mobile hero image as fallback while video loads */
-  .home-hero__img {
-    background-image: url('../images/mobile/hero-home.webp');
-    background-size: cover;
-    background-position: center 25%;
-  }
+  /* Hero image carousel is managed by home.js */
 }
