@@ -28,7 +28,7 @@
      Desktop uses video crossfade (cinematic).
   ============================================================ */
   var HERO_SCENES = [
-    { id: 'home',       image: 'hero-home',       video: 'hero-bg' },
+    { id: 'home',       image: 'hero-home',       video: null },
     { id: 'candles',    image: 'hero-candles',     video: 'candles-hero' },
     { id: 'lotus',      image: 'hero-lotus',       video: 'lotus-pond-hero' },
     { id: 'rainforest', image: 'hero-rainforest',  video: 'rainforest-hero' }
@@ -57,75 +57,95 @@
     };
   }
 
-  /* ─── VIDEO CAROUSEL (ALL devices) ───
-     Both mobile and desktop use video crossfade via heroVideoA/heroVideoB.
-     getDeviceDir() returns the correct folder (mobile, tablet-p, etc.)
-     so each device loads its properly-formatted video files. */
-  if (heroVideoA && heroVideoB && HERO_SCENES.length >= 2) {
-    var sceneIdx   = 0;
-    var activeVid  = heroVideoA;
-    var standbyVid = heroVideoB;
-    var swapLock   = false;
+  /* ─── HERO CAROUSEL (ALL devices) ───
+     Cycles through 4 scenes with crossfade.
+     - Scenes with video: crossfade between heroVideoA/heroVideoB
+     - Scenes without video (image-only): show via heroImage background
+     heroImage is always behind the videos (z-index 1).
+     When an image scene is active, videos are hidden.
+     When a video scene is active, heroImage is hidden. */
+  var sceneIdx   = 0;
+  var swapLock   = false;
+  var activeVid  = heroVideoA;
+  var standbyVid = heroVideoB;
 
-    /* Load a video scene into a <video> element */
-    function loadVideoScene(videoEl, sceneIndex) {
-      var scene = HERO_SCENES[sceneIndex];
-      var srcs  = getHeroVideoSrc(scene);
-      /* Remove old sources */
-      while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
-      /* mp4 first for iOS Safari compatibility */
-      var srcMp4 = document.createElement('source');
-      srcMp4.setAttribute('src', srcs.mp4);
-      srcMp4.setAttribute('type', 'video/mp4');
-      videoEl.appendChild(srcMp4);
-      /* webm fallback (better compression) */
-      var srcWebm = document.createElement('source');
-      srcWebm.setAttribute('src', srcs.webm);
-      srcWebm.setAttribute('type', 'video/webm');
-      videoEl.appendChild(srcWebm);
-      videoEl.load();
-    }
+  /* Show an image scene */
+  function showImageScene(sceneIndex) {
+    var scene = HERO_SCENES[sceneIndex];
+    heroImg.style.backgroundImage = 'url(' + getHeroImageSrc(scene) + ')';
+    heroImg.style.opacity = '1';
+    heroImg.style.zIndex = '3';
+    heroVideoA.classList.remove('visible');
+    heroVideoB.classList.remove('visible');
+    heroVideoA.pause();
+    heroVideoB.pause();
+  }
 
-    /* Start first scene on heroVideoA */
-    loadVideoScene(heroVideoA, 0);
-    heroVideoA.play().then(function () {
-      heroVideoA.classList.add('visible');
-      /* Fade out static image behind */
-      if (heroImg) heroImg.style.opacity = '0';
+  /* Load a video scene into a <video> element */
+  function loadVideoScene(videoEl, sceneIndex) {
+    var scene = HERO_SCENES[sceneIndex];
+    var srcs  = getHeroVideoSrc(scene);
+    while (videoEl.firstChild) videoEl.removeChild(videoEl.firstChild);
+    var srcMp4 = document.createElement('source');
+    srcMp4.setAttribute('src', srcs.mp4);
+    srcMp4.setAttribute('type', 'video/mp4');
+    videoEl.appendChild(srcMp4);
+    var srcWebm = document.createElement('source');
+    srcWebm.setAttribute('src', srcs.webm);
+    srcWebm.setAttribute('type', 'video/webm');
+    videoEl.appendChild(srcWebm);
+    videoEl.load();
+  }
+
+  /* Show a video scene on the given video element */
+  function showVideoScene(videoEl, sceneIndex) {
+    heroImg.style.opacity = '0';
+    heroImg.style.zIndex = '1';
+    loadVideoScene(videoEl, sceneIndex);
+    videoEl.play().then(function () {
+      videoEl.classList.add('visible');
     }).catch(function () {
-      /* Autoplay blocked — try muted */
-      heroVideoA.muted = true;
-      heroVideoA.play().catch(function () {});
+      videoEl.muted = true;
+      videoEl.play().catch(function () {});
+      videoEl.classList.add('visible');
     });
+  }
 
-    /* Crossfade to next scene */
-    function advanceScene() {
-      if (swapLock) return;
-      swapLock = true;
+  /* Start first scene */
+  if (HERO_SCENES[0].video) {
+    showVideoScene(heroVideoA, 0);
+  } else {
+    showImageScene(0);
+  }
 
-      sceneIdx = (sceneIdx + 1) % HERO_SCENES.length;
+  /* Advance to next scene with crossfade */
+  function advanceScene() {
+    if (swapLock) return;
+    swapLock = true;
+    sceneIdx = (sceneIdx + 1) % HERO_SCENES.length;
+    var nextScene = HERO_SCENES[sceneIdx];
 
-      /* Load next scene into standby */
+    if (nextScene.video) {
+      /* Next scene is a video — load into standby and crossfade */
       loadVideoScene(standbyVid, sceneIdx);
-
       standbyVid.play().then(function () {
+        heroImg.style.opacity = '0';
+        heroImg.style.zIndex = '1';
         standbyVid.classList.add('visible');
         activeVid.classList.remove('visible');
-
         setTimeout(function () {
-          /* Swap roles */
           var temp = activeVid;
           activeVid = standbyVid;
           standbyVid = temp;
-          /* Pause and reset the old active */
           standbyVid.pause();
           standbyVid.classList.remove('visible');
           swapLock = false;
         }, CROSSFADE_MS + 100);
       }).catch(function () {
-        /* Video failed to play — try muted */
         standbyVid.muted = true;
         standbyVid.play().then(function () {
+          heroImg.style.opacity = '0';
+          heroImg.style.zIndex = '1';
           standbyVid.classList.add('visible');
           activeVid.classList.remove('visible');
           setTimeout(function () {
@@ -136,14 +156,22 @@
             standbyVid.classList.remove('visible');
             swapLock = false;
           }, CROSSFADE_MS + 100);
-        }).catch(function () {
-          swapLock = false;
-        });
+        }).catch(function () { swapLock = false; });
       });
+    } else {
+      /* Next scene is image-only — fade to image */
+      heroImg.style.backgroundImage = 'url(' + getHeroImageSrc(nextScene) + ')';
+      heroImg.style.zIndex = '3';
+      heroImg.style.opacity = '1';
+      heroVideoA.classList.remove('visible');
+      heroVideoB.classList.remove('visible');
+      heroVideoA.pause();
+      heroVideoB.pause();
+      setTimeout(function () { swapLock = false; }, CROSSFADE_MS + 100);
     }
-
-    setInterval(advanceScene, SCENE_DISPLAY_MS + CROSSFADE_MS);
   }
+
+  setInterval(advanceScene, SCENE_DISPLAY_MS + CROSSFADE_MS);
 
   /* ============================================================
      ANTI-FOUT
