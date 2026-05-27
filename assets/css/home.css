@@ -28,7 +28,7 @@
   background: #1a1208;
   background-size: cover;
   background-position: center center;
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
 }
 
 /* ── Video — seamless crossfade loop ── */
@@ -41,7 +41,7 @@
   object-position: center center;
   z-index: 2;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
 }
 
 .home-hero__video.visible {
