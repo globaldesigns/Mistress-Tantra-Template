@@ -42,185 +42,185 @@
   }
 
   /* ============================================================
-     HERO VIDEO — MOBILE-SAFE LOOPING
-     The video must loop seamlessly on ALL devices including
-     iOS Safari. Key insights from real-device debugging:
-
-     1. iOS Safari does NOT support webm — mp4 source MUST be first
-     2. Native `loop` attribute is unreliable on mobile Safari
-     3. `ended` event may not fire reliably on iOS (2nd+ loop)
-     4. `timeupdate` is the most reliable mobile loop trigger
-     5. Video may fail to load if source format unsupported
-     6. `video.load()` must be called after changing source on iOS
-
-     Approach: Use NATIVE `loop` attribute as the PRIMARY mechanism
-     (most browsers handle this correctly), with JS strategies as
-     a safety net for browsers where native loop fails.
+     HERO CAROUSEL — image + videos, guarded for home page only
+     3 scenes: girl image → lily pond video → massage video
+     2s display per scene, 0.8s crossfade, no blank gap.
+     Mobile-safe: always reveals video even if autoplay blocked.
   ============================================================ */
-  var heroVideo = document.getElementById('heroVideo');
+  var heroImage  = document.getElementById('heroImage');
+  var heroVideoA = document.getElementById('heroVideoA');
+  var heroVideoB = document.getElementById('heroVideoB');
 
-  if (heroVideo) {
-    /* Re-add native loop — this is the PRIMARY looping mechanism.
-       Most modern browsers (Chrome, Firefox, Safari 15+) handle
-       this correctly. For browsers where it fails, our JS
-       strategies provide a reliable safety net. */
-    heroVideo.loop = true;
+  if (heroImage && heroVideoA && heroVideoB) {
+    var SCENE_DISPLAY_MS = 2000;
+    var CROSSFADE_MS = 800;
 
-    /* Helper: safely play a video, returns a Promise */
-    function safePlay(vid) {
-      var p = vid.play();
+    var HERO_SCENES = [
+      { id: 'home',     image: 'hero-home',  video: null },
+      { id: 'lilypond', image: null,         video: 'lily-pond-hero' },
+      { id: 'waterfall', image: null,        video: 'waterfall-hero' },
+      { id: 'massage',  image: null,         video: 'massage-hero' }
+    ];
+
+    var currentSceneIndex = 0;
+    var activeVideo = heroVideoA;
+    var idleVideo = heroVideoB;
+    var currentLayer = 'image';
+    var carouselTimer = null;
+
+    function getResponsiveDir() {
+      var w = window.innerWidth || document.documentElement.clientWidth || 1280;
+      if (w <= 480) return 'mobile';
+      if (w <= 768) return 'tablet-p';
+      if (w <= 1024) return 'tablet-l';
+      return 'laptop';
+    }
+
+    function imageUrl(name) {
+      return 'assets/images/' + getResponsiveDir() + '/' + name + '.webp';
+    }
+
+    function videoUrl(name, ext) {
+      return 'assets/videos/' + getResponsiveDir() + '/' + name + '.' + ext;
+    }
+
+    function setVideoSource(video, name) {
+      video.pause();
+      video.removeAttribute('src');
+      video.innerHTML = '';
+
+      var mp4 = document.createElement('source');
+      mp4.src = videoUrl(name, 'mp4');
+      mp4.type = 'video/mp4';
+      video.appendChild(mp4);
+
+      var webm = document.createElement('source');
+      webm.src = videoUrl(name, 'webm');
+      webm.type = 'video/webm';
+      video.appendChild(webm);
+
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.load();
+    }
+
+    function safePlay(video) {
+      var p;
+      try {
+        p = video.play();
+      } catch (e) {
+        return Promise.resolve();
+      }
       if (p && typeof p.catch === 'function') {
-        return p;
+        return p.catch(function () {});
       }
       return Promise.resolve();
     }
 
-    /* ---------- ERROR RECOVERY ----------
-       If the video fails to load (e.g. format not supported, 
-       network error), try to force-reload with just the mp4 source.
-       This catches the case where webm was somehow selected on
-       a device that doesn't support it. */
-    var _errorCount = 0;
-
-    heroVideo.addEventListener('error', function (e) {
-      _errorCount++;
-      console.warn('[Hero Video] Error event (count=' + _errorCount + '):', heroVideo.error ? heroVideo.error.code : 'unknown');
-
-      /* If we get errors on the current sources, try loading just mp4 */
-      if (_errorCount <= 2) {
-        var sources = heroVideo.querySelectorAll('source');
-        var hasError = false;
-        for (var i = 0; i < sources.length; i++) {
-          if (sources[i].networkState === 3) { /* NETWORK_NO_SOURCE */
-            hasError = true;
-            break;
-          }
-        }
-        if (hasError || heroVideo.networkState === 3) {
-          /* Remove webm source — force mp4 only */
-          for (var j = sources.length - 1; j >= 0; j--) {
-            if (sources[j].type === 'video/webm') {
-              sources[j].remove();
-            }
-          }
-          heroVideo.load();
-          safePlay(heroVideo);
-        }
+    function showImageScene(scene) {
+      if (scene && scene.image) {
+        heroImage.style.backgroundImage = 'url(' + imageUrl(scene.image) + ')';
       }
-    }, true); /* Use capture to catch errors on <source> elements too */
-
-    /* ---------- JS LOOPING SAFETY NET ----------
-       These strategies ensure the video loops even on devices
-       where the native `loop` attribute doesn't work. */
-
-    var _looping = false;
-
-    function loopVideo() {
-      if (_looping) return;
-      _looping = true;
-      heroVideo.currentTime = 0;
-      safePlay(heroVideo);
-      setTimeout(function () { _looping = false; }, 150);
+      heroImage.classList.add('visible');
+      heroVideoA.classList.remove('visible');
+      heroVideoB.classList.remove('visible');
+      heroVideoA.pause();
+      heroVideoB.pause();
+      currentLayer = 'image';
     }
 
-    /* STRATEGY 1: timeupdate — most reliable on mobile.
-       Seek back to 0 when within 0.5s of the end, BEFORE
-       the video reaches the "ended" state. */
-    heroVideo.addEventListener('timeupdate', function () {
-      if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.5) {
-        if (_looping) return;
-        _looping = true;
-        heroVideo.currentTime = 0;
-        setTimeout(function () { _looping = false; }, 150);
+    function showVideoScene(scene) {
+      var nextVideo = idleVideo;
+      setVideoSource(nextVideo, scene.video);
+      nextVideo.currentTime = 0;
+
+      var revealed = false;
+
+      function reveal() {
+        if (revealed) return;
+        revealed = true;
+        /* Always show video layer regardless of play success */
+        nextVideo.classList.add('visible');
+        heroImage.classList.remove('visible');
+        if (activeVideo !== nextVideo) {
+          activeVideo.classList.remove('visible');
+          activeVideo.pause();
+        }
+        idleVideo = activeVideo;
+        activeVideo = nextVideo;
+        currentLayer = 'video';
+        /* Attempt play (may be blocked on mobile until user interacts) */
+        safePlay(nextVideo);
       }
-    });
 
-    /* STRATEGY 2: ended event — fallback for browsers that fire it */
-    heroVideo.addEventListener('ended', function () {
-      loopVideo();
-    });
+      nextVideo.addEventListener('canplay', reveal, { once: true });
+      /* Safety: always reveal after short delay so mobile never shows black */
+      setTimeout(reveal, 600);
+    }
 
-    /* STRATEGY 3: Periodic watchdog — 500ms interval.
-       Checks if the video has stopped near the end and forces a loop.
-       This is the absolute failsafe for any device/browsers that
-       don't fire timeupdate or ended events reliably. */
-    var loopWatchdog = setInterval(function () {
-      if (!heroVideo || !heroVideo.duration || _looping) return;
-      if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
-        loopVideo();
+    function showScene(index) {
+      var scene = HERO_SCENES[index];
+      if (!scene) return;
+      if (scene.video) {
+        showVideoScene(scene);
+      } else {
+        showImageScene(scene);
       }
-    }, 500);
+    }
 
-    /* Also ensure video doesn't stall mid-playback on mobile */
-    var stallCheck = setInterval(function () {
-      if (!heroVideo || heroVideo.ended || _looping) return;
-      /* If video claims to be playing but hasn't advanced in 2 checks,
-         it may be stalled — force a small seek to unstick it */
-      if (heroVideo.paused && !heroVideo.ended && heroVideo.currentTime > 0 && heroVideo.currentTime < heroVideo.duration - 1) {
-        safePlay(heroVideo);
+    function advanceScene() {
+      currentSceneIndex = (currentSceneIndex + 1) % HERO_SCENES.length;
+      showScene(currentSceneIndex);
+    }
+
+    function startCarousel() {
+      if (carouselTimer) clearInterval(carouselTimer);
+      showScene(currentSceneIndex);
+      carouselTimer = setInterval(advanceScene, SCENE_DISPLAY_MS + CROSSFADE_MS);
+    }
+
+    function restartCarouselForResize() {
+      if (carouselTimer) clearInterval(carouselTimer);
+      /* Update image background for new device size */
+      var scene = HERO_SCENES[currentSceneIndex];
+      if (scene && scene.image) {
+        heroImage.style.backgroundImage = 'url(' + imageUrl(scene.image) + ')';
       }
-    }, 2000);
+      setTimeout(startCarousel, 150);
+    }
 
-    /* Clean up watchdogs if the page is hidden (save battery) */
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(restartCarouselForResize, 250);
+    }, { passive: true });
+
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) {
-        clearInterval(loopWatchdog);
-        clearInterval(stallCheck);
+        if (carouselTimer) clearInterval(carouselTimer);
+        heroVideoA.pause();
+        heroVideoB.pause();
       } else {
-        /* Re-start watchdogs and ensure video is playing */
-        clearInterval(loopWatchdog);
-        clearInterval(stallCheck);
-        loopWatchdog = setInterval(function () {
-          if (!heroVideo || !heroVideo.duration) return;
-          if (heroVideo.ended || (heroVideo.paused && heroVideo.currentTime >= heroVideo.duration - 0.5)) {
-            heroVideo.currentTime = 0;
-            safePlay(heroVideo);
-          }
-        }, 500);
-        stallCheck = setInterval(function () {
-          if (!heroVideo || heroVideo.ended) return;
-          if (heroVideo.paused && !heroVideo.ended && heroVideo.currentTime > 0 && heroVideo.currentTime < heroVideo.duration - 1) {
-            safePlay(heroVideo);
-          }
-        }, 2000);
-        /* If video was paused while page was hidden, resume */
-        if (heroVideo.paused && heroVideo.currentTime > 0) {
-          safePlay(heroVideo);
-        }
+        if (currentLayer === 'video') safePlay(activeVideo);
+        startCarousel();
       }
     });
 
-    /* ---------- VIDEO REVEAL & AUTOPLAY ----------
-       Wait for the video to be ready, then play and reveal.
-       If autoplay is blocked, reveal anyway and retry on
-       first user interaction (touch or click). */
-    function revealWhenReady() {
-      safePlay(heroVideo).then(function () {
-        heroVideo.classList.add('visible');
-      }).catch(function () {
-        /* Autoplay blocked — reveal anyway, retry on user interaction */
-        heroVideo.classList.add('visible');
-        function retryPlay() {
-          safePlay(heroVideo);
-          document.removeEventListener('touchstart', retryPlay);
-          document.removeEventListener('click', retryPlay);
-        }
-        document.addEventListener('touchstart', retryPlay, { once: true });
-        document.addEventListener('click', retryPlay, { once: true });
-      });
+    /* Retry play on first user interaction (mobile autoplay policy) */
+    function retryPlayOnInteract() {
+      if (currentLayer === 'video' && activeVideo && activeVideo.paused) {
+        safePlay(activeVideo);
+      }
+      document.removeEventListener('touchstart', retryPlayOnInteract);
+      document.removeEventListener('click', retryPlayOnInteract);
     }
+    document.addEventListener('touchstart', retryPlayOnInteract, { once: true });
+    document.addEventListener('click', retryPlayOnInteract, { once: true });
 
-    /* Wait for video to be ready, then play and reveal */
-    if (heroVideo.readyState >= 3) {
-      revealWhenReady();
-    } else {
-      heroVideo.addEventListener('canplay', revealWhenReady, { once: true });
-      /* Fallback: if canplay never fires, try after 3s */
-      setTimeout(function () {
-        heroVideo.removeEventListener('canplay', revealWhenReady);
-        revealWhenReady();
-      }, 3000);
-    }
+    startCarousel();
   }
 
   /* ============================================================
